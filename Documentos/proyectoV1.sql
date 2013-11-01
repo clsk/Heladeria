@@ -30,6 +30,14 @@ CREATE TABLE Empleado(
 	constraint empleado_turno_fk FOREIGN KEY (turno_id) REFERENCES Turno(turno_id)
 );
 
+CREATE TABLE Caja (
+	caja_id INT identity(1,1) PRIMARY KEY NOT NULL,
+	empleado_id INT NOT NULL,
+	cash_entrada money NOT NULL,
+	estado BIT DEFAULT 1 NOT NULL, -- 1 = abierta, 2 = cerrada
+	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
+);
+
 CREATE TABLE Cliente(
     cliente_id INT identity(1,1) PRIMARY KEY NOT NULL,
     nombre VARCHAR(30) NOT NULL,
@@ -79,9 +87,21 @@ CREATE TABLE Producto_RegistroInventario(
     CONSTRAINT inventario_fk FOREIGN KEY (inventario_id) REFERENCES RegistroInventario(inventario_id)
 );
 
+CREATE TABLE Suplidor (
+	suplidor_id INT NOT NULL PRIMARY KEY identity(1,1),
+	nombre varchar(30) NOT NULL,
+	descripcion varchar(30),
+	calle varchar(50),
+	calle_no varchar(30),
+	ciudad varchar(50),
+	provincia varchar(50),
+	telefono varchar(16)
+)
+
 CREATE TABLE Orden(
 	orden_id INT identity(1,1) PRIMARY KEY NOT NULL,
 	empleado_id INT NOT NULL,
+	suplidor_id INT NOT NULL,
 	NOTAS TEXT,
 	aceptada BIT DEFAULT 0,
 	fecha_aceptada DATE,
@@ -89,10 +109,11 @@ CREATE TABLE Orden(
 	fecha_despachada DATE,
 	recibida BIT DEFAULT 0,
 	fecha_recibida DATE,
-	constraint orden_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
+	constraint orden_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
+	constraint orden_suplidor_fk FOREIGN KEY (suplidor_id) REFERENCES Suplidor(suplidor_id)
 );
 
-CREATE TABLE Orden_Producto (
+CREATE TABLE Orden_Productos (
 	orden_id INT NOT NULL,
 	producto_id INT NOT NULL,
 	cantidad INT NOT NULL,
@@ -103,21 +124,20 @@ CREATE TABLE Orden_Producto (
 
 CREATE TABLE Venta(
     venta_id INT identity(1,1) PRIMARY KEY NOT NULL,
-    cliente_id INT NOT NULL,
-    vendedor_id INT NOT NULL,
+    cliente_id INT,
+    caja_id INT NOT NULL,
     fecha DATETIME NOT NULL,
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectvivo', 'tarjeta')) NOT NULL,
 	total money NOT NULL,
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
-    CONSTRAINT venta_empleado_fk FOREIGN KEY (vendedor_id) REFERENCES Empleado(empleado_id)
+    CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id)
 );
 
- 
 CREATE TABLE Venta_Productos(
     venta_id INT NOT NULL,
     producto_id INT NOT NULL,
     cantidad INT NOT NULL,
-    CONSTRAINT venta_pk PRIMARY KEY (venta_id, producto_id),
+    CONSTRAINT venta_productos_pk PRIMARY KEY (venta_id, producto_id),
     CONSTRAINT venta_id_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id),
     CONSTRAINT producto_id_fk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id)
 );
@@ -136,20 +156,32 @@ CREATE TABLE Oferta(
     fecha_termina DATE NOT NULL,
 	dias_disponible INT NOT NULL, -- BIT MASK
 	hora_disponible_emieza TIME NOT NULL,
-	hora_disponible_termina TIME NOT NULL
+	hora_disponible_termina TIME NOT NULL,
+	cantidad_maxima INT,
+	cantidad_minima INT, 
+	producto_id INT NOT NULL,
+	tipo varchar(20) NOT NULL CHECK (tipo IN ('2x1', 'porciento')),
+	constraint oferta_producto_pk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id) 
 );
  
-CREATE TABLE Oferta_Productos(
-    oferta_id INT,
-    producto_id INT,
-    cantidad_maxima INT,
-	tipo varchar(30) NOT NULL CHECK (tipo IN('2x1')),
-    CONSTRAINT oferta_productos_pk PRIMARY KEY (oferta_id, producto_id),
-    CONSTRAINT productos_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id),
-    CONSTRAINT ofertas_producto_fk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id)
+CREATE TABLE OfertaProciento(
+    oferta_id INT PRIMARY KEY NOT NULL,
+	porciento DECIMAL(10,2) NOT NULL,
+	constraint porciento_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id)
 );
 
-USE heladeria;
+CREATE TABLE Venta_Ofertas (
+	venta_id INT NOT NULL,
+	oferta_id INT NOT NULL,
+	constraint venta_ofertas_pk PRIMARY KEY (venta_id, oferta_id),
+	constraint venta_ofertas_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id),
+	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
+)
+
+CREATE TYPE ProductoList AS TABLE (
+	producto_id INT,
+	cantidad INT
+);
 
 /* ============== STORED PROCEDURES ========================= */
 
@@ -158,8 +190,11 @@ CREATE PROCEDURE sp_InsertSaborHelado @nombre varchar(50), @descripcion varchar(
 				 @precio_venta money, @precio_compra money, @temporal bit = 0, @principio_temporada date = null, @fin_temporada date = null
 AS
 BEGIN
-	INSERT INTO Producto VALUES (@nombre, @descripcion, @etiqueta_negra, @precio_venta, @precio_compra);
-	INSERT INTO SaborHelado VALUES(@@IDENTITY, @temporal, @principio_temporada, @fin_temporada);
+	INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) 
+	VALUES (@nombre, @descripcion, @etiqueta_negra, @precio_venta, @precio_compra);
+	
+	INSERT INTO SaborHelado(producto_id, temporal, principio_temporada, fin_temporada) 
+	VALUES(@@IDENTITY, @temporal, @principio_temporada, @fin_temporada);
 END
 
 /* ============== INTRODUCCION DE DATOS ===================== */
