@@ -1,6 +1,35 @@
 CREATE DATABASE heladeria;
  
 USE heladeria;
+/* ======= DDL ====== */
+
+/* DROP all Tables */
+
+drop table INFO;
+drop table Venta_Productos
+drop table Venta_Ofertas;
+drop table RegistroInventario_Productos;
+drop table Orden_Productos;
+drop table SaborHelado;
+drop table OfertaPorciento;
+drop table NFC;
+drop table Oferta;
+drop table RegistroInventario;
+drop table Venta;
+drop table Orden;
+drop table Suplidor;
+drop table Producto;
+drop table Caja;
+drop table Cliente;
+drop table Empleado;
+drop table Turno;
+
+/* Create Tables */
+
+CREATE TABLE INFO (
+	llave varchar(50) PRIMARY KEY NOT NULL,
+	valor text
+);
 
 /* 0x01 = Lunes, 0x02 = Martes, 0x04 = Miercoles, 0x08 = Jueves, 0x010 = Viernes, 0x020 = Sabado, 0x40 = Domingo */
 /* 1 = Lunes, 2 = Martes, 4 = Miercoles, 8 = Jueves,  16 = Viernes, 32 = Sabado, 64 = Domingo */
@@ -15,7 +44,7 @@ CREATE TABLE Turno (
 CREATE TABLE Empleado(
     empleado_id INT identity(1,1) PRIMARY KEY NOT NULL,
 	no_identificacion varchar(15),
-	tipo_identificacion varchar(30),
+	tipo_identificacion varchar(30) CHECK(tipo_identificacion IN('cedula', 'pasaporte')),
 	correo varchar(50) NOT NULL,
 	password varchar(128) NOT NULL,
     nombre VARCHAR(30) NOT NULL,
@@ -27,6 +56,7 @@ CREATE TABLE Empleado(
     ciudad VARCHAR(50),
     provincia VARCHAR(50),
 	turno_id INT,
+	supervisor BIT DEFAULT 0,
 	constraint empleado_turno_fk FOREIGN KEY (turno_id) REFERENCES Turno(turno_id)
 );
 
@@ -35,6 +65,8 @@ CREATE TABLE Caja (
 	empleado_id INT NOT NULL,
 	cash_entrada money NOT NULL,
 	estado BIT DEFAULT 1 NOT NULL, -- 1 = abierta, 2 = cerrada
+	fecha_abre DATETIME NOT NULL DEFAULT GETDATE(),
+	fecha_cierra DATETIME,
 	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
 );
 
@@ -78,7 +110,7 @@ CREATE TABLE RegistroInventario(
 	CONSTRAINT inventario_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
 );
  
-CREATE TABLE Producto_RegistroInventario(
+CREATE TABLE RegistroInventario_Productos(
     producto_id INT NOT NULL,
     inventario_id INT NOT NULL,
     cantidad DECIMAL(10, 2) NOT NULL,
@@ -164,7 +196,7 @@ CREATE TABLE Oferta(
 	constraint oferta_producto_pk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id) 
 );
  
-CREATE TABLE OfertaProciento(
+CREATE TABLE OfertaPorciento(
     oferta_id INT PRIMARY KEY NOT NULL,
 	porciento DECIMAL(10,2) NOT NULL,
 	constraint porciento_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id)
@@ -178,24 +210,27 @@ CREATE TABLE Venta_Ofertas (
 	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
 )
 
-CREATE TYPE ProductoList AS TABLE (
-	producto_id INT,
-	cantidad INT
-);
 
 /* ============== STORED PROCEDURES ========================= */
 
 use heladeria;
-CREATE PROCEDURE sp_InsertSaborHelado @nombre varchar(50), @descripcion varchar(100), @etiqueta_negra bit = 0, 
-				 @precio_venta money, @precio_compra money, @temporal bit = 0, @principio_temporada date = null, @fin_temporada date = null
+drop proc sp_InsertSaborHelado
+CREATE PROCEDURE sp_InsertSaborHelado @nombre varchar(50), @descripcion varchar(100) = null, @etiqueta_negra bit = 0, 
+				 @precio_compra money, @temporal bit = 0, @principio_temporada date = null, @fin_temporada date = null
 AS
 BEGIN
 	INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) 
-	VALUES (@nombre, @descripcion, @etiqueta_negra, @precio_venta, @precio_compra);
+	VALUES (@nombre, @descripcion, @etiqueta_negra, null, @precio_compra);
 	
 	INSERT INTO SaborHelado(producto_id, temporal, principio_temporada, fin_temporada) 
 	VALUES(@@IDENTITY, @temporal, @principio_temporada, @fin_temporada);
 END
+
+EXEC sp_InsertSaborHelado @nombre = 'Chocolate', @precio_compra = 300.00;
+EXEC sp_InsertSaborHelado @nombre = 'Vainilla', @precio_compra = 300.00;
+EXEC sp_InsertSaborHelado @nombre = 'Fresa', @precio_compra = 300.00;
+EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
+
 
 /* ============== INTRODUCCION DE DATOS ===================== */
 
@@ -205,72 +240,46 @@ INSERT INTO Turno VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
 
 /* Empleados */
 -- TODO: introducir correos y cedulas
-INSERT INTO Empleado(no_identificacion, tipo_identificacion, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia)
-VALUES ('001-1493849-1', 'cedula', 'Juan', 'Perez', '809-482-5924', 'calle 5', '#4 Residencia Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1);
-INSERT INTO Empleado(no_identificacion, tipo_identificacion, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia)
-VALUES ('001-1493849-1', 'cedula', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2);
+INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor)
+VALUES ('001-1493849-1', 'cedula', 'aalvarez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Alan', 'Alvarez', '809-482-5924', 'calle 5', '#4 Residencial Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1, 1);
+INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor)
+VALUES ('001-1493849-1', 'cedula', 'rmartinez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2, 0);
 
 /* Clientes */
-INSERT INTO Cliente VALUES ('Alex', 'Figuereo', '829-458-2948', 'afiguereo@correo.com', '130156964', 'Calle F', '#65', 'Bella Vista', 'Santo Domingo', 'D.N.');
-INSERT INTO Cliente VALUES ('Ramon', 'Alcantara', '829-432-9481', 'ra@correo.com', '184930485', 'Calle C', '#89', 'Naco', 'Santo Domingo', 'D.N.');
+INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sector, ciudad, provincia) VALUES 
+('Alex', 'Figuereo', '829-458-2948', 'afiguereo@correo.com', '130156964', 'Calle F', '#65', 'Bella Vista', 'Santo Domingo', 'D.N.'),
+('Ramon', 'Alcantara', '829-432-9481', 'ra@correo.com', '184930485', 'Calle C', '#89', 'Naco', 'Santo Domingo', 'D.N.');
 
 /* Productos */
-INSERT INTO Producto VALUES 
-('Barquito', NULL, 0, 100.00),
-('Barquito', NULL, 1, 150.00),
-('Barquito Abordado', NULL, 0, 120.00),
-('Barquito Abordado', NULL, 1, 175.00),
-('Barquilla Danesa', NULL, 0, 50.00),
-('Barquilla Danesa', NULL, 1, 100.00),
-('Bonito', NULL, 0, 50.00),
-('Bonito', NULL, 1, 70.00),
-('Cajita', '4 onz', 0, 50.00),
-('Cajita', '4 onz', 1, 90.00),
-('Super Sundae', NULL, 0, 130.00),
-('Super Sundae', NULL, 1, 150.00),
-('Malteada', NULL, 0, 100.00),
-('Malteada', NULL, 1, 150.00),
-('1 Pinta', NULL, 0, 130.00),
-('1 Pinta', NULL, 1, 220.00),
-('2 Pintas', NULL, 0, 250.00),
-('2 Pintas', NULL, 1, 375.00),
-('1/2 Galon', NULL, 0, 350.00),
-('1/2 Galon', NULL, 1, 700.00),
-('Tarta Pequena', NULL, NULL, 425.00),
-('Tarta Grande', NULL, NULL, 650.00),
-('Tarta Especial', NULL, NULL, 800.00),
-('Smoothie', 'Producto Yogen', NULL, 150.00),
-('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00),
-('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00),
-('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00);
+INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
+('Barquito', NULL, 0, 100.00, 50.00),
+('Barquito', NULL, 1, 150.00, 50.00),
+('Barquito Abordado', NULL, 0, 120.00, 60.00),
+('Barquito Abordado', NULL, 1, 175.00, 60.00),
+('Barquilla Danesa', NULL, 0, 50.00, 25.00),
+('Barquilla Danesa', NULL, 1, 100.00, 25.00),
+('Bonito', NULL, 0, 50.00, 25.00),
+('Bonito', NULL, 1, 70.00, 25.00),
+('Cajita', '4 onz', 0, 50.00, 25.00),
+('Cajita', '4 onz', 1, 90.00, 25.00),
+('Super Sundae', NULL, 0, 130.00, 60.00),
+('Super Sundae', NULL, 1, 150.00, 60.00),
+('Malteada', NULL, 0, 100.00, 50.00),
+('Malteada', NULL, 1, 150.00, 50.00),
+('1 Pinta', NULL, 0, 130.00, 60.00),
+('1 Pinta', NULL, 1, 220.00, 110.00),
+('2 Pintas', NULL, 0, 250.00, 120.00),
+('2 Pintas', NULL, 1, 375.00, 2000.00),
+('1/2 Galon', NULL, 0, 350.00, 170.00),
+('1/2 Galon', NULL, 1, 700.00, 250.00),
+('Tarta Pequena', NULL, NULL, 425.00, 200.00),
+('Tarta Grande', NULL, NULL, 650.00, 300.00),
+('Tarta Especial', NULL, NULL, 800.00, 400.00),
+('Smoothie', 'Producto Yogen', NULL, 150.00, 70.00),
+('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00, 40.00),
+('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
+('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
 
-/*Sabores*/
-INSERT INTO SaborHelado (nombre, temporal, etiqueta_negra)
-VALUES ('Bizcocho', 0, 0),
-        ('Brownie', 0, 0),
-        ('Caramelo', 0, 0),
-        ('Caramelo Crunch', 0, 0),
-        ('Chicle', 0, 0),
-        ('Chinola', 0, 0),
-        ('Chispeado de Chocolata', 0, 0),
-        ('Chocolate', 0, 0),
-        ('Chocolate Pricila', 0, 0),
-        ('Ciruela', 0, 0),
-        ('Fresa', 0, 0),
-        ('Galletas y Crema', 0, 0),
-        ('Naranja - Piña', 0, 0),
-        ('Ron Pasas', 0, 0),
-        ('Sonrisa de Guanabana', 1, 0),
-        ('Sonrisa de Guayaba', 1, 0),
-        ('Tres Leches', 0, 0),
-        ('Vainilla', 0, 0),
-        ('Cafe Organico', 0, 1),
-        ('Chocolate Organico', 0, 1),
-        ('Fresa Natural', 0, 1),
-        ('Fruta del Bosque', 0, 1),
-        ('Imperial de Vainilla', 0, 1),
-        ('Nuez de Macadamia', 0, 1),
-        ('Pistacho', 0, 1)
 
 /* Ventas */
 INSERT INTO Venta VALUES 
