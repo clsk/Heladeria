@@ -64,7 +64,7 @@ CREATE TABLE Caja (
 	caja_id INT identity(1,1) PRIMARY KEY NOT NULL,
 	empleado_id INT NOT NULL,
 	cash_entrada money NOT NULL,
-	estado BIT DEFAULT 1 NOT NULL, -- 1 = abierta, 2 = cerrada
+	estado BIT DEFAULT 1 NOT NULL, -- 1 = abierta, 0 = cerrada
 	fecha_abre DATETIME NOT NULL DEFAULT GETDATE(),
 	fecha_cierra DATETIME,
 	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
@@ -81,7 +81,8 @@ CREATE TABLE Cliente(
 	no_casa VARCHAR(100),
     sector VARCHAR(50),
     ciudad VARCHAR(50),
-    provincia VARCHAR(50)
+    provincia VARCHAR(50),
+	no_tarjeta SMALLINT, -- ultimos 4 digitos
 );
 
  CREATE TABLE Producto(
@@ -155,18 +156,18 @@ CREATE TABLE Orden_Productos (
 );
 
 CREATE TABLE Venta(
-    venta_id INT identity(1,1) PRIMARY KEY NOT NULL,
+    venta_id BIGINT identity(1,1) PRIMARY KEY NOT NULL,
     cliente_id INT,
     caja_id INT NOT NULL,
     fecha DATETIME NOT NULL,
-    forma_pago VARCHAR(50) CHECK (forma_pago IN('efectvivo', 'tarjeta')) NOT NULL,
-	total money NOT NULL,
+    forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
+	total money,
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id)
 );
 
 CREATE TABLE Venta_Productos(
-    venta_id INT NOT NULL,
+    venta_id BIGINT NOT NULL,
     producto_id INT NOT NULL,
     cantidad INT NOT NULL,
     CONSTRAINT venta_productos_pk PRIMARY KEY (venta_id, producto_id),
@@ -176,7 +177,7 @@ CREATE TABLE Venta_Productos(
 
 CREATE TABLE NFC(
     no_nfc INT PRIMARY KEY NOT NULL,
-	venta_id INT UNIQUE NOT NULL,
+	venta_id BIGINT UNIQUE NOT NULL,
 	CONSTRAINT nfc_venta FOREIGN KEY (venta_id) REFERENCES Venta (venta_id) ON DELETE CASCADE
 );
  
@@ -202,9 +203,11 @@ CREATE TABLE OfertaPorciento(
 	constraint porciento_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id)
 );
 
+
 CREATE TABLE Venta_Ofertas (
-	venta_id INT NOT NULL,
+	venta_id BIGINT NOT NULL,
 	oferta_id INT NOT NULL,
+	rebaja money NOT NULL,
 	constraint venta_ofertas_pk PRIMARY KEY (venta_id, oferta_id),
 	constraint venta_ofertas_oferta_fk FOREIGN KEY (oferta_id) REFERENCES Oferta(oferta_id),
 	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
@@ -250,6 +253,10 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 ('Alex', 'Figuereo', '829-458-2948', 'afiguereo@correo.com', '130156964', 'Calle F', '#65', 'Bella Vista', 'Santo Domingo', 'D.N.'),
 ('Ramon', 'Alcantara', '829-432-9481', 'ra@correo.com', '184930485', 'Calle C', '#89', 'Naco', 'Santo Domingo', 'D.N.');
 
+INSERT INTO Caja (empleado_id, cash_entrada, estado, fecha_abre, fecha_cierra) VALUES
+(1, 10000.00, 0, '3/23/2013 09:00:00', '3/23/2013 13:00:00'),
+(2, 10000.00, 0, '3/23/2013 13:00:00', '3/23/2013 18:00:00') 
+
 /* Productos */
 INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
 ('Barquito', NULL, 0, 100.00, 50.00),
@@ -281,37 +288,80 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
 
 
+
 /* Ventas */
-INSERT INTO Venta VALUES 
-(1, 1, '3/23/2013', '09:15:00', 'Efectivo'),
-(NULL, 1, '3/23/2013', '09:20:23', 'Tarjeta'),
-(NULL, 1, '3/23/2013', '10:01:42', 'Tarjeta'),
-(NULL, 1, '3/23/2013', '10:03:22', 'Tarjeta'),
-(2, 1, '3/23/2013', '10:20:43', 'Efectivo'),
-(NULL, 1, '3/23/2013', '10:30:10', 'Efectivo'),
-(NULL, 1, '3/23/2013', '10:35:22', 'Efectivo'),
-(NULL, 1, '3/23/2013', '10:45:32', 'Tarjeta'),
-(NULL, 1, '3/23/2013', '11:10:04', 'Efectivo'),
-(1, 1, '3/23/2013', '11:25:34', 'Efectivo'),
-(NULL, 1, '3/23/2013', '11:30:11', 'Efectivo'),
-(NULL, 1, '3/23/2013', '11:45:12', 'Efectivo'),
-(NULL, 1, '3/23/2013', '11:55:12', 'Efectivo'),
-(NULL, 2, '3/23/2013', '12:05:23', 'Efectivo'),
-(NULL, 2, '3/23/2013', '12:23:11', 'Efectivo'),
-(NULL, 2, '3/23/2013', '12:50:05', 'Tarjeta'),
-(NULL, 2, '3/23/2013', '13:03:12', 'Efectivo'),
-(NULL, 2, '3/23/2013', '13:10:43', 'Efectivo'),
-(NULL, 2, '3/23/2013', '13:15:32', 'Efectivo'),
-(NULL, 2, '3/23/2013', '13:24:43', 'Tarjeta'),
-(NULL, 2, '3/23/2013', '13:37:23', 'Efectivo'),
-(NULL, 2, '3/23/2013', '13:46:23', 'Efectivo'),
-(NULL, 2, '3/23/2013', '13:55:09', 'Efectivo'),
-(NULL, 2, '3/23/2013', '14:03:05', 'Efectivo'),
-(NULL, 2, '3/23/2013', '14:15:03', 'Efectivo'),
-(NULL, 2, '3/23/2013', '14:20:02', 'Tarjeta'),
-(NULL, 2, '3/23/2013', '14:23:03', 'Efectivo'),
-(NULL, 2, '3/23/2013', '14:32:02', 'Efectivo'),
-(NULL, 2, '3/23/2013', '14:42:33', 'Efectivo');
+INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
+(1, 1, '3/23/2013 09:15:00', 'efectivo'),
+(NULL, 1, '3/23/2013 09:20:23', 'tarjeta'),
+(NULL, 1, '3/23/2013 10:01:42', 'tarjeta'),
+(NULL, 1, '3/23/2013 10:03:22', 'tarjeta'),
+(2, 1, '3/23/2013 10:20:43', 'efectivo'),
+(NULL, 1, '3/23/2013 10:30:10', 'efectivo'),
+(NULL, 1, '3/23/2013 10:35:22', 'efectivo'),
+(NULL, 1, '3/23/2013 10:45:32', 'tarjeta'),
+(NULL, 1, '3/23/2013 11:10:04', 'efectivo'),
+(1, 1, '3/23/2013 11:25:34', 'efectivo'),
+(NULL, 1, '3/23/2013 11:30:11', 'efectivo'),
+(NULL, 1, '3/23/2013 11:45:12', 'efectivo'),
+(NULL, 1, '3/23/2013 11:55:12', 'efectivo'),
+(NULL, 1, '3/23/2013 12:05:23', 'efectivo'),
+(NULL, 1, '3/23/2013 12:23:11', 'efectivo'),
+(NULL, 1, '3/23/2013 12:50:05', 'tarjeta'),
+(NULL, 2, '3/23/2013 13:03:12', 'efectivo'),
+(NULL, 2, '3/23/2013 13:10:43', 'efectivo'),
+(NULL, 2, '3/23/2013 13:15:32', 'efectivo'),
+(NULL, 2, '3/23/2013 13:24:43', 'tarjeta'),
+(NULL, 2, '3/23/2013 13:37:23', 'efectivo'),
+(NULL, 2, '3/23/2013 13:46:23', 'efectivo'),
+(NULL, 2, '3/23/2013 13:55:09', 'efectivo'),
+(NULL, 2, '3/23/2013 14:03:05', 'efectivo'),
+(NULL, 2, '3/23/2013 14:15:03', 'efectivo'),
+(NULL, 2, '3/23/2013 14:20:02', 'tarjeta'),
+(NULL, 2, '3/23/2013 14:23:03', 'efectivo'),
+(NULL, 2, '3/23/2013 14:32:02', 'efectivo'),
+(NULL, 2, '3/23/2013 14:42:33', 'efectivo');
+
+select * from venta;
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 1);
+
+CREATE TRIGGER trg_aplicar_oferta
+ON Venta_Productos
+AFTER INSERT
+AS
+-- find oferta match
+-- if oferta matches check oferta type
+-- apply match depending on oferta type
+--   if oferta = 2x1
+--     remove 1 for every 2
+--   else if oferta = porciente
+--     apply percent * (cantidad) (make sure cantidad is less than max) (and more than min)
+BEGIN
+    declare @oferta_id as INT, @oferta_tipo as INT;
+	SELECT @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted);
+	IF (@oferta_id <> null)
+	BEGIN
+		declare @total_actual AS INT, @precio_producto AS INT, @cantidad_producto AS INT, @rebaja AS MONEY;
+		select @total_actual = total FROM Venta WHERE venta_id = (SELECT venta_id FROM inserted);
+		select @precio_producto = precio_venta FROM Producto WHERE producto_id = (SELECT producto_id FROM Producto);
+		select @cantidad_producto = cantidad FROM inserted;
+		IF (@oferta_tipo = '2x1')
+		BEGIN
+			SET @rebaja = @precio_producto * (@cantidad_producto % 2);
+			INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES ((SELECT venta_id FROM inserted), @oferta_id, @rebaja);
+		END
+		ELSE
+		BEGIN
+			IF (@oferta_tipo = 'porciento')
+			BEGIN
+				declare @porciento AS INT;
+				set @porciento = (SELECT porciento FROM OfertaPorciento WHERE oferta_id = @oferta_id) / 100;
+				SET @rebaja = @precio_producto * @porciento * @cantidad_producto;
+			END
+		END
+		IF (@rebaja <> null)
+			UPDATE Venta SET total = (@total_actual - @rebaja);
+	END
+END
 
 /*Registro Inventario*/
 INSERT INTO RegistroInventario
