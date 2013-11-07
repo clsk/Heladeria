@@ -31,8 +31,9 @@ CREATE TABLE INFO (
 	valor text
 );
 
-/* 0x01 = Lunes, 0x02 = Martes, 0x04 = Miercoles, 0x08 = Jueves, 0x010 = Viernes, 0x020 = Sabado, 0x40 = Domingo */
-/* 1 = Lunes, 2 = Martes, 4 = Miercoles, 8 = Jueves,  16 = Viernes, 32 = Sabado, 64 = Domingo */
+/* 0x01 = Domingo, 0x02 = Lunes, 0x04 = Martes, 0x08 = JMiercoles, 0x010 = Jueves, 0x020 = Viernes, 0x40 = Sabado */
+/* 1 = Domingo, 2 = Lunes, 4 = Martes, 8 = Miercoles,  16 = Jueves, 32 = Viernes, 64 = Sabado */
+/* Todos los dias = 127, Lunes a Viernes =  62, Sabados y Domingos = 65 */
 CREATE TABLE Turno (
 	turno_id INT identity(1,1) PRIMARY KEY NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
@@ -161,7 +162,7 @@ CREATE TABLE Venta(
     caja_id INT NOT NULL,
     fecha DATETIME NOT NULL,
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
-	total money,
+	total money DEFAULT 0.00,
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id)
 );
@@ -188,7 +189,7 @@ CREATE TABLE Oferta(
     fecha_empieza DATE NOT NULL,
     fecha_termina DATE NOT NULL,
 	dias_disponible INT NOT NULL, -- BIT MASK
-	hora_disponible_emieza TIME NOT NULL,
+	hora_disponible_empieza TIME NOT NULL,
 	hora_disponible_termina TIME NOT NULL,
 	cantidad_maxima INT,
 	cantidad_minima INT, 
@@ -233,6 +234,55 @@ EXEC sp_InsertSaborHelado @nombre = 'Chocolate', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Vainilla', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Fresa', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
+
+/* ============== Triggers =================================*/
+
+drop trigger trg_CalcularTotalVenta
+CREATE TRIGGER trg_CalcularTotalVenta
+ON Venta_Productos
+AFTER INSERT
+AS
+BEGIN
+	-- Aplicar precio producto a venta total
+	declare @total_actual AS INT, @precio_producto AS INT, @cantidad_producto AS INT, @venta_id AS INT, @rebaja AS MONEY, @venta_fecha AS DATETIME;
+	select @venta_id = venta_id, @cantidad_producto = cantidad FROM inserted;
+	select @total_actual = total, @venta_fecha = fecha FROM Venta WHERE venta_id = @venta_id;
+	select @precio_producto = precio_venta FROM Producto WHERE producto_id = (SELECT producto_id FROM inserted);
+
+		
+	SET @total_actual = @total_actual + (@precio_producto * @cantidad_producto);
+    declare @oferta_id as INT, @oferta_tipo as varchar(20);
+	SELECT @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted) AND 
+														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
+														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
+														(dias_disponible & DATEPART(DW, @venta_fecha) > 0);
+	PRINT @oferta_id
+
+
+	IF (@oferta_id IS NOT NULL)
+	BEGIN
+		IF (@oferta_tipo = '2x1')
+		BEGIN
+			SET @rebaja = @precio_producto * (@cantidad_producto / 2);
+			IF @rebaja > 0
+				INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES (@venta_id, @oferta_id, @rebaja);
+			ELSE
+				SET @rebaja = NULL;
+		END
+		ELSE
+		IF (@oferta_tipo = 'porciento')
+		BEGIN
+			declare @porciento AS INT;
+			set @porciento = (SELECT porciento FROM OfertaPorciento WHERE oferta_id = @oferta_id) / 100;
+			SET @rebaja = @precio_producto * @porciento * @cantidad_producto;
+			INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES (@venta_id, @oferta_id, @rebaja);
+		END
+	END
+	IF (@rebaja IS NOT NULL)
+		UPDATE Venta SET total = (@total_actual - @rebaja) WHERE venta_id = @venta_id;
+	ELSE
+		UPDATE Venta SET total = @total_actual WHERE venta_id = @venta_id;
+END
 
 
 /* ============== INTRODUCCION DE DATOS ===================== */
@@ -288,7 +338,6 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
 
 
-
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
 (1, 1, '3/23/2013 09:15:00', 'efectivo'),
@@ -321,47 +370,23 @@ INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES
 (NULL, 2, '3/23/2013 14:32:02', 'efectivo'),
 (NULL, 2, '3/23/2013 14:42:33', 'efectivo');
 
+/* Test venta trigger */
 select * from venta;
-INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 1);
+select * from Venta_Productos
+select * from Venta_Ofertas;
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
+select * from Oferta
 
-CREATE TRIGGER trg_aplicar_oferta
-ON Venta_Productos
-AFTER INSERT
-AS
--- find oferta match
--- if oferta matches check oferta type
--- apply match depending on oferta type
---   if oferta = 2x1
---     remove 1 for every 2
---   else if oferta = porciente
---     apply percent * (cantidad) (make sure cantidad is less than max) (and more than min)
-BEGIN
-    declare @oferta_id as INT, @oferta_tipo as INT;
-	SELECT @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted);
-	IF (@oferta_id <> null)
-	BEGIN
-		declare @total_actual AS INT, @precio_producto AS INT, @cantidad_producto AS INT, @rebaja AS MONEY;
-		select @total_actual = total FROM Venta WHERE venta_id = (SELECT venta_id FROM inserted);
-		select @precio_producto = precio_venta FROM Producto WHERE producto_id = (SELECT producto_id FROM Producto);
-		select @cantidad_producto = cantidad FROM inserted;
-		IF (@oferta_tipo = '2x1')
-		BEGIN
-			SET @rebaja = @precio_producto * (@cantidad_producto % 2);
-			INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES ((SELECT venta_id FROM inserted), @oferta_id, @rebaja);
-		END
-		ELSE
-		BEGIN
-			IF (@oferta_tipo = 'porciento')
-			BEGIN
-				declare @porciento AS INT;
-				set @porciento = (SELECT porciento FROM OfertaPorciento WHERE oferta_id = @oferta_id) / 100;
-				SET @rebaja = @precio_producto * @porciento * @cantidad_producto;
-			END
-		END
-		IF (@rebaja <> null)
-			UPDATE Venta SET total = (@total_actual - @rebaja);
-	END
-END
+UPDATE Venta SET total = 0.00
+delete from Venta_Productos
+delete from Venta_Ofertas;
+/* END OF Test venta trigger */
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Barquito', '2x1 en barquitos', '3/1/2013', '3/30/2013', 127, '09:00:00', '18:00:00', 1, '2x1');
+
+select * from Venta
+
 
 /*Registro Inventario*/
 INSERT INTO RegistroInventario
