@@ -243,19 +243,23 @@ ON Venta_Productos
 AFTER INSERT
 AS
 BEGIN
-	-- Aplicar precio producto a venta total
+	
 	declare @total_actual AS INT, @precio_producto AS INT, @cantidad_producto AS INT, @venta_id AS INT, @rebaja AS MONEY, @venta_fecha AS DATETIME;
 	select @venta_id = venta_id, @cantidad_producto = cantidad FROM inserted;
 	select @total_actual = total, @venta_fecha = fecha FROM Venta WHERE venta_id = @venta_id;
 	select @precio_producto = precio_venta FROM Producto WHERE producto_id = (SELECT producto_id FROM inserted);
 
-		
+
+	-- Aplicar precio producto a venta total
 	SET @total_actual = @total_actual + (@precio_producto * @cantidad_producto);
+
+	-- Revisar si hay ofertas que se apliquen a este producto
     declare @oferta_id as INT, @oferta_tipo as varchar(20);
-	SELECT @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted) AND 
+	PRINT POWER(2, DATEPART(DW, @venta_fecha-1));
+	SELECT TOP 1 @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted) AND 
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
-														(dias_disponible & DATEPART(DW, @venta_fecha) > 0);
+														(dias_disponible & POWER(2, DATEPART(DW, @venta_fecha-1)) > 0);
 	PRINT @oferta_id
 
 
