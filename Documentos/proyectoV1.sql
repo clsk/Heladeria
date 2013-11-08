@@ -250,12 +250,11 @@ BEGIN
 	select @precio_producto = precio_venta FROM Producto WHERE producto_id = (SELECT producto_id FROM inserted);
 
 
-	-- Aplicar precio producto a venta total
+	-- Aplicar precio producto a venta totals
 	SET @total_actual = @total_actual + (@precio_producto * @cantidad_producto);
 
 	-- Revisar si hay ofertas que se apliquen a este producto
     declare @oferta_id as INT, @oferta_tipo as varchar(20);
-	PRINT POWER(2, DATEPART(DW, @venta_fecha-1));
 	SELECT TOP 1 @oferta_id = oferta_id, @oferta_tipo = tipo from Oferta WHERE producto_id = (select producto_id from inserted) AND 
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
@@ -297,10 +296,12 @@ INSERT INTO Turno VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
 
 /* Empleados */
 -- TODO: introducir correos y cedulas
-INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor)
-VALUES ('001-1493849-1', 'cedula', 'aalvarez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Alan', 'Alvarez', '809-482-5924', 'calle 5', '#4 Residencial Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1, 1);
-INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor)
-VALUES ('001-1493849-1', 'cedula', 'rmartinez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2, 0);
+INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor) VALUES 
+('001-1493849-1', 'cedula', 'aalvarez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Alan', 'Alvarez', '809-482-5924', 'calle 5', '#4 Residencial Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1, 1),
+('001-1494939-1', 'cedula', 'rmartinez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2, 0),
+('001-4391939-7', 'Cedula', 'lpeguero@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Laide', 'Peguero', '809-394-2119', 'San Francisdo de Macoris', 'Gazcue', 'D. N', 'Santo Domingo', 'Manz. CQ Edif. 2', 1, 0),
+('223-4896545-1', 'Cedula', 'mpena@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Manuela', 'Pena', '809-213-2213', 'Rep. de Paraguay', 'Ens. La Fe', 'D. N.', 'Santo Domingo', 'No. 123', 2, 1),
+('223-5211298-1', 'Cedula', 'llugo@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Lissanna', 'Lugo', '809-424-3923', 'Av. Bolivar', 'Ens. Evaristo Morales', 'D. N.', 'Santo Domingo', 'Edif. Rojo Apart. 21', 2, 0);
 
 /* Clientes */
 INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sector, ciudad, provincia) VALUES 
@@ -310,6 +311,7 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 INSERT INTO Caja (empleado_id, cash_entrada, estado, fecha_abre, fecha_cierra) VALUES
 (1, 10000.00, 0, '3/23/2013 09:00:00', '3/23/2013 13:00:00'),
 (2, 10000.00, 0, '3/23/2013 13:00:00', '3/23/2013 18:00:00') 
+
 
 /* Productos */
 INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
