@@ -235,6 +235,49 @@ EXEC sp_InsertSaborHelado @nombre = 'Vainilla', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Fresa', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
 
+/*Procedure para Reporte de Cierres de Caja*/
+CREATE PROCEDURE sp_CajaCerrada
+	(
+		@fc_Inicia DATETIME,
+		@fc_Termina DATETIME
+	)
+AS
+BEGIN
+	(
+		SELECT Caja.caja_id, Caja.fecha_cierra, Caja.cash_entrada , Empleado.nombre, Empleado.apellido
+		FROM Caja INNER JOIN Empleado
+		ON Caja.empleado_id=Empleado.empleado_id
+		WHERE Caja.fecha_cierra BETWEEN @fc_Inicia AND @fc_Termina
+	)
+END
+
+DROP PROCEDURE sp_CajaCerrada;
+
+EXECUTE sp_CajaCerrada @fc_Inicia = '2013/03/23', @fc_Termina = '2013/03/25'
+
+
+/*Procedure para Reporte de Comprobantes Usados*/
+
+CREATE PROCEDURE sp_ComprobantesRegistrados 
+	(
+		@fc_desde DATETIME,
+		@fc_hasta DATETIME
+	)
+AS
+BEGIN
+	(
+		SELECT NFC.no_nfc, Cliente.nombre, Cliente.RNC, Venta.total, (Venta.total * 0.18) as MontoITBIS
+		FROM NFC INNER JOIN Venta
+		ON NFC.venta_id=Venta.venta_id INNER JOIN Cliente
+		ON Cliente.cliente_id=Venta.cliente_id
+		WHERE Venta.fecha BETWEEN @fc_desde AND @fc_hasta
+	)
+END
+
+DROP PROCEDURE sp_ComprobantesRegistrados;
+
+EXECUTE sp_ComprobantesRegistrados @fc_desde = '2013/03/23', @fc_hasta = '2013/03/25'
+
 /* ============== Triggers =================================*/
 
 drop trigger trg_CalcularTotalVenta
