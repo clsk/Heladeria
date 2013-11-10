@@ -416,3 +416,43 @@ VALUES ('Barquilla Barquito', '08-10-2013'),
         ('Tarta Helada Tradicional Grd.', '08-10-2013'),
         ('Tarta Helada Especial Peq.', '08-10-2013'),
         ('Tarta Helada Especial Grd.', '08-10-2013')
+
+
+/* Queries (para reportes) */
+
+-- Ventas
+DECLARE @fecha_empieza AS DATETIME, @fecha_termina AS DATETIME;
+SET @fecha_empieza = '3/1/2013';
+SET @fecha_termina = '3/31/2013'
+SELECT Venta.venta_id, Venta.fecha, Venta.forma_pago, Cliente.nombre + ' ' +  Cliente.apellido AS Cliente, Venta.total  FROM Venta LEFT JOIN Cliente ON Venta.cliente_id = Cliente.cliente_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina; 
+
+drop function maskToDias
+CREATE FUNCTION maskToDias (@mask AS INT)
+RETURNS VARCHAR(60)
+BEGIN
+	DECLARE @ret AS VARCHAR(60)
+	SET @ret = ''
+	IF (@mask & 1 = 1)
+		SET @ret = @ret + 'Domingo, '
+	IF (@mask & 2 = 2)
+		SET @ret = @ret + 'Lunes, '
+	IF (@mask & 4 = 4)
+		SET @ret = @ret + 'Martes, '
+	IF (@mask & 8 = 8)
+		SET @ret = @ret + 'Miercoles, '
+	IF (@mask & 16 = 16)
+		SET @ret = @ret + 'Jueves, '
+	IF (@mask & 32 = 32)
+		SET @ret = @ret + 'Viernes, '
+	IF (@mask & 64 = 64)
+		SET @ret = @ret + 'Sabado,'
+
+	IF (LEN(@ret) > 0)
+		RETURN SUBSTRING(@ret, 1, LEN(@ret) - 1);
+	
+	RETURN @ret
+END
+
+-- Ofertas
+SELECT Venta_Ofertas.oferta_id, Oferta.nombre FROM Venta_Ofertas INNER JOIN Oferta ON Venta_Ofertas.oferta_id = Oferta.oferta_id;
+SELECT Oferta.oferta_id, Oferta.nombre, Oferta.fecha_empieza, Oferta.fecha_termina, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad FROM Oferta

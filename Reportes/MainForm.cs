@@ -12,9 +12,9 @@ using System.Collections;
 
 namespace Reportes
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -26,7 +26,7 @@ namespace Reportes
                 string urlReportServer = "http://localhost//Reportserver";
                 rptViewer.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
                 rptViewer.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
-                rptViewer.ServerReport.ReportPath = "/TestProject/TestReport"; //Passing the Report Path                
+                rptViewer.ServerReport.ReportPath = "/TestProject/Ventas"; //Passing the Report Path                
 
                 ReportParameter[] param = new ReportParameter[2]; 
                 param[0] = new ReportParameter("fecha_empieza", dtpDesde.Value.ToShortDateString()); 
