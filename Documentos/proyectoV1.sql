@@ -305,25 +305,23 @@ BEGIN
 	PRINT @oferta_id
 
 
-	IF (@oferta_id IS NOT NULL)
+
+	IF (@oferta_tipo = '2x1')
 	BEGIN
-		IF (@oferta_tipo = '2x1')
-		BEGIN
-			SET @rebaja = @precio_producto * (@cantidad_producto / 2);
-			IF @rebaja > 0
-				INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES (@venta_id, @oferta_id, @rebaja);
-			ELSE
-				SET @rebaja = NULL;
-		END
-		ELSE
-		IF (@oferta_tipo = 'porciento')
-		BEGIN
-			declare @porciento AS INT;
-			set @porciento = (SELECT porciento FROM OfertaPorciento WHERE oferta_id = @oferta_id) / 100;
-			SET @rebaja = @precio_producto * @porciento * @cantidad_producto;
+		SET @rebaja = @precio_producto * (@cantidad_producto / 2);
+		IF @rebaja > 0
 			INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES (@venta_id, @oferta_id, @rebaja);
-		END
+		ELSE
+			SET @rebaja = NULL;
 	END
+	ELSE IF (@oferta_tipo = 'porciento')
+	BEGIN
+		declare @porciento AS INT;
+		set @porciento = (SELECT porciento FROM OfertaPorciento WHERE oferta_id = @oferta_id) / 100;
+		SET @rebaja = @precio_producto * @porciento * @cantidad_producto;
+		INSERT INTO Venta_Ofertas (venta_id, oferta_id, rebaja) VALUES (@venta_id, @oferta_id, @rebaja);
+	END
+
 	IF (@rebaja IS NOT NULL)
 		UPDATE Venta SET total = (@total_actual - @rebaja) WHERE venta_id = @venta_id;
 	ELSE
@@ -568,4 +566,4 @@ END
 
 -- Ofertas
 SELECT Venta_Ofertas.oferta_id, Oferta.nombre FROM Venta_Ofertas INNER JOIN Oferta ON Venta_Ofertas.oferta_id = Oferta.oferta_id;
-SELECT Oferta.oferta_id, Oferta.nombre, Oferta.fecha_empieza, Oferta.fecha_termina, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad FROM Oferta
+SELECT Oferta.oferta_id, Oferta.nombre, Oferta.fecha_empieza, Oferta.fecha_termina, Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad FROM Oferta
