@@ -24,9 +24,9 @@ namespace Reportes
             try
             {
                 string urlReportServer = "http://localhost//Reportserver";
-                rptViewer.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
-                rptViewer.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
-                rptViewer.ServerReport.ReportPath = "/TestProject/Ventas"; //Passing the Report Path                
+                rptViewerVentas.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
+                rptViewerVentas.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
+                rptViewerVentas.ServerReport.ReportPath = "/TestProject/Ventas"; //Passing the Report Path                
 
                 ReportParameter[] param = new ReportParameter[2]; 
                 param[0] = new ReportParameter("fecha_empieza", dtpDesde.Value.ToShortDateString()); 
@@ -37,9 +37,9 @@ namespace Reportes
                 //  new ReportServerCredentials("uName", "PassWORD", "doMain");
 
                 //pass parmeters to report
-                rptViewer.ServerReport.SetParameters(param); //Set Report Parameters
-                rptViewer.ServerReport.Refresh();
-                rptViewer.RefreshReport();
+                rptViewerVentas.ServerReport.SetParameters(param); //Set Report Parameters
+                rptViewerVentas.ServerReport.Refresh();
+                rptViewerVentas.RefreshReport();
             }
             catch (Exception ex)
             {
@@ -56,7 +56,8 @@ namespace Reportes
         {
             // TODO: This line of code loads data into the 'heladeriaDataSet.Venta' table. You can move, or remove it, as needed.
 
-            this.rptViewer.RefreshReport();
+            this.rptViewerVentas.RefreshReport();
+            this.rptViewerOfertas.RefreshReport();
         }
     }
 }
