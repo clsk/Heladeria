@@ -278,6 +278,16 @@ DROP PROCEDURE sp_ComprobantesRegistrados;
 
 EXECUTE sp_ComprobantesRegistrados @fc_desde = '2013/03/23', @fc_hasta = '2013/03/25'
 
+use heladeria;
+CREATE PROCEDURE sp_ObetenerNFCParaVenta @venta_id INT
+AS
+BEGIN
+	DECLARE @no_nfc AS INT
+	SELECT @no_nfc = no_nfc FROM NFC WHERE venta_id IS NULL
+	UPDATE NFC SET venta_id = @venta_id WHERE no_nfc = @no_nfc
+	RETURN @no_nfc
+END
+
 /* ============== Triggers =================================*/
 
 drop trigger trg_CalcularTotalVenta
@@ -1079,7 +1089,7 @@ VALUES ('Barquilla Barquito', '08-10-2013'),
 DECLARE @fecha_empieza AS DATETIME, @fecha_termina AS DATETIME;
 SET @fecha_empieza = '3/1/2013';
 SET @fecha_termina = '3/31/2013'
-SELECT Venta.venta_id, Venta.fecha, Venta.forma_pago, Cliente.nombre + ' ' +  Cliente.apellido AS Cliente, Venta.total  FROM Venta LEFT JOIN Cliente ON Venta.cliente_id = Cliente.cliente_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina; 
+SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total / 18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
 
 drop function maskToDias
 CREATE FUNCTION maskToDias (@mask AS INT)
@@ -1109,5 +1119,4 @@ BEGIN
 END
 
 -- Ofertas
-SELECT Venta_Ofertas.oferta_id, Oferta.nombre FROM Venta_Ofertas INNER JOIN Oferta ON Venta_Ofertas.oferta_id = Oferta.oferta_id;
-SELECT Oferta.oferta_id, Oferta.nombre, Oferta.fecha_empieza, Oferta.fecha_termina, Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad FROM Oferta
+SELECT Oferta.oferta_id, Oferta.nombre, Oferta.fecha_empieza, Oferta.fecha_termina, Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad, (SELECT SUM(rebaja) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS 'Ahorro Clientes' FROM Oferta
