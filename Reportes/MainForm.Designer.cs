@@ -37,11 +37,14 @@
             this.tpOfertas = new System.Windows.Forms.TabPage();
             this.lblDesde = new System.Windows.Forms.Label();
             this.lblHasta = new System.Windows.Forms.Label();
-            this.tp = new System.Windows.Forms.TabPage();
+            this.tpCaja = new System.Windows.Forms.TabPage();
             this.rptViewerOfertas = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.tbImpuestos = new System.Windows.Forms.TabPage();
+            this.cbEmpleados = new System.Windows.Forms.ComboBox();
             this.tabControl.SuspendLayout();
             this.tpVentas.SuspendLayout();
             this.tpOfertas.SuspendLayout();
+            this.tpCaja.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtpDesde
@@ -79,7 +82,8 @@
             // 
             this.tabControl.Controls.Add(this.tpVentas);
             this.tabControl.Controls.Add(this.tpOfertas);
-            this.tabControl.Controls.Add(this.tp);
+            this.tabControl.Controls.Add(this.tpCaja);
+            this.tabControl.Controls.Add(this.tbImpuestos);
             this.tabControl.Location = new System.Drawing.Point(2, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -131,14 +135,15 @@
             this.lblHasta.TabIndex = 5;
             this.lblHasta.Text = "Hasta";
             // 
-            // tp
+            // tpCaja
             // 
-            this.tp.Location = new System.Drawing.Point(4, 22);
-            this.tp.Name = "tp";
-            this.tp.Size = new System.Drawing.Size(1105, 584);
-            this.tp.TabIndex = 2;
-            this.tp.Text = "tabPage1";
-            this.tp.UseVisualStyleBackColor = true;
+            this.tpCaja.Controls.Add(this.cbEmpleados);
+            this.tpCaja.Location = new System.Drawing.Point(4, 22);
+            this.tpCaja.Name = "tpCaja";
+            this.tpCaja.Size = new System.Drawing.Size(1105, 584);
+            this.tpCaja.TabIndex = 2;
+            this.tpCaja.Text = "Cuadre Caja";
+            this.tpCaja.UseVisualStyleBackColor = true;
             // 
             // rptViewerOfertas
             // 
@@ -148,6 +153,23 @@
             this.rptViewerOfertas.ServerReport.ReportPath = "/TestProject/Ofertas";
             this.rptViewerOfertas.Size = new System.Drawing.Size(1105, 588);
             this.rptViewerOfertas.TabIndex = 0;
+            // 
+            // tbImpuestos
+            // 
+            this.tbImpuestos.Location = new System.Drawing.Point(4, 22);
+            this.tbImpuestos.Name = "tbImpuestos";
+            this.tbImpuestos.Size = new System.Drawing.Size(1105, 584);
+            this.tbImpuestos.TabIndex = 3;
+            this.tbImpuestos.Text = "Impuestos";
+            this.tbImpuestos.UseVisualStyleBackColor = true;
+            // 
+            // cbEmpleados
+            // 
+            this.cbEmpleados.FormattingEnabled = true;
+            this.cbEmpleados.Location = new System.Drawing.Point(96, 102);
+            this.cbEmpleados.Name = "cbEmpleados";
+            this.cbEmpleados.Size = new System.Drawing.Size(183, 21);
+            this.cbEmpleados.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -162,6 +184,7 @@
             this.tpVentas.ResumeLayout(false);
             this.tpVentas.PerformLayout();
             this.tpOfertas.ResumeLayout(false);
+            this.tpCaja.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -177,8 +200,10 @@
         private System.Windows.Forms.TabPage tpOfertas;
         private System.Windows.Forms.Label lblHasta;
         private System.Windows.Forms.Label lblDesde;
-        private System.Windows.Forms.TabPage tp;
+        private System.Windows.Forms.TabPage tpCaja;
         private Microsoft.Reporting.WinForms.ReportViewer rptViewerOfertas;
+        private System.Windows.Forms.TabPage tbImpuestos;
+        private System.Windows.Forms.ComboBox cbEmpleados;
     }
 }
 

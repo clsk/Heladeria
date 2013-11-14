@@ -1,0 +1,1488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="heladeriaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="heladeriaModelStoreContainer">
+          <EntitySet Name="Caja" EntityType="heladeriaModel.Store.Caja" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Cliente" EntityType="heladeriaModel.Store.Cliente" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Empleado" EntityType="heladeriaModel.Store.Empleado" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="INFO" EntityType="heladeriaModel.Store.INFO" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NFC" EntityType="heladeriaModel.Store.NFC" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Oferta" EntityType="heladeriaModel.Store.Oferta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OfertaPorciento" EntityType="heladeriaModel.Store.OfertaPorciento" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orden" EntityType="heladeriaModel.Store.Orden" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Orden_Productos" EntityType="heladeriaModel.Store.Orden_Productos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Producto" EntityType="heladeriaModel.Store.Producto" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RegistroInventario" EntityType="heladeriaModel.Store.RegistroInventario" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="RegistroInventario_Productos" EntityType="heladeriaModel.Store.RegistroInventario_Productos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SaborHelado" EntityType="heladeriaModel.Store.SaborHelado" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Suplidor" EntityType="heladeriaModel.Store.Suplidor" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="heladeriaModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Turno" EntityType="heladeriaModel.Store.Turno" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Venta" EntityType="heladeriaModel.Store.Venta" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Venta_Ofertas" EntityType="heladeriaModel.Store.Venta_Ofertas" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Venta_Productos" EntityType="heladeriaModel.Store.Venta_Productos" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="caja_empleado_fk" Association="heladeriaModel.Store.caja_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_turno_fk" Association="heladeriaModel.Store.empleado_turno_fk">
+            <End Role="Turno" EntitySet="Turno" />
+            <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="inventario_empleado_fk" Association="heladeriaModel.Store.inventario_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="RegistroInventario" EntitySet="RegistroInventario" />
+          </AssociationSet>
+          <AssociationSet Name="inventario_fk" Association="heladeriaModel.Store.inventario_fk">
+            <End Role="RegistroInventario" EntitySet="RegistroInventario" />
+            <End Role="RegistroInventario_Productos" EntitySet="RegistroInventario_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="nfc_venta" Association="heladeriaModel.Store.nfc_venta">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="NFC" EntitySet="NFC" />
+          </AssociationSet>
+          <AssociationSet Name="oferta_producto_pk" Association="heladeriaModel.Store.oferta_producto_pk">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Oferta" EntitySet="Oferta" />
+          </AssociationSet>
+          <AssociationSet Name="orden_empleado_fk" Association="heladeriaModel.Store.orden_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="orden_producto_orden_fk" Association="heladeriaModel.Store.orden_producto_orden_fk">
+            <End Role="Orden" EntitySet="Orden" />
+            <End Role="Orden_Productos" EntitySet="Orden_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="orden_produto_producto_fk" Association="heladeriaModel.Store.orden_produto_producto_fk">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Orden_Productos" EntitySet="Orden_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="orden_suplidor_fk" Association="heladeriaModel.Store.orden_suplidor_fk">
+            <End Role="Suplidor" EntitySet="Suplidor" />
+            <End Role="Orden" EntitySet="Orden" />
+          </AssociationSet>
+          <AssociationSet Name="porciento_oferta_fk" Association="heladeriaModel.Store.porciento_oferta_fk">
+            <End Role="Oferta" EntitySet="Oferta" />
+            <End Role="OfertaPorciento" EntitySet="OfertaPorciento" />
+          </AssociationSet>
+          <AssociationSet Name="producto_fk" Association="heladeriaModel.Store.producto_fk">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="RegistroInventario_Productos" EntitySet="RegistroInventario_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="producto_id_fk" Association="heladeriaModel.Store.producto_id_fk">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Venta_Productos" EntitySet="Venta_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="sabor_helado_producto_fk" Association="heladeriaModel.Store.sabor_helado_producto_fk">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="SaborHelado" EntitySet="SaborHelado" />
+          </AssociationSet>
+          <AssociationSet Name="venta_caja_fk" Association="heladeriaModel.Store.venta_caja_fk">
+            <End Role="Caja" EntitySet="Caja" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="venta_cliente_fk" Association="heladeriaModel.Store.venta_cliente_fk">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="venta_id_fk" Association="heladeriaModel.Store.venta_id_fk">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="Venta_Productos" EntitySet="Venta_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="venta_ofertas_oferta_fk" Association="heladeriaModel.Store.venta_ofertas_oferta_fk">
+            <End Role="Oferta" EntitySet="Oferta" />
+            <End Role="Venta_Ofertas" EntitySet="Venta_Ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="venta_ofertas_venta_fk" Association="heladeriaModel.Store.venta_ofertas_venta_fk">
+            <End Role="Venta" EntitySet="Venta" />
+            <End Role="Venta_Ofertas" EntitySet="Venta_Ofertas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="caja_id" />
+          </Key>
+          <Property Name="caja_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="int" Nullable="false" />
+          <Property Name="cash_entrada" Type="money" Nullable="false" />
+          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="fecha_abre" Type="datetime" Nullable="false" />
+          <Property Name="fecha_cierra" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cliente_id" />
+          </Key>
+          <Property Name="cliente_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="apellido" Type="varchar" MaxLength="30" />
+          <Property Name="telefono" Type="varchar" Nullable="false" MaxLength="12" />
+          <Property Name="correo" Type="varchar" MaxLength="100" />
+          <Property Name="RNC" Type="varchar" MaxLength="15" />
+          <Property Name="calle" Type="varchar" MaxLength="100" />
+          <Property Name="no_casa" Type="varchar" MaxLength="100" />
+          <Property Name="sector" Type="varchar" MaxLength="50" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="no_tarjeta" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="empleado_id" />
+          </Key>
+          <Property Name="empleado_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="no_identificacion" Type="varchar" MaxLength="15" />
+          <Property Name="tipo_identificacion" Type="varchar" MaxLength="30" />
+          <Property Name="correo" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="varchar" Nullable="false" MaxLength="128" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="apellido" Type="varchar" MaxLength="30" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" />
+          <Property Name="calle" Type="varchar" MaxLength="50" />
+          <Property Name="no_casa" Type="varchar" MaxLength="50" />
+          <Property Name="sector" Type="varchar" MaxLength="50" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="turno_id" Type="int" />
+          <Property Name="supervisor" Type="bit" />
+        </EntityType>
+        <EntityType Name="INFO">
+          <Key>
+            <PropertyRef Name="llave" />
+          </Key>
+          <Property Name="llave" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="valor" Type="text" />
+        </EntityType>
+        <EntityType Name="NFC">
+          <Key>
+            <PropertyRef Name="no_nfc" />
+          </Key>
+          <Property Name="no_nfc" Type="int" Nullable="false" />
+          <Property Name="venta_id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="oferta_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="fecha_empieza" Type="date" Nullable="false" />
+          <Property Name="fecha_termina" Type="date" Nullable="false" />
+          <Property Name="dias_disponible" Type="int" Nullable="false" />
+          <Property Name="hora_disponible_termina" Type="time" Nullable="false" />
+          <Property Name="cantidad_maxima" Type="int" />
+          <Property Name="cantidad_minima" Type="int" />
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="hora_disponible_empieza" Type="time" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfertaPorciento">
+          <Key>
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="oferta_id" Type="int" Nullable="false" />
+          <Property Name="porciento" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="orden_id" />
+          </Key>
+          <Property Name="orden_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="int" Nullable="false" />
+          <Property Name="suplidor_id" Type="int" Nullable="false" />
+          <Property Name="NOTAS" Type="text" />
+          <Property Name="aceptada" Type="bit" />
+          <Property Name="fecha_aceptada" Type="date" />
+          <Property Name="despachada" Type="bit" />
+          <Property Name="fecha_despachada" Type="date" />
+          <Property Name="recibida" Type="bit" />
+          <Property Name="fecha_recibida" Type="date" />
+        </EntityType>
+        <EntityType Name="Orden_Productos">
+          <Key>
+            <PropertyRef Name="orden_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="orden_id" Type="int" Nullable="false" />
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="producto_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="etiqueta_negra" Type="bit" />
+          <Property Name="precio_venta" Type="money" />
+          <Property Name="precio_compra" Type="money" />
+        </EntityType>
+        <EntityType Name="RegistroInventario">
+          <Key>
+            <PropertyRef Name="inventario_id" />
+          </Key>
+          <Property Name="inventario_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="int" Nullable="false" />
+          <Property Name="notas" Type="text" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegistroInventario_Productos">
+          <Key>
+            <PropertyRef Name="producto_id" />
+            <PropertyRef Name="inventario_id" />
+          </Key>
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="inventario_id" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="decimal" Nullable="false" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="SaborHelado">
+          <Key>
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="temporal" Type="bit" />
+          <Property Name="principio_temporada" Type="date" />
+          <Property Name="fin_temporada" Type="date" />
+        </EntityType>
+        <EntityType Name="Suplidor">
+          <Key>
+            <PropertyRef Name="suplidor_id" />
+          </Key>
+          <Property Name="suplidor_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="descripcion" Type="varchar" MaxLength="30" />
+          <Property Name="calle" Type="varchar" MaxLength="50" />
+          <Property Name="calle_no" Type="varchar" MaxLength="30" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="turno_id" />
+          </Key>
+          <Property Name="turno_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="dias" Type="int" Nullable="false" />
+          <Property Name="hora_comienza" Type="time" Nullable="false" />
+          <Property Name="hora_termina" Type="time" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="venta_id" />
+          </Key>
+          <Property Name="venta_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_id" Type="int" />
+          <Property Name="caja_id" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="forma_pago" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="total" Type="money" />
+        </EntityType>
+        <EntityType Name="Venta_Ofertas">
+          <Key>
+            <PropertyRef Name="venta_id" />
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="venta_id" Type="bigint" Nullable="false" />
+          <Property Name="oferta_id" Type="int" Nullable="false" />
+          <Property Name="rebaja" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Venta_Productos">
+          <Key>
+            <PropertyRef Name="venta_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="venta_id" Type="bigint" Nullable="false" />
+          <Property Name="producto_id" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="caja_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="1" />
+          <End Role="Caja" Type="heladeriaModel.Store.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_turno_fk">
+          <End Role="Turno" Type="heladeriaModel.Store.Turno" Multiplicity="0..1" />
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turno">
+              <PropertyRef Name="turno_id" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="turno_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventario_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="1" />
+          <End Role="RegistroInventario" Type="heladeriaModel.Store.RegistroInventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventario_fk">
+          <End Role="RegistroInventario" Type="heladeriaModel.Store.RegistroInventario" Multiplicity="1" />
+          <End Role="RegistroInventario_Productos" Type="heladeriaModel.Store.RegistroInventario_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroInventario">
+              <PropertyRef Name="inventario_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario_Productos">
+              <PropertyRef Name="inventario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="nfc_venta">
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NFC" Type="heladeriaModel.Store.NFC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="NFC">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="oferta_producto_pk">
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
+          <End Role="Oferta" Type="heladeriaModel.Store.Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Oferta">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="1" />
+          <End Role="Orden" Type="heladeriaModel.Store.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_producto_orden_fk">
+          <End Role="Orden" Type="heladeriaModel.Store.Orden" Multiplicity="1" />
+          <End Role="Orden_Productos" Type="heladeriaModel.Store.Orden_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="orden_id" />
+            </Principal>
+            <Dependent Role="Orden_Productos">
+              <PropertyRef Name="orden_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_produto_producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
+          <End Role="Orden_Productos" Type="heladeriaModel.Store.Orden_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Orden_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_suplidor_fk">
+          <End Role="Suplidor" Type="heladeriaModel.Store.Suplidor" Multiplicity="1" />
+          <End Role="Orden" Type="heladeriaModel.Store.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplidor">
+              <PropertyRef Name="suplidor_id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="suplidor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="porciento_oferta_fk">
+          <End Role="Oferta" Type="heladeriaModel.Store.Oferta" Multiplicity="1" />
+          <End Role="OfertaPorciento" Type="heladeriaModel.Store.OfertaPorciento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Principal>
+            <Dependent Role="OfertaPorciento">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
+          <End Role="RegistroInventario_Productos" Type="heladeriaModel.Store.RegistroInventario_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="producto_id_fk">
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
+          <End Role="Venta_Productos" Type="heladeriaModel.Store.Venta_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Venta_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sabor_helado_producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
+          <End Role="SaborHelado" Type="heladeriaModel.Store.SaborHelado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="SaborHelado">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_caja_fk">
+          <End Role="Caja" Type="heladeriaModel.Store.Caja" Multiplicity="1" />
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="caja_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="caja_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_cliente_fk">
+          <End Role="Cliente" Type="heladeriaModel.Store.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cliente_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_id_fk">
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="1" />
+          <End Role="Venta_Productos" Type="heladeriaModel.Store.Venta_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="Venta_Productos">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_ofertas_oferta_fk">
+          <End Role="Oferta" Type="heladeriaModel.Store.Oferta" Multiplicity="1" />
+          <End Role="Venta_Ofertas" Type="heladeriaModel.Store.Venta_Ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Principal>
+            <Dependent Role="Venta_Ofertas">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_ofertas_venta_fk">
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="1" />
+          <End Role="Venta_Ofertas" Type="heladeriaModel.Store.Venta_Ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="Venta_Ofertas">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="maskToDias" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mask" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_CajaCerrada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fc_Inicia" Type="datetime" Mode="In" />
+          <Parameter Name="fc_Termina" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="sp_CreateCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="RNC" Type="varchar" Mode="In" />
+          <Parameter Name="calle" Type="varchar" Mode="In" />
+          <Parameter Name="no_casa" Type="varchar" Mode="In" />
+          <Parameter Name="sector" Type="varchar" Mode="In" />
+          <Parameter Name="ciudad" Type="varchar" Mode="In" />
+          <Parameter Name="provincia" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="sp_GetVentas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fecha_inicio" Type="date" Mode="In" />
+          <Parameter Name="fecha_final" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_InsertSaborHelado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="etiqueta_negra" Type="bit" Mode="In" />
+          <Parameter Name="precio_compra" Type="money" Mode="In" />
+          <Parameter Name="temporal" Type="bit" Mode="In" />
+          <Parameter Name="principio_temporada" Type="date" Mode="In" />
+          <Parameter Name="fin_temporada" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_ObetenerNFCParaVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="venta_id" Type="int" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="heladeriaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="heladeriaEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Cajas" EntityType="heladeriaModel.Caja" />
+          <EntitySet Name="Clientes" EntityType="heladeriaModel.Cliente" />
+          <EntitySet Name="Empleadoes" EntityType="heladeriaModel.Empleado" />
+          <EntitySet Name="INFOes" EntityType="heladeriaModel.INFO" />
+          <EntitySet Name="NFCs" EntityType="heladeriaModel.NFC" />
+          <EntitySet Name="Ofertas" EntityType="heladeriaModel.Oferta" />
+          <EntitySet Name="OfertaPorcientoes" EntityType="heladeriaModel.OfertaPorciento" />
+          <EntitySet Name="Ordens" EntityType="heladeriaModel.Orden" />
+          <EntitySet Name="Orden_Productos" EntityType="heladeriaModel.Orden_Productos" />
+          <EntitySet Name="Productoes" EntityType="heladeriaModel.Producto" />
+          <EntitySet Name="RegistroInventarios" EntityType="heladeriaModel.RegistroInventario" />
+          <EntitySet Name="RegistroInventario_Productos" EntityType="heladeriaModel.RegistroInventario_Productos" />
+          <EntitySet Name="SaborHeladoes" EntityType="heladeriaModel.SaborHelado" />
+          <EntitySet Name="Suplidors" EntityType="heladeriaModel.Suplidor" />
+          <EntitySet Name="sysdiagrams" EntityType="heladeriaModel.sysdiagram" />
+          <EntitySet Name="Turnoes" EntityType="heladeriaModel.Turno" />
+          <EntitySet Name="Ventas" EntityType="heladeriaModel.Venta" />
+          <EntitySet Name="Venta_Ofertas" EntityType="heladeriaModel.Venta_Ofertas" />
+          <EntitySet Name="Venta_Productos" EntityType="heladeriaModel.Venta_Productos" />
+          <AssociationSet Name="caja_empleado_fk" Association="heladeriaModel.caja_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Caja" EntitySet="Cajas" />
+          </AssociationSet>
+          <AssociationSet Name="venta_caja_fk" Association="heladeriaModel.venta_caja_fk">
+            <End Role="Caja" EntitySet="Cajas" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="venta_cliente_fk" Association="heladeriaModel.venta_cliente_fk">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="empleado_turno_fk" Association="heladeriaModel.empleado_turno_fk">
+            <End Role="Turno" EntitySet="Turnoes" />
+            <End Role="Empleado" EntitySet="Empleadoes" />
+          </AssociationSet>
+          <AssociationSet Name="inventario_empleado_fk" Association="heladeriaModel.inventario_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="RegistroInventario" EntitySet="RegistroInventarios" />
+          </AssociationSet>
+          <AssociationSet Name="orden_empleado_fk" Association="heladeriaModel.orden_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Orden" EntitySet="Ordens" />
+          </AssociationSet>
+          <AssociationSet Name="nfc_venta" Association="heladeriaModel.nfc_venta">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="NFC" EntitySet="NFCs" />
+          </AssociationSet>
+          <AssociationSet Name="oferta_producto_pk" Association="heladeriaModel.oferta_producto_pk">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Oferta" EntitySet="Ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="porciento_oferta_fk" Association="heladeriaModel.porciento_oferta_fk">
+            <End Role="Oferta" EntitySet="Ofertas" />
+            <End Role="OfertaPorciento" EntitySet="OfertaPorcientoes" />
+          </AssociationSet>
+          <AssociationSet Name="venta_ofertas_oferta_fk" Association="heladeriaModel.venta_ofertas_oferta_fk">
+            <End Role="Oferta" EntitySet="Ofertas" />
+            <End Role="Venta_Ofertas" EntitySet="Venta_Ofertas" />
+          </AssociationSet>
+          <AssociationSet Name="orden_producto_orden_fk" Association="heladeriaModel.orden_producto_orden_fk">
+            <End Role="Orden" EntitySet="Ordens" />
+            <End Role="Orden_Productos" EntitySet="Orden_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="orden_suplidor_fk" Association="heladeriaModel.orden_suplidor_fk">
+            <End Role="Suplidor" EntitySet="Suplidors" />
+            <End Role="Orden" EntitySet="Ordens" />
+          </AssociationSet>
+          <AssociationSet Name="orden_produto_producto_fk" Association="heladeriaModel.orden_produto_producto_fk">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Orden_Productos" EntitySet="Orden_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="producto_fk" Association="heladeriaModel.producto_fk">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="RegistroInventario_Productos" EntitySet="RegistroInventario_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="producto_id_fk" Association="heladeriaModel.producto_id_fk">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="Venta_Productos" EntitySet="Venta_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="sabor_helado_producto_fk" Association="heladeriaModel.sabor_helado_producto_fk">
+            <End Role="Producto" EntitySet="Productoes" />
+            <End Role="SaborHelado" EntitySet="SaborHeladoes" />
+          </AssociationSet>
+          <AssociationSet Name="inventario_fk" Association="heladeriaModel.inventario_fk">
+            <End Role="RegistroInventario" EntitySet="RegistroInventarios" />
+            <End Role="RegistroInventario_Productos" EntitySet="RegistroInventario_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="venta_id_fk" Association="heladeriaModel.venta_id_fk">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="Venta_Productos" EntitySet="Venta_Productos" />
+          </AssociationSet>
+          <AssociationSet Name="venta_ofertas_venta_fk" Association="heladeriaModel.venta_ofertas_venta_fk">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="Venta_Ofertas" EntitySet="Venta_Ofertas" />
+          </AssociationSet>
+          <FunctionImport Name="sp_CajaCerrada" ReturnType="Collection(heladeriaModel.sp_CajaCerrada_Result)">
+            <Parameter Name="fc_Inicia" Mode="In" Type="DateTime" />
+            <Parameter Name="fc_Termina" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_CreateCliente">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="RNC" Mode="In" Type="String" />
+            <Parameter Name="calle" Mode="In" Type="String" />
+            <Parameter Name="no_casa" Mode="In" Type="String" />
+            <Parameter Name="sector" Mode="In" Type="String" />
+            <Parameter Name="ciudad" Mode="In" Type="String" />
+            <Parameter Name="provincia" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_GetVentas" ReturnType="Collection(heladeriaModel.sp_GetVentas_Result)">
+            <Parameter Name="fecha_inicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fecha_final" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsertSaborHelado">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="etiqueta_negra" Mode="In" Type="Boolean" />
+            <Parameter Name="precio_compra" Mode="In" Type="Decimal" />
+            <Parameter Name="temporal" Mode="In" Type="Boolean" />
+            <Parameter Name="principio_temporada" Mode="In" Type="DateTime" />
+            <Parameter Name="fin_temporada" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObetenerNFCParaVenta">
+            <Parameter Name="venta_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Caja">
+          <Key>
+            <PropertyRef Name="caja_id" />
+          </Key>
+          <Property Name="caja_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="Int32" Nullable="false" />
+          <Property Name="cash_entrada" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="fecha_abre" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fecha_cierra" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empleado" Relationship="heladeriaModel.caja_empleado_fk" FromRole="Caja" ToRole="Empleado" />
+          <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_caja_fk" FromRole="Caja" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cliente_id" />
+          </Key>
+          <Property Name="cliente_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="apellido" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="correo" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="RNC" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="calle" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="no_casa" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="sector" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ciudad" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="no_tarjeta" Type="Int16" />
+          <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_cliente_fk" FromRole="Cliente" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="empleado_id" />
+          </Key>
+          <Property Name="empleado_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="no_identificacion" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+          <Property Name="tipo_identificacion" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="128" Unicode="false" FixedLength="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="apellido" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="telefono" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="calle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="no_casa" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="sector" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ciudad" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="turno_id" Type="Int32" />
+          <Property Name="supervisor" Type="Boolean" />
+          <NavigationProperty Name="Cajas" Relationship="heladeriaModel.caja_empleado_fk" FromRole="Empleado" ToRole="Caja" />
+          <NavigationProperty Name="Turno" Relationship="heladeriaModel.empleado_turno_fk" FromRole="Empleado" ToRole="Turno" />
+          <NavigationProperty Name="RegistroInventarios" Relationship="heladeriaModel.inventario_empleado_fk" FromRole="Empleado" ToRole="RegistroInventario" />
+          <NavigationProperty Name="Ordens" Relationship="heladeriaModel.orden_empleado_fk" FromRole="Empleado" ToRole="Orden" />
+        </EntityType>
+        <EntityType Name="INFO">
+          <Key>
+            <PropertyRef Name="llave" />
+          </Key>
+          <Property Name="llave" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="valor" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="NFC">
+          <Key>
+            <PropertyRef Name="no_nfc" />
+          </Key>
+          <Property Name="no_nfc" Type="Int32" Nullable="false" />
+          <Property Name="venta_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Venta" Relationship="heladeriaModel.nfc_venta" FromRole="NFC" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Oferta">
+          <Key>
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="oferta_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="fecha_empieza" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fecha_termina" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dias_disponible" Type="Int32" Nullable="false" />
+          <Property Name="hora_disponible_termina" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="cantidad_maxima" Type="Int32" />
+          <Property Name="cantidad_minima" Type="Int32" />
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="hora_disponible_empieza" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Producto" Relationship="heladeriaModel.oferta_producto_pk" FromRole="Oferta" ToRole="Producto" />
+          <NavigationProperty Name="OfertaPorciento" Relationship="heladeriaModel.porciento_oferta_fk" FromRole="Oferta" ToRole="OfertaPorciento" />
+          <NavigationProperty Name="Venta_Ofertas" Relationship="heladeriaModel.venta_ofertas_oferta_fk" FromRole="Oferta" ToRole="Venta_Ofertas" />
+        </EntityType>
+        <EntityType Name="OfertaPorciento">
+          <Key>
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="oferta_id" Type="Int32" Nullable="false" />
+          <Property Name="porciento" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Oferta" Relationship="heladeriaModel.porciento_oferta_fk" FromRole="OfertaPorciento" ToRole="Oferta" />
+        </EntityType>
+        <EntityType Name="Orden">
+          <Key>
+            <PropertyRef Name="orden_id" />
+          </Key>
+          <Property Name="orden_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="Int32" Nullable="false" />
+          <Property Name="suplidor_id" Type="Int32" Nullable="false" />
+          <Property Name="NOTAS" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="aceptada" Type="Boolean" />
+          <Property Name="fecha_aceptada" Type="DateTime" Precision="0" />
+          <Property Name="despachada" Type="Boolean" />
+          <Property Name="fecha_despachada" Type="DateTime" Precision="0" />
+          <Property Name="recibida" Type="Boolean" />
+          <Property Name="fecha_recibida" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Empleado" Relationship="heladeriaModel.orden_empleado_fk" FromRole="Orden" ToRole="Empleado" />
+          <NavigationProperty Name="Orden_Productos" Relationship="heladeriaModel.orden_producto_orden_fk" FromRole="Orden" ToRole="Orden_Productos" />
+          <NavigationProperty Name="Suplidor" Relationship="heladeriaModel.orden_suplidor_fk" FromRole="Orden" ToRole="Suplidor" />
+        </EntityType>
+        <EntityType Name="Orden_Productos">
+          <Key>
+            <PropertyRef Name="orden_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="orden_id" Type="Int32" Nullable="false" />
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orden" Relationship="heladeriaModel.orden_producto_orden_fk" FromRole="Orden_Productos" ToRole="Orden" />
+          <NavigationProperty Name="Producto" Relationship="heladeriaModel.orden_produto_producto_fk" FromRole="Orden_Productos" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="producto_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="etiqueta_negra" Type="Boolean" />
+          <Property Name="precio_venta" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="precio_compra" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Ofertas" Relationship="heladeriaModel.oferta_producto_pk" FromRole="Producto" ToRole="Oferta" />
+          <NavigationProperty Name="Orden_Productos" Relationship="heladeriaModel.orden_produto_producto_fk" FromRole="Producto" ToRole="Orden_Productos" />
+          <NavigationProperty Name="RegistroInventario_Productos" Relationship="heladeriaModel.producto_fk" FromRole="Producto" ToRole="RegistroInventario_Productos" />
+          <NavigationProperty Name="Venta_Productos" Relationship="heladeriaModel.producto_id_fk" FromRole="Producto" ToRole="Venta_Productos" />
+          <NavigationProperty Name="SaborHelado" Relationship="heladeriaModel.sabor_helado_producto_fk" FromRole="Producto" ToRole="SaborHelado" />
+        </EntityType>
+        <EntityType Name="RegistroInventario">
+          <Key>
+            <PropertyRef Name="inventario_id" />
+          </Key>
+          <Property Name="inventario_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="empleado_id" Type="Int32" Nullable="false" />
+          <Property Name="notas" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Empleado" Relationship="heladeriaModel.inventario_empleado_fk" FromRole="RegistroInventario" ToRole="Empleado" />
+          <NavigationProperty Name="RegistroInventario_Productos" Relationship="heladeriaModel.inventario_fk" FromRole="RegistroInventario" ToRole="RegistroInventario_Productos" />
+        </EntityType>
+        <EntityType Name="RegistroInventario_Productos">
+          <Key>
+            <PropertyRef Name="producto_id" />
+            <PropertyRef Name="inventario_id" />
+          </Key>
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="inventario_id" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Producto" Relationship="heladeriaModel.producto_fk" FromRole="RegistroInventario_Productos" ToRole="Producto" />
+          <NavigationProperty Name="RegistroInventario" Relationship="heladeriaModel.inventario_fk" FromRole="RegistroInventario_Productos" ToRole="RegistroInventario" />
+        </EntityType>
+        <EntityType Name="SaborHelado">
+          <Key>
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="temporal" Type="Boolean" />
+          <Property Name="principio_temporada" Type="DateTime" Precision="0" />
+          <Property Name="fin_temporada" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Producto" Relationship="heladeriaModel.sabor_helado_producto_fk" FromRole="SaborHelado" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Suplidor">
+          <Key>
+            <PropertyRef Name="suplidor_id" />
+          </Key>
+          <Property Name="suplidor_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="descripcion" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="calle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="calle_no" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="ciudad" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="telefono" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Ordens" Relationship="heladeriaModel.orden_suplidor_fk" FromRole="Suplidor" ToRole="Orden" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Turno">
+          <Key>
+            <PropertyRef Name="turno_id" />
+          </Key>
+          <Property Name="turno_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="dias" Type="Int32" Nullable="false" />
+          <Property Name="hora_comienza" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hora_termina" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Empleadoes" Relationship="heladeriaModel.empleado_turno_fk" FromRole="Turno" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="Venta">
+          <Key>
+            <PropertyRef Name="venta_id" />
+          </Key>
+          <Property Name="venta_id" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="cliente_id" Type="Int32" />
+          <Property Name="caja_id" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="forma_pago" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Caja" Relationship="heladeriaModel.venta_caja_fk" FromRole="Venta" ToRole="Caja" />
+          <NavigationProperty Name="Cliente" Relationship="heladeriaModel.venta_cliente_fk" FromRole="Venta" ToRole="Cliente" />
+          <NavigationProperty Name="NFCs" Relationship="heladeriaModel.nfc_venta" FromRole="Venta" ToRole="NFC" />
+          <NavigationProperty Name="Venta_Productos" Relationship="heladeriaModel.venta_id_fk" FromRole="Venta" ToRole="Venta_Productos" />
+          <NavigationProperty Name="Venta_Ofertas" Relationship="heladeriaModel.venta_ofertas_venta_fk" FromRole="Venta" ToRole="Venta_Ofertas" />
+        </EntityType>
+        <EntityType Name="Venta_Ofertas">
+          <Key>
+            <PropertyRef Name="venta_id" />
+            <PropertyRef Name="oferta_id" />
+          </Key>
+          <Property Name="venta_id" Type="Int64" Nullable="false" />
+          <Property Name="oferta_id" Type="Int32" Nullable="false" />
+          <Property Name="rebaja" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="Oferta" Relationship="heladeriaModel.venta_ofertas_oferta_fk" FromRole="Venta_Ofertas" ToRole="Oferta" />
+          <NavigationProperty Name="Venta" Relationship="heladeriaModel.venta_ofertas_venta_fk" FromRole="Venta_Ofertas" ToRole="Venta" />
+        </EntityType>
+        <EntityType Name="Venta_Productos">
+          <Key>
+            <PropertyRef Name="venta_id" />
+            <PropertyRef Name="producto_id" />
+          </Key>
+          <Property Name="venta_id" Type="Int64" Nullable="false" />
+          <Property Name="producto_id" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="heladeriaModel.producto_id_fk" FromRole="Venta_Productos" ToRole="Producto" />
+          <NavigationProperty Name="Venta" Relationship="heladeriaModel.venta_id_fk" FromRole="Venta_Productos" ToRole="Venta" />
+        </EntityType>
+        <Association Name="caja_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Empleado" Multiplicity="1" />
+          <End Role="Caja" Type="heladeriaModel.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_caja_fk">
+          <End Role="Caja" Type="heladeriaModel.Caja" Multiplicity="1" />
+          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caja">
+              <PropertyRef Name="caja_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="caja_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_cliente_fk">
+          <End Role="Cliente" Type="heladeriaModel.Cliente" Multiplicity="0..1" />
+          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cliente_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empleado_turno_fk">
+          <End Role="Turno" Type="heladeriaModel.Turno" Multiplicity="0..1" />
+          <End Role="Empleado" Type="heladeriaModel.Empleado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Turno">
+              <PropertyRef Name="turno_id" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="turno_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventario_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Empleado" Multiplicity="1" />
+          <End Role="RegistroInventario" Type="heladeriaModel.RegistroInventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Empleado" Multiplicity="1" />
+          <End Role="Orden" Type="heladeriaModel.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="empleado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="nfc_venta">
+          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="NFC" Type="heladeriaModel.NFC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="NFC">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="oferta_producto_pk">
+          <End Role="Producto" Type="heladeriaModel.Producto" Multiplicity="1" />
+          <End Role="Oferta" Type="heladeriaModel.Oferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Oferta">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="porciento_oferta_fk">
+          <End Role="Oferta" Type="heladeriaModel.Oferta" Multiplicity="1" />
+          <End Role="OfertaPorciento" Type="heladeriaModel.OfertaPorciento" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Principal>
+            <Dependent Role="OfertaPorciento">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_ofertas_oferta_fk">
+          <End Role="Oferta" Type="heladeriaModel.Oferta" Multiplicity="1" />
+          <End Role="Venta_Ofertas" Type="heladeriaModel.Venta_Ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oferta">
+              <PropertyRef Name="oferta_id" />
+            </Principal>
+            <Dependent Role="Venta_Ofertas">
+              <PropertyRef Name="oferta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_producto_orden_fk">
+          <End Role="Orden" Type="heladeriaModel.Orden" Multiplicity="1" />
+          <End Role="Orden_Productos" Type="heladeriaModel.Orden_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orden">
+              <PropertyRef Name="orden_id" />
+            </Principal>
+            <Dependent Role="Orden_Productos">
+              <PropertyRef Name="orden_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_suplidor_fk">
+          <End Role="Suplidor" Type="heladeriaModel.Suplidor" Multiplicity="1" />
+          <End Role="Orden" Type="heladeriaModel.Orden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplidor">
+              <PropertyRef Name="suplidor_id" />
+            </Principal>
+            <Dependent Role="Orden">
+              <PropertyRef Name="suplidor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="orden_produto_producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Producto" Multiplicity="1" />
+          <End Role="Orden_Productos" Type="heladeriaModel.Orden_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Orden_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Producto" Multiplicity="1" />
+          <End Role="RegistroInventario_Productos" Type="heladeriaModel.RegistroInventario_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="producto_id_fk">
+          <End Role="Producto" Type="heladeriaModel.Producto" Multiplicity="1" />
+          <End Role="Venta_Productos" Type="heladeriaModel.Venta_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="Venta_Productos">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sabor_helado_producto_fk">
+          <End Role="Producto" Type="heladeriaModel.Producto" Multiplicity="1" />
+          <End Role="SaborHelado" Type="heladeriaModel.SaborHelado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="producto_id" />
+            </Principal>
+            <Dependent Role="SaborHelado">
+              <PropertyRef Name="producto_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="inventario_fk">
+          <End Role="RegistroInventario" Type="heladeriaModel.RegistroInventario" Multiplicity="1" />
+          <End Role="RegistroInventario_Productos" Type="heladeriaModel.RegistroInventario_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RegistroInventario">
+              <PropertyRef Name="inventario_id" />
+            </Principal>
+            <Dependent Role="RegistroInventario_Productos">
+              <PropertyRef Name="inventario_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_id_fk">
+          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="1" />
+          <End Role="Venta_Productos" Type="heladeriaModel.Venta_Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="Venta_Productos">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_ofertas_venta_fk">
+          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="1" />
+          <End Role="Venta_Ofertas" Type="heladeriaModel.Venta_Ofertas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="Venta_Ofertas">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_CajaCerrada_Result">
+          <Property Type="Int32" Name="caja_id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_cierra" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="cash_entrada" Nullable="false" Precision="19" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="apellido" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="sp_GetVentas_Result">
+          <Property Type="Int64" Name="venta_id" Nullable="false" />
+          <Property Type="Int32" Name="cliente_id" Nullable="true" />
+          <Property Type="Int32" Name="caja_id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" Precision="23" />
+          <Property Type="String" Name="forma_pago" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="heladeriaModelStoreContainer" CdmEntityContainer="heladeriaEntities">
+          <EntitySetMapping Name="Cajas">
+            <EntityTypeMapping TypeName="heladeriaModel.Caja">
+              <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="caja_id" ColumnName="caja_id" />
+                <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
+                <ScalarProperty Name="cash_entrada" ColumnName="cash_entrada" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha_abre" ColumnName="fecha_abre" />
+                <ScalarProperty Name="fecha_cierra" ColumnName="fecha_cierra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="heladeriaModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="RNC" ColumnName="RNC" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="no_casa" ColumnName="no_casa" />
+                <ScalarProperty Name="sector" ColumnName="sector" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="no_tarjeta" ColumnName="no_tarjeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleadoes">
+            <EntityTypeMapping TypeName="heladeriaModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
+                <ScalarProperty Name="no_identificacion" ColumnName="no_identificacion" />
+                <ScalarProperty Name="tipo_identificacion" ColumnName="tipo_identificacion" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="no_casa" ColumnName="no_casa" />
+                <ScalarProperty Name="sector" ColumnName="sector" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="turno_id" ColumnName="turno_id" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INFOes">
+            <EntityTypeMapping TypeName="heladeriaModel.INFO">
+              <MappingFragment StoreEntitySet="INFO">
+                <ScalarProperty Name="llave" ColumnName="llave" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NFCs">
+            <EntityTypeMapping TypeName="heladeriaModel.NFC">
+              <MappingFragment StoreEntitySet="NFC">
+                <ScalarProperty Name="no_nfc" ColumnName="no_nfc" />
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ofertas">
+            <EntityTypeMapping TypeName="heladeriaModel.Oferta">
+              <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_empieza" ColumnName="fecha_empieza" />
+                <ScalarProperty Name="fecha_termina" ColumnName="fecha_termina" />
+                <ScalarProperty Name="dias_disponible" ColumnName="dias_disponible" />
+                <ScalarProperty Name="hora_disponible_termina" ColumnName="hora_disponible_termina" />
+                <ScalarProperty Name="cantidad_maxima" ColumnName="cantidad_maxima" />
+                <ScalarProperty Name="cantidad_minima" ColumnName="cantidad_minima" />
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="hora_disponible_empieza" ColumnName="hora_disponible_empieza" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfertaPorcientoes">
+            <EntityTypeMapping TypeName="heladeriaModel.OfertaPorciento">
+              <MappingFragment StoreEntitySet="OfertaPorciento">
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+                <ScalarProperty Name="porciento" ColumnName="porciento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordens">
+            <EntityTypeMapping TypeName="heladeriaModel.Orden">
+              <MappingFragment StoreEntitySet="Orden">
+                <ScalarProperty Name="orden_id" ColumnName="orden_id" />
+                <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
+                <ScalarProperty Name="suplidor_id" ColumnName="suplidor_id" />
+                <ScalarProperty Name="NOTAS" ColumnName="NOTAS" />
+                <ScalarProperty Name="aceptada" ColumnName="aceptada" />
+                <ScalarProperty Name="fecha_aceptada" ColumnName="fecha_aceptada" />
+                <ScalarProperty Name="despachada" ColumnName="despachada" />
+                <ScalarProperty Name="fecha_despachada" ColumnName="fecha_despachada" />
+                <ScalarProperty Name="recibida" ColumnName="recibida" />
+                <ScalarProperty Name="fecha_recibida" ColumnName="fecha_recibida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orden_Productos">
+            <EntityTypeMapping TypeName="heladeriaModel.Orden_Productos">
+              <MappingFragment StoreEntitySet="Orden_Productos">
+                <ScalarProperty Name="orden_id" ColumnName="orden_id" />
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="heladeriaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="etiqueta_negra" ColumnName="etiqueta_negra" />
+                <ScalarProperty Name="precio_venta" ColumnName="precio_venta" />
+                <ScalarProperty Name="precio_compra" ColumnName="precio_compra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroInventarios">
+            <EntityTypeMapping TypeName="heladeriaModel.RegistroInventario">
+              <MappingFragment StoreEntitySet="RegistroInventario">
+                <ScalarProperty Name="inventario_id" ColumnName="inventario_id" />
+                <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
+                <ScalarProperty Name="notas" ColumnName="notas" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistroInventario_Productos">
+            <EntityTypeMapping TypeName="heladeriaModel.RegistroInventario_Productos">
+              <MappingFragment StoreEntitySet="RegistroInventario_Productos">
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="inventario_id" ColumnName="inventario_id" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaborHeladoes">
+            <EntityTypeMapping TypeName="heladeriaModel.SaborHelado">
+              <MappingFragment StoreEntitySet="SaborHelado">
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="temporal" ColumnName="temporal" />
+                <ScalarProperty Name="principio_temporada" ColumnName="principio_temporada" />
+                <ScalarProperty Name="fin_temporada" ColumnName="fin_temporada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suplidors">
+            <EntityTypeMapping TypeName="heladeriaModel.Suplidor">
+              <MappingFragment StoreEntitySet="Suplidor">
+                <ScalarProperty Name="suplidor_id" ColumnName="suplidor_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="calle_no" ColumnName="calle_no" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="heladeriaModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Turnoes">
+            <EntityTypeMapping TypeName="heladeriaModel.Turno">
+              <MappingFragment StoreEntitySet="Turno">
+                <ScalarProperty Name="turno_id" ColumnName="turno_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="dias" ColumnName="dias" />
+                <ScalarProperty Name="hora_comienza" ColumnName="hora_comienza" />
+                <ScalarProperty Name="hora_termina" ColumnName="hora_termina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventas">
+            <EntityTypeMapping TypeName="heladeriaModel.Venta">
+              <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="caja_id" ColumnName="caja_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta_Ofertas">
+            <EntityTypeMapping TypeName="heladeriaModel.Venta_Ofertas">
+              <MappingFragment StoreEntitySet="Venta_Ofertas">
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+                <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
+                <ScalarProperty Name="rebaja" ColumnName="rebaja" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Venta_Productos">
+            <EntityTypeMapping TypeName="heladeriaModel.Venta_Productos">
+              <MappingFragment StoreEntitySet="Venta_Productos">
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+                <ScalarProperty Name="producto_id" ColumnName="producto_id" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_CajaCerrada" FunctionName="heladeriaModel.Store.sp_CajaCerrada">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="heladeriaModel.sp_CajaCerrada_Result">
+                <ScalarProperty Name="caja_id" ColumnName="caja_id" />
+                <ScalarProperty Name="fecha_cierra" ColumnName="fecha_cierra" />
+                <ScalarProperty Name="cash_entrada" ColumnName="cash_entrada" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CreateCliente" FunctionName="heladeriaModel.Store.sp_CreateCliente" />
+          <FunctionImportMapping FunctionImportName="sp_GetVentas" FunctionName="heladeriaModel.Store.sp_GetVentas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="heladeriaModel.sp_GetVentas_Result">
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="caja_id" ColumnName="caja_id" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertSaborHelado" FunctionName="heladeriaModel.Store.sp_InsertSaborHelado" />
+          <FunctionImportMapping FunctionImportName="sp_ObetenerNFCParaVenta" FunctionName="heladeriaModel.Store.sp_ObetenerNFCParaVenta" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

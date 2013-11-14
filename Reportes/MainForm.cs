@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Reporting.WinForms;
 using System.Collections;
+using DataLayer;
 
 namespace Reportes
 {
@@ -58,6 +59,21 @@ namespace Reportes
 
             this.rptViewerVentas.RefreshReport();
             this.rptViewerOfertas.RefreshReport();
+
+            try
+            {
+                var empleados = Empleados.GetEmpleados();
+                cbEmpleados.DataSource = empleados;
+                foreach (Empleado empleado in empleados)
+                {
+                    MessageBox.Show(empleado.nombre + ' ' + empleado.apellido);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
     }
 }
