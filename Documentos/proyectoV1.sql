@@ -363,6 +363,7 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 ('Alex', 'Figuereo', '829-458-2948', 'afiguereo@correo.com', '130156964', 'Calle F', '#65', 'Bella Vista', 'Santo Domingo', 'D.N.'),
 ('Ramon', 'Alcantara', '829-432-9481', 'ra@correo.com', '184930485', 'Calle C', '#89', 'Naco', 'Santo Domingo', 'D.N.');
 
+
 INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sector, ciudad, provincia) VALUES 
 ('Ana', 'Gonzalez', '829-123-3489', 'agonz23@yahoo.com', '341-2524731-2', 'Los Robles', 'Edif. Jose, Apart. 21', 'La Julia', 'Santo Domingo', 'D.N'),
 ('Yunik', 'Rafavelo', '809-482-1381', 'rsayunik@outlook.com', '313-3541652-4', 'Atalaya', 'Casa No. 13', 'La Julia', 'Santo Domingo', 'D.N'),
@@ -1045,6 +1046,57 @@ INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES
 (NULL, 2, '3/23/2013 14:23:03', 'efectivo'),
 (NULL, 2, '3/23/2013 14:32:02', 'efectivo'),
 (NULL, 2, '3/23/2013 14:42:33', 'efectivo');
+
+
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 4, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (2, 1, 4);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (3, 6, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (3, 2, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (4, 4, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (4, 3, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (5, 1, 6);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (6, 3, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (6, 2, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (7, 8, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (8, 1, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (8, 7, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (9, 2, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (9, 3, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (10, 6, 3);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (10, 1, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (11, 6, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (11, 9, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (12, 4, 4);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (13, 6, 7);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (14, 1, 8);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (14, 2, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (15, 4, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (15, 6, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (16, 7, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (16, 3, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (17, 8, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (17, 5, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (18, 3, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (19, 10, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (19, 6, 3);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (20, 1, 7);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (20, 3, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (20, 12, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (21, 7, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (21, 6, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (21, 8, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (22, 11, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (22, 3, 3);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (23, 6, 4);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (23, 5, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (24, 5, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (24, 6, 4);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (25, 8, 3);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (25, 10, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (26, 14, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
 
 /* Test venta trigger */
 select * from venta;
