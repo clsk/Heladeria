@@ -281,7 +281,7 @@ CREATE PROCEDURE sp_ComprobantesRegistrados
 AS
 BEGIN
 	(
-		SELECT NCF.no_NCF, (Cliente.nombre + ' ' + Cliente.apellido) as Nombre, Cliente.RNC, Venta.total, CONVERT(DECIMAL(10,2), (Venta.total * 0.18)) as MontoITBIS
+		SELECT NCF.no_NCF, (Cliente.nombre + ' ' + Cliente.apellido) as Cliente, Cliente.RNC, Venta.total, CONVERT(DECIMAL(10,2), (Venta.total * 0.18)) as MontoITBIS
 		FROM NCF INNER JOIN Venta
 		ON NCF.venta_id=Venta.venta_id INNER JOIN Cliente
 		ON Cliente.cliente_id=Venta.cliente_id
