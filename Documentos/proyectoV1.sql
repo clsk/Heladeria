@@ -1120,6 +1120,82 @@ INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
 
+/*Tabla Suplidor*/
+INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, telefono)
+VALUES ('Don Confinteria', 'Conos, Chispas y demás', 'Juana Saltitopa', 'No. 42', 'D. N.', 'Santo Domingo', '809-234-5235'),
+	('Kids Party', 'Decoraciones Festivas', 'Plaza Naco', 'Local 23', 'D. N.', 'Santo Domingo', '809-125-2352'),
+	('Central Bon', 'Helados, Mermeladas, Otros', 'Zona Industrial de Herrera', 'No. 45', 'D. N.', 'Santo Domingo', '809-523-5123')
+
+/*Orden*/
+INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, fecha_aceptada, fecha_despachada, recibida, fecha_recibida)
+VALUES (7, 3, 'Pedido Semanal de Helados', 1, '2013/03/17', '2013/03/22', 1,'2013/03/22'),
+	(4, 2, 'Pedido Materiales para Decorar', 1, '2013/03/25', '2013/03/26', 1,'2013/03/26'),
+	(5, 3, 'Pedido Semanal de Helados', 1, '2013/03/25', '2013/03/29', 1,'2013/03/29'),
+	(2, 1, 'Pedido Conos', 1, '2013/03/26', '2013/03/27', 1,'2013/03/27'),
+	(7, 3, 'Pedido Quincenal de Envases', 1, '2013/03/30', '2013/04/02', 1,'2013/04/02'),
+	(6, 3, 'Pedido Semanal de Helados', 1, '2013/04/01', '2013/04/05', 1,'2013/04/05'),
+	(7, 3, 'Pedido Semanal de Helados', 1, '2013/04/08', '2013/04/13', 1,'2013/03/13'),
+	(4, 3, 'Pedido Quincenal de Envases', 1, '2013/04/15', '2013/04/20', 1,'2013/04/20'),
+	(5, 3, 'Pedido Semanal de Helados', 1, '2013/04/22', '2013/04/27', 1,'2013/04/27'),
+	(2, 3, 'Pedido Quincenal de Envases', 1, '2013/04/30', '2013/05/03', 1,'2013/05/03'),
+	(4, 1, 'Pedido Conos', 1, '2013/04/29', '2013/04/30', 1,'2013/04/30'),
+	(6, 2, 'Pedido Materiales para Decorar', 1, '2013/05/15', '2013/05/16', 1,'2013/05/16'),
+	(2, 3, 'Pedido Quincenal de Envases', 1, '2013/05/15', '2013/05/17', 1,'2013/05/17'),
+	(7, 3, 'Pedido Semanal de Helados', 1, '2013/05/20', '2013/05/25', 1,'2013/05/25'),
+	(4, 3, 'Pedido Semanal de Helados', 1, '2013/05/27', '2013/06/01', 1,'2013/06/01'),
+	(6, 1, 'Pedido Conos', 1, '2013/05/28', '2013/05/29', 1,'2013/05/29'),
+	(5, 3, 'Pedido Quincenal de Envases', 1, '2013/06/03', '2013/06/08', 1,'2013/06/08'),
+	(2, 3, 'Pedido Semanal de Helados', 1, '2013/06/10', '2013/06/15', 1,'2013/06/15'),
+	(2, 1, 'Pedido Conos', 1, '2013/06/10', '2013/06/11', 1,'2013/06/11'),
+	(7, 3, 'Pedido Semanal de Helados', 1, '2013/06/15', '2013/06/22', 1,'2013/06/22'),
+	(5, 3, 'Pedido Semanal de Helados', 1, '2013/06/24', '2013/06/29', 1,'2013/06/29')
+
+INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, despachada, fecha_despachada, recibida, fecha_recibida) VALUES
+(1, 3, NULL,0, 0, '5/10/2013',0, '5/10/2013'),
+(5, 3, NULL,0, 0, '5/11/2013',0, '5/11/2013'),
+(2, 3, NULL,1, 1, '5/12/2013',1, '5/12/2013'),
+(4, 3, NULL,0,0, '5/13/2013',1, '5/13/2013'),
+(4, 3, NULL,0,1, '5/14/2013',0, '5/14/2013'),
+(2, 2, NULL,1,1, '5/15/2013',0, '5/15/2013'),
+(1, 3, NULL,0,0, '5/16/2013',0, '5/16/2013'),
+(3, 2, NULL,1,1, '5/17/2013',0, '5/17/2013'),
+(4, 3, NULL,0,0, '5/18/2013',0, '5/18/2013'),
+(2, 3, NULL,0,1, '5/19/2013',0, '5/19/2013'),
+(5, 3, NULL,0,1, '5/20/2013',1, '5/20/2013'),
+(1, 2, NULL,0,1, '5/21/2013',0, '5/21/2013'),
+(3, 2, NULL,0,0, '5/22/2013',0, '5/22/2013'),
+(2, 2, NULL,0,0, '5/23/2013',0, '5/23/2013'),
+(1, 1, NULL,1,1, '5/24/2013',0, '5/24/2013'),
+(5, 2, NULL,0,0, '5/25/2013',1, '5/25/2013'),
+(2, 1, NULL,0,1, '5/26/2013',0, '5/26/2013'),
+(3, 3, NULL,1,1, '5/27/2013',0, '5/27/2013'),
+(1, 1, NULL,1,0, '5/28/2013',1, '5/28/2013'),
+(2, 2, NULL,0,0, '5/29/2013',1, '5/29/2013'),
+(4, 3, NULL,1,0, '6/1/2013',0, '6/1/2013'),
+(4, 1, NULL,0,0, '6/2/2013',1, '6/2/2013')
+
+/*Insert RegistroInventario*/
+INSERT INTO RegistroInventario (empleado_id, notas, fecha) VALUES
+(5, NULL, '1/13/2013'),
+(3, NULL, '1/14/2013'),
+(3, NULL, '1/15/2013'),
+(4, NULL, '1/16/2013'),
+(1, NULL, '1/17/2013'),
+(5, NULL, '1/18/2013'),
+(4, NULL, '1/19/2013'),
+(3, NULL, '1/20/2013'),
+(5, NULL, '1/21/2013'),
+(2, NULL, '1/22/2013'),
+(3, NULL, '1/23/2013'),
+(5, NULL, '1/24/2013'),
+(3, NULL, '1/25/2013'),
+(2, NULL, '1/26/2013'),
+(4, NULL, '1/27/2013'),
+(2, NULL, '1/28/2013'),
+(3, NULL, '1/29/2013'),
+(3, NULL, '2/1/2013'),
+(4, NULL, '2/2/2013')
+
 /* Test venta trigger */
 select * from venta;
 select * from Venta_Productos
