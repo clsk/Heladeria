@@ -749,6 +749,8 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
 
+
+select * from RegistroInventario
 /*RegistroInventario_Productos*/
 INSERT INTO RegistroInventario_Productos (producto_id, inventario_id, cantidad) VALUES
 (12, 1, 30),
@@ -1271,29 +1273,6 @@ insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_dispo
 select * from Venta
 
 
-/*Registro Inventario*/
-INSERT INTO RegistroInventario
-VALUES ('Barquilla Barquito', '08-10-2013'),
-        ('Barquilla Danesa', '08-10-2013'),
-        ('Barquilla Bonito', '08-10-2013'),
-        ('Barquilla Barquito', '08-10-2013'),
-        ('Envase Cajita ET', '08-10-2013'),
-        ('Envase Cajita EN', '08-10-2013'),
-        ('Envase Super Sunday ET', '08-10-2013'),
-        ('Envase Super Sundae EN', '08-10-2013'),
-        ('Envase Malteada ET', '08-10-2013'),
-        ('Envase Malteada EN', '08-10-2013'),
-        ('Envase 1 Pinta ET', '08-10-2013'),
-        ('Envase 1 Pinta EN', '08-10-2013'),
-        ('Envase 2 Pinta ET', '08-10-2013'),
-        ('Envase 2 Pinta EN', '08-10-2013'),
-        ('Envase 1/2 Galon ET', '08-10-2013'),
-        ('Envase 1/2 Galon EN', '08-10-2013'),
-        ('Tarta Helada Tradicional Peq.', '08-10-2013'),
-        ('Tarta Helada Tradicional Grd.', '08-10-2013'),
-        ('Tarta Helada Especial Peq.', '08-10-2013'),
-        ('Tarta Helada Especial Grd.', '08-10-2013')
-
 
 /* Queries (para reportes) */
 
@@ -1333,15 +1312,6 @@ END
 -- Ofertas
 SELECT Oferta.oferta_id, Oferta.nombre, CONVERT(DATE, Oferta.fecha_empieza), CONVERT(DATE,Oferta.fecha_termina), Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad, (SELECT SUM(rebaja) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS 'Ahorro Clientes' FROM Oferta
 
-CREATE PROCEDURE Inventario
-AS
-BEGIN
-SELECT RegistroInventario_Productos.producto_id, SUM(cantidad) AS Cantidad FROM RegistroInventario_Productos 
-	INNER JOIN Producto ON RegistroInventario_Productos.producto_id = Producto.producto_id
-	INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
-	GROUP BY RegistroInventario_Productos.producto_id, RegistroInventario.fecha
-	ORDER BY RegistroInventario.fecha DESC
-END
 
 CREATE FUNCTION bitToBool (@bit as BIT)
 RETURNS nvarchar(2)
@@ -1352,5 +1322,5 @@ BEGIN
 END
 
 SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, precio_venta, precio_compra, 
-	(SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
-		 ORDER BY RegistroInventario.fecha DESC) AS Cantidad FROM Producto
+	ISNULL((SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
+		 WHERE RegistroInventario_Productos.producto_id = Producto.producto_id ORDER BY RegistroInventario.fecha DESC), 0) AS Cantidad FROM Producto

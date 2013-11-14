@@ -536,7 +536,7 @@
     <DataSource Name="HeladeriaDB">
       <DataSourceReference>HeladeriaDB</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>b7c23c30-07b1-470d-bb8e-0c7868c9d95d</rd:DataSourceID>
+      <rd:DataSourceID>a11cf6b9-9618-4928-92ba-83eeb1108ebc</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -544,8 +544,8 @@
       <Query>
         <DataSourceName>HeladeriaDB</DataSourceName>
         <CommandText>SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, precio_venta, precio_compra, 
-	(SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
-		 ORDER BY RegistroInventario.fecha DESC) AS Cantidad FROM Producto</CommandText>
+	ISNULL((SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
+		 WHERE RegistroInventario_Productos.producto_id = Producto.producto_id ORDER BY RegistroInventario.fecha DESC), 0) AS Cantidad FROM Producto</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -579,5 +579,5 @@
   <Language>en-US</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>44780ac1-fbb3-44ee-a17d-b154ef82cec9</rd:ReportID>
+  <rd:ReportID>36a45ebf-5728-4093-ba78-c5ad60e4cb6e</rd:ReportID>
 </Report>
