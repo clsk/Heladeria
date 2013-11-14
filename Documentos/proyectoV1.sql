@@ -176,6 +176,7 @@ CREATE TABLE Venta_Productos(
     CONSTRAINT producto_id_fk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id)
 );
 
+/*---NOMBRE DE TABLA CORREGIDO---*/
 CREATE TABLE NCF(
     no_NCF VARCHAR (25) PRIMARY KEY NOT NULL,
 	venta_id BIGINT UNIQUE NOT NULL,
@@ -235,19 +236,23 @@ EXEC sp_InsertSaborHelado @nombre = 'Vainilla', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Fresa', @precio_compra = 300.00;
 EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
 
-/*Procedure para Reporte de Cierres de Caja*/
+/*Procedure para Reporte de Cierre de Caja*/
 CREATE PROCEDURE sp_CajaCerrada
 	(
-		@fc_Inicia DATETIME,
-		@fc_Termina DATETIME
+		@CorreoElect varchar (35)
 	)
 AS
 BEGIN
 	(
-		SELECT Caja.caja_id, Caja.fecha_cierra, Caja.cash_entrada , Empleado.nombre, Empleado.apellido
+		SELECT Caja.caja_id, Caja.fecha_cierra, Caja.cash_entrada , Empleado.nombre, Empleado.apellido, 
+		(
+			SELECT SUM (venta.total)
+			FROM Venta
+			WHERE Venta.caja_id = Caja.caja_id
+		) as VentasTotalizadas
 		FROM Caja INNER JOIN Empleado
 		ON Caja.empleado_id=Empleado.empleado_id
-		WHERE Caja.fecha_cierra BETWEEN @fc_Inicia AND @fc_Termina
+		WHERE @CorreoElect = Empleado.correo
 	)
 END
 
@@ -257,6 +262,23 @@ EXECUTE sp_CajaCerrada @fc_Inicia = '2013/03/23', @fc_Termina = '2013/03/25'
 
 
 /*Procedure para Reporte de Comprobantes Usados*/
+
+/*----VERSION CON TABLA CORREGIDA-----*/
+CREATE PROCEDURE sp_ComprobantesRegistrados 
+	(
+		@fc_desde DATETIME,
+		@fc_hasta DATETIME
+	)
+AS
+BEGIN
+	(
+		SELECT NCF.no_NCF, (Cliente.nombre + ' ' + Cliente.apellido) as Nombre, Cliente.RNC, Venta.total, (Venta.total * 0.18) as MontoITBIS
+		FROM NCF INNER JOIN Venta
+		ON NCF.venta_id=Venta.venta_id INNER JOIN Cliente
+		ON Cliente.cliente_id=Venta.cliente_id
+		WHERE Venta.fecha BETWEEN @fc_desde AND @fc_hasta
+	)
+END
 
 CREATE PROCEDURE sp_ComprobantesRegistrados 
 	(
