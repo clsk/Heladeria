@@ -21,4 +21,12 @@ namespace DataLayer
             }
         }
     }
+
+    public static class EmpleadoExtensions
+    {
+        public static string NombreCompleto(this Empleado empleado)
+        {
+            return empleado.nombre + ' ' + empleado.apellido;
+        }
+    }
 }

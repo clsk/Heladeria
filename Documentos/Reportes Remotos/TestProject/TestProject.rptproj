@@ -6,16 +6,28 @@
       <Name>SylverDB.rds</Name>
       <FullPath>SylverDB.rds</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>HeladeriaDB.rds</Name>
+      <FullPath>HeladeriaDB.rds</FullPath>
+    </ProjectItem>
   </DataSources>
   <DataSets />
   <Reports>
     <ProjectItem>
-      <Name>ReporteManejoCaja.rdl</Name>
-      <FullPath>ReporteManejoCaja.rdl</FullPath>
+      <Name>Ofertas.rdl</Name>
+      <FullPath>Ofertas.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>TestReport.rdl</Name>
-      <FullPath>TestReport.rdl</FullPath>
+      <Name>Ventas.rdl</Name>
+      <FullPath>Ventas.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>ReporteComprobantes.rdl</Name>
+      <FullPath>ReporteComprobantes.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>ReporteCajaCerrada.rdl</Name>
+      <FullPath>ReporteCajaCerrada.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

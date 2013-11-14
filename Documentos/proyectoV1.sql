@@ -177,6 +177,8 @@ CREATE TABLE Venta_Productos(
 );
 
 /*---NOMBRE DE TABLA CORREGIDO---*/
+
+drop table NCF
 CREATE TABLE NCF(
     no_NCF VARCHAR (25) PRIMARY KEY NOT NULL,
 	venta_id BIGINT UNIQUE NOT NULL,
@@ -239,22 +241,29 @@ EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
 /*Procedure para Reporte de Cierre de Caja*/
 CREATE PROCEDURE sp_CajaCerrada
 	(
-		@CodEmpleado varchar (35)
+		@empleado_id INT,
+		@fecha DATE,
+		@cash_salida AS money
 	)
 AS
 BEGIN
 	(
-		SELECT Caja.caja_id, Caja.fecha_cierra, Caja.cash_entrada , Empleado.nombre, Empleado.apellido, 
+		SELECT Caja.caja_id, Caja.fecha_abre, Caja.cash_entrada , Empleado.nombre, Empleado.apellido,
 		(
 			SELECT SUM (venta.total)
 			FROM Venta
-			WHERE Venta.caja_id = Caja.caja_id
-		) as VentasTotalizadas
+			WHERE Venta.caja_id = Caja.caja_id AND Venta.forma_pago = 'efectivo'
+		) as TotalVentas, (@cash_salida-(Caja.cash_entrada+
+		(SELECT SUM (venta.total) FROM Venta WHERE Venta.caja_id = Caja.caja_id AND Venta.forma_pago = 'efectivo')
+		)) AS Balance
 		FROM Caja INNER JOIN Empleado
 		ON Caja.empleado_id=Empleado.empleado_id
-		WHERE @CodEmpleado = Empleado.empleado_id
+		WHERE Empleado.empleado_id = @empleado_id AND CONVERT(DATE, Caja.fecha_abre) = @fecha
 	)
 END
+
+select * from Caja
+EXEC sp_CajaCerrada @empleado_id = 1, @fecha = '2013/3/23', @cash_salida = 12000.00 
 
 DROP PROCEDURE sp_CajaCerrada;
 
@@ -272,25 +281,9 @@ CREATE PROCEDURE sp_ComprobantesRegistrados
 AS
 BEGIN
 	(
-		SELECT NCF.no_NCF, (Cliente.nombre + ' ' + Cliente.apellido) as Nombre, Cliente.RNC, Venta.total, (Venta.total * 0.18) as MontoITBIS
+		SELECT NCF.no_NCF, (Cliente.nombre + ' ' + Cliente.apellido) as Nombre, Cliente.RNC, Venta.total, CONVERT(DECIMAL(10,2), (Venta.total * 0.18)) as MontoITBIS
 		FROM NCF INNER JOIN Venta
 		ON NCF.venta_id=Venta.venta_id INNER JOIN Cliente
-		ON Cliente.cliente_id=Venta.cliente_id
-		WHERE Venta.fecha BETWEEN @fc_desde AND @fc_hasta
-	)
-END
-
-CREATE PROCEDURE sp_ComprobantesRegistrados 
-	(
-		@fc_desde DATETIME,
-		@fc_hasta DATETIME
-	)
-AS
-BEGIN
-	(
-		SELECT NFC.no_nfc, Cliente.nombre, Cliente.RNC, Venta.total, (Venta.total * 0.18) as MontoITBIS
-		FROM NFC INNER JOIN Venta
-		ON NFC.venta_id=Venta.venta_id INNER JOIN Cliente
 		ON Cliente.cliente_id=Venta.cliente_id
 		WHERE Venta.fecha BETWEEN @fc_desde AND @fc_hasta
 	)
@@ -1244,7 +1237,7 @@ VALUES ('Barquilla Barquito', '08-10-2013'),
 DECLARE @fecha_empieza AS DATETIME, @fecha_termina AS DATETIME;
 SET @fecha_empieza = '3/1/2013';
 SET @fecha_termina = '3/31/2013'
-SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total / 18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
+SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total * 0.18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
 
 drop function maskToDias
 CREATE FUNCTION maskToDias (@mask AS INT)
