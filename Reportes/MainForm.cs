@@ -100,9 +100,9 @@ namespace Reportes
             try
             {
                 string urlReportServer = "http://localhost//Reportserver";
-                rptViewerVentas.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
-                rptViewerVentas.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
-                rptViewerVentas.ServerReport.ReportPath = "/TestProject/ReporteComprobantes"; //Passing the Report Path                
+                rptImpuestos.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
+                rptImpuestos.ServerReport.ReportServerUrl = new Uri(urlReportServer); //Set the ReportServer Url
+                rptImpuestos.ServerReport.ReportPath = "/TestProject/ReporteComprobantes"; //Passing the Report Path                
 
                 ReportParameter[] param = new ReportParameter[2];
 
@@ -110,9 +110,9 @@ namespace Reportes
                 param[1] = new ReportParameter("fc_hasta", dtpHastaImpuestos.Value.ToShortDateString());
 
                 //pass parmeters to report
-                rptViewerVentas.ServerReport.SetParameters(param); //Set Report Parameters
-                rptViewerVentas.ServerReport.Refresh();
-                rptViewerVentas.RefreshReport();
+                rptImpuestos.ServerReport.SetParameters(param); //Set Report Parameters
+                rptImpuestos.ServerReport.Refresh();
+                rptImpuestos.RefreshReport();
             }
             catch (Exception ex)
             {

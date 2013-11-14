@@ -1256,11 +1256,21 @@ INSERT INTO RegistroInventario (empleado_id, notas, fecha) VALUES
 (4, NULL, '2/2/2013')
 
 /* Test venta trigger */
+select * from Producto
+
 select * from venta;
 select * from Venta_Productos
 select * from Venta_Ofertas;
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
+select * from venta
 select * from Oferta
+
+select * from Oferta
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
+
 
 UPDATE Venta SET total = 0.00
 delete from Venta_Productos
@@ -1269,6 +1279,9 @@ delete from Venta_Ofertas;
 
 insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
 ('2x1 Barquito', '2x1 en barquitos', '3/1/2013', '3/30/2013', 127, '09:00:00', '18:00:00', 1, '2x1');
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
 
 select * from Venta
 

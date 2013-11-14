@@ -22,16 +22,16 @@
       <FullPath>Ventas.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>ReporteComprobantes.rdl</Name>
-      <FullPath>ReporteComprobantes.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>ReporteCajaCerrada.rdl</Name>
       <FullPath>ReporteCajaCerrada.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Inventario.rdl</Name>
       <FullPath>Inventario.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>ReporteComprobantes.rdl</Name>
+      <FullPath>ReporteComprobantes.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
