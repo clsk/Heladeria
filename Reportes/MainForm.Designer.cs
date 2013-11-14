@@ -54,11 +54,14 @@
             this.btImpuestos = new System.Windows.Forms.Button();
             this.tbCashSalida = new System.Windows.Forms.TextBox();
             this.lblCashSalida = new System.Windows.Forms.Label();
+            this.tpInventario = new System.Windows.Forms.TabPage();
+            this.rpInventario = new Microsoft.Reporting.WinForms.ReportViewer();
             this.tabControl.SuspendLayout();
             this.tpVentas.SuspendLayout();
             this.tpOfertas.SuspendLayout();
             this.tpCaja.SuspendLayout();
             this.tbImpuestos.SuspendLayout();
+            this.tpInventario.SuspendLayout();
             this.SuspendLayout();
             // 
             // dtpDesde
@@ -98,6 +101,7 @@
             this.tabControl.Controls.Add(this.tpOfertas);
             this.tabControl.Controls.Add(this.tpCaja);
             this.tabControl.Controls.Add(this.tbImpuestos);
+            this.tabControl.Controls.Add(this.tpInventario);
             this.tabControl.Location = new System.Drawing.Point(2, 3);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -312,6 +316,25 @@
             this.lblCashSalida.TabIndex = 7;
             this.lblCashSalida.Text = "Cash Salida";
             // 
+            // tpInventario
+            // 
+            this.tpInventario.Controls.Add(this.rpInventario);
+            this.tpInventario.Location = new System.Drawing.Point(4, 22);
+            this.tpInventario.Name = "tpInventario";
+            this.tpInventario.Size = new System.Drawing.Size(1105, 584);
+            this.tpInventario.TabIndex = 4;
+            this.tpInventario.Text = "Inventario";
+            this.tpInventario.UseVisualStyleBackColor = true;
+            // 
+            // rpInventario
+            // 
+            this.rpInventario.Location = new System.Drawing.Point(0, -2);
+            this.rpInventario.Name = "rpInventario";
+            this.rpInventario.ProcessingMode = Microsoft.Reporting.WinForms.ProcessingMode.Remote;
+            this.rpInventario.ServerReport.ReportPath = "/TestProject/Inventario";
+            this.rpInventario.Size = new System.Drawing.Size(1105, 588);
+            this.rpInventario.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -329,6 +352,7 @@
             this.tpCaja.PerformLayout();
             this.tbImpuestos.ResumeLayout(false);
             this.tbImpuestos.PerformLayout();
+            this.tpInventario.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -361,6 +385,8 @@
         private System.Windows.Forms.Button btImpuestos;
         private System.Windows.Forms.Label lblCashSalida;
         private System.Windows.Forms.TextBox tbCashSalida;
+        private System.Windows.Forms.TabPage tpInventario;
+        private Microsoft.Reporting.WinForms.ReportViewer rpInventario;
     }
 }
 

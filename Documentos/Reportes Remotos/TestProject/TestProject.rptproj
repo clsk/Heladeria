@@ -29,6 +29,10 @@
       <Name>ReporteCajaCerrada.rdl</Name>
       <FullPath>ReporteCajaCerrada.rdl</FullPath>
     </ProjectItem>
+    <ProjectItem>
+      <Name>Inventario.rdl</Name>
+      <FullPath>Inventario.rdl</FullPath>
+    </ProjectItem>
   </Reports>
   <Configurations>
     <Configuration>

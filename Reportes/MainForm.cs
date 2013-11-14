@@ -49,7 +49,7 @@ namespace Reportes
         {
             // TODO: This line of code loads data into the 'heladeriaDataSet.Venta' table. You can move, or remove it, as needed.
 
-            this.rptViewerVentas.RefreshReport();
+            this.rpInventario.RefreshReport();
             this.rptViewerOfertas.RefreshReport();
 
             try
@@ -72,7 +72,7 @@ namespace Reportes
         {
             try
             {
-                float cash_salida = Int32.Parse(tbCashSalida.Text);
+                float cash_salida = float.Parse(tbCashSalida.Text);
 
                 string urlReportServer = "http://localhost//Reportserver";
                 rptCaja.ProcessingMode = ProcessingMode.Remote; // ProcessingMode will be Either Remote or Local
