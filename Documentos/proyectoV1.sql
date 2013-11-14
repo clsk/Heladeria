@@ -1268,3 +1268,25 @@ END
 
 -- Ofertas
 SELECT Oferta.oferta_id, Oferta.nombre, CONVERT(DATE, Oferta.fecha_empieza), CONVERT(DATE,Oferta.fecha_termina), Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad, (SELECT SUM(rebaja) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS 'Ahorro Clientes' FROM Oferta
+
+CREATE PROCEDURE Inventario
+AS
+BEGIN
+SELECT RegistroInventario_Productos.producto_id, SUM(cantidad) AS Cantidad FROM RegistroInventario_Productos 
+	INNER JOIN Producto ON RegistroInventario_Productos.producto_id = Producto.producto_id
+	INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
+	GROUP BY RegistroInventario_Productos.producto_id, RegistroInventario.fecha
+	ORDER BY RegistroInventario.fecha DESC
+END
+
+CREATE FUNCTION bitToBool (@bit as BIT)
+RETURNS nvarchar(2)
+BEGIN
+	IF (@bit = 1)
+		return 'Si'
+	return 'No'
+END
+
+SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, precio_venta, precio_compra, 
+	(SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
+		 ORDER BY RegistroInventario.fecha DESC) AS Cantidad FROM Producto
