@@ -239,7 +239,7 @@ EXEC sp_InsertSaborHelado @nombre = 'Mantecado', @precio_compra = 300.00;
 /*Procedure para Reporte de Cierre de Caja*/
 CREATE PROCEDURE sp_CajaCerrada
 	(
-		@CorreoElect varchar (35)
+		@CodEmpleado varchar (35)
 	)
 AS
 BEGIN
@@ -252,7 +252,7 @@ BEGIN
 		) as VentasTotalizadas
 		FROM Caja INNER JOIN Empleado
 		ON Caja.empleado_id=Empleado.empleado_id
-		WHERE @CorreoElect = Empleado.correo
+		WHERE @CodEmpleado = Empleado.empleado_id
 	)
 END
 
