@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace DataLayer
 {
     public class Empleados
     {
-        public static List<Empleado> GetEmpleados()
+        public static List<Empleado> GetAll()
         {
             try
             {
@@ -19,6 +20,14 @@ namespace DataLayer
             {
                 throw ex;
             }
+        }
+
+        public static Empleado Login(string correo, string password)
+        {
+            Object[] parameters = new Object[2];
+            parameters[0] = new SqlParameter("@correo", correo);
+            parameters[1] = new SqlParameter("@password", Utils.CalculateMD5Hash(password));
+            return Provider.GetProvider().Database.SqlQuery<Empleado>("SELECT * FROM Empleado WHERE correo = @correo AND password = @password", parameters).Single();
         }
     }
 
