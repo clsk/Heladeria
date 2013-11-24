@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace DataLayer
 {
-    class Utils
+    static public class Utils
     {
         public static string CalculateMD5Hash(string input)
         {
@@ -22,7 +22,7 @@ namespace DataLayer
             {
                 sb.Append(hash[i].ToString("X2"));
             }
-            return sb.ToString();
+            return sb.ToString().ToLower();
         }
     }
 }

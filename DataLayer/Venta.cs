@@ -16,9 +16,9 @@ namespace DataLayer
     {
         public Venta()
         {
-            this.NFCs = new HashSet<NFC>();
             this.Venta_Productos = new HashSet<Venta_Productos>();
             this.Venta_Ofertas = new HashSet<Venta_Ofertas>();
+            this.NCFs = new HashSet<NCF>();
         }
     
         public long venta_id { get; set; }
@@ -27,11 +27,14 @@ namespace DataLayer
         public System.DateTime fecha { get; set; }
         public string forma_pago { get; set; }
         public Nullable<decimal> total { get; set; }
+        public Nullable<System.DateTime> fecha_entrega { get; set; }
+        public Nullable<int> entregado_por { get; set; }
     
         public virtual Caja Caja { get; set; }
         public virtual Cliente Cliente { get; set; }
-        public virtual ICollection<NFC> NFCs { get; set; }
         public virtual ICollection<Venta_Productos> Venta_Productos { get; set; }
         public virtual ICollection<Venta_Ofertas> Venta_Ofertas { get; set; }
+        public virtual Empleado Empleado { get; set; }
+        public virtual ICollection<NCF> NCFs { get; set; }
     }
 }

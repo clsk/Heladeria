@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="heladeriaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="heladeriaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="heladeriaModelStoreContainer">
           <EntitySet Name="Caja" EntityType="heladeriaModel.Store.Caja" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Cliente" EntityType="heladeriaModel.Store.Cliente" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Empleado" EntityType="heladeriaModel.Store.Empleado" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="INFO" EntityType="heladeriaModel.Store.INFO" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="NFC" EntityType="heladeriaModel.Store.NFC" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="NCF" EntityType="heladeriaModel.Store.NCF" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Oferta" EntityType="heladeriaModel.Store.Oferta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="OfertaPorciento" EntityType="heladeriaModel.Store.OfertaPorciento" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Orden" EntityType="heladeriaModel.Store.Orden" store:Type="Tables" Schema="dbo" />
@@ -41,9 +41,9 @@
             <End Role="RegistroInventario" EntitySet="RegistroInventario" />
             <End Role="RegistroInventario_Productos" EntitySet="RegistroInventario_Productos" />
           </AssociationSet>
-          <AssociationSet Name="nfc_venta" Association="heladeriaModel.Store.nfc_venta">
+          <AssociationSet Name="NCF_venta" Association="heladeriaModel.Store.NCF_venta">
             <End Role="Venta" EntitySet="Venta" />
-            <End Role="NFC" EntitySet="NFC" />
+            <End Role="NCF" EntitySet="NCF" />
           </AssociationSet>
           <AssociationSet Name="oferta_producto_pk" Association="heladeriaModel.Store.oferta_producto_pk">
             <End Role="Producto" EntitySet="Producto" />
@@ -77,6 +77,10 @@
             <End Role="Producto" EntitySet="Producto" />
             <End Role="Venta_Productos" EntitySet="Venta_Productos" />
           </AssociationSet>
+          <AssociationSet Name="producto_suplidor_fk" Association="heladeriaModel.Store.producto_suplidor_fk">
+            <End Role="Suplidor" EntitySet="Suplidor" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
           <AssociationSet Name="sabor_helado_producto_fk" Association="heladeriaModel.Store.sabor_helado_producto_fk">
             <End Role="Producto" EntitySet="Producto" />
             <End Role="SaborHelado" EntitySet="SaborHelado" />
@@ -87,6 +91,10 @@
           </AssociationSet>
           <AssociationSet Name="venta_cliente_fk" Association="heladeriaModel.Store.venta_cliente_fk">
             <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Venta" EntitySet="Venta" />
+          </AssociationSet>
+          <AssociationSet Name="venta_empleado_fk" Association="heladeriaModel.Store.venta_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Venta" EntitySet="Venta" />
           </AssociationSet>
           <AssociationSet Name="venta_id_fk" Association="heladeriaModel.Store.venta_id_fk">
@@ -148,7 +156,7 @@
           <Property Name="ciudad" Type="varchar" MaxLength="50" />
           <Property Name="provincia" Type="varchar" MaxLength="50" />
           <Property Name="turno_id" Type="int" />
-          <Property Name="supervisor" Type="bit" />
+          <Property Name="cargo" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="INFO">
           <Key>
@@ -157,11 +165,11 @@
           <Property Name="llave" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="valor" Type="text" />
         </EntityType>
-        <EntityType Name="NFC">
+        <EntityType Name="NCF">
           <Key>
-            <PropertyRef Name="no_nfc" />
+            <PropertyRef Name="no_NCF" />
           </Key>
-          <Property Name="no_nfc" Type="int" Nullable="false" />
+          <Property Name="no_NCF" Type="varchar" Nullable="false" MaxLength="25" />
           <Property Name="venta_id" Type="bigint" Nullable="false" />
         </EntityType>
         <EntityType Name="Oferta">
@@ -174,12 +182,13 @@
           <Property Name="fecha_empieza" Type="date" Nullable="false" />
           <Property Name="fecha_termina" Type="date" Nullable="false" />
           <Property Name="dias_disponible" Type="int" Nullable="false" />
+          <Property Name="hora_disponible_empieza" Type="time" Nullable="false" />
           <Property Name="hora_disponible_termina" Type="time" Nullable="false" />
           <Property Name="cantidad_maxima" Type="int" />
           <Property Name="cantidad_minima" Type="int" />
           <Property Name="producto_id" Type="int" Nullable="false" />
           <Property Name="tipo" Type="varchar" Nullable="false" MaxLength="20" />
-          <Property Name="hora_disponible_empieza" Type="time" Nullable="false" />
+          <Property Name="codigo_cupon" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="OfertaPorciento">
           <Key>
@@ -222,6 +231,8 @@
           <Property Name="etiqueta_negra" Type="bit" />
           <Property Name="precio_venta" Type="money" />
           <Property Name="precio_compra" Type="money" />
+          <Property Name="punto_reorden" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="suplidor" Type="int" />
         </EntityType>
         <EntityType Name="RegistroInventario">
           <Key>
@@ -291,8 +302,10 @@
           <Property Name="cliente_id" Type="int" />
           <Property Name="caja_id" Type="int" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="fecha_entrega" Type="datetime" />
           <Property Name="forma_pago" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="total" Type="money" />
+          <Property Name="entregado_por" Type="int" />
         </EntityType>
         <EntityType Name="Venta_Ofertas">
           <Key>
@@ -360,16 +373,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="nfc_venta">
+        <Association Name="NCF_venta">
           <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="NFC" Type="heladeriaModel.Store.NFC" Multiplicity="*" />
+          <End Role="NCF" Type="heladeriaModel.Store.NCF" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Venta">
               <PropertyRef Name="venta_id" />
             </Principal>
-            <Dependent Role="NFC">
+            <Dependent Role="NCF">
               <PropertyRef Name="venta_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -470,6 +483,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="producto_suplidor_fk">
+          <End Role="Suplidor" Type="heladeriaModel.Store.Suplidor" Multiplicity="0..1" />
+          <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplidor">
+              <PropertyRef Name="suplidor_id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="suplidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="sabor_helado_producto_fk">
           <End Role="Producto" Type="heladeriaModel.Store.Producto" Multiplicity="1" />
           <End Role="SaborHelado" Type="heladeriaModel.Store.SaborHelado" Multiplicity="0..1" />
@@ -503,6 +528,18 @@
             </Principal>
             <Dependent Role="Venta">
               <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="venta_empleado_fk">
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="0..1" />
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="entregado_por" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -546,8 +583,13 @@
           <Parameter Name="mask" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_CajaCerrada" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fc_Inicia" Type="datetime" Mode="In" />
-          <Parameter Name="fc_Termina" Type="datetime" Mode="In" />
+          <Parameter Name="empleado_id" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="date" Mode="In" />
+          <Parameter Name="cash_salida" Type="money" Mode="In" />
+        </Function>
+        <Function Name="sp_ComprobantesRegistrados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fc_desde" Type="datetime" Mode="In" />
+          <Parameter Name="fc_hasta" Type="datetime" Mode="In" />
         </Function>
         <Function Name="sp_CreateCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="nombre" Type="varchar" Mode="In" />
@@ -578,8 +620,7 @@
         <Function Name="sp_ObetenerNFCParaVenta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="venta_id" Type="int" Mode="In" />
         </Function>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="heladeriaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -588,7 +629,6 @@
           <EntitySet Name="Clientes" EntityType="heladeriaModel.Cliente" />
           <EntitySet Name="Empleadoes" EntityType="heladeriaModel.Empleado" />
           <EntitySet Name="INFOes" EntityType="heladeriaModel.INFO" />
-          <EntitySet Name="NFCs" EntityType="heladeriaModel.NFC" />
           <EntitySet Name="Ofertas" EntityType="heladeriaModel.Oferta" />
           <EntitySet Name="OfertaPorcientoes" EntityType="heladeriaModel.OfertaPorciento" />
           <EntitySet Name="Ordens" EntityType="heladeriaModel.Orden" />
@@ -626,10 +666,6 @@
           <AssociationSet Name="orden_empleado_fk" Association="heladeriaModel.orden_empleado_fk">
             <End Role="Empleado" EntitySet="Empleadoes" />
             <End Role="Orden" EntitySet="Ordens" />
-          </AssociationSet>
-          <AssociationSet Name="nfc_venta" Association="heladeriaModel.nfc_venta">
-            <End Role="Venta" EntitySet="Ventas" />
-            <End Role="NFC" EntitySet="NFCs" />
           </AssociationSet>
           <AssociationSet Name="oferta_producto_pk" Association="heladeriaModel.oferta_producto_pk">
             <End Role="Producto" EntitySet="Productoes" />
@@ -680,8 +716,9 @@
             <End Role="Venta_Ofertas" EntitySet="Venta_Ofertas" />
           </AssociationSet>
           <FunctionImport Name="sp_CajaCerrada" ReturnType="Collection(heladeriaModel.sp_CajaCerrada_Result)">
-            <Parameter Name="fc_Inicia" Mode="In" Type="DateTime" />
-            <Parameter Name="fc_Termina" Mode="In" Type="DateTime" />
+            <Parameter Name="empleado_id" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="cash_salida" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="sp_CreateCliente">
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -710,8 +747,25 @@
             <Parameter Name="fin_temporada" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_ObetenerNFCParaVenta">
-            <Parameter Name="venta_id" Mode="In" Type="Int32" />
+          <Parameter Name="venta_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="NCFs" EntityType="heladeriaModel.NCF" />
+          <AssociationSet Name="venta_empleado_fk" Association="heladeriaModel.venta_empleado_fk">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Venta" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="NCF_venta" Association="heladeriaModel.NCF_venta">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="NCF" EntitySet="NCFs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_ComprobantesRegistrados" ReturnType="Collection(heladeriaModel.sp_ComprobantesRegistrados_Result)">
+            <Parameter Name="fc_desde" Mode="In" Type="DateTime" />
+            <Parameter Name="fc_hasta" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <AssociationSet Name="producto_suplidor_fk" Association="heladeriaModel.producto_suplidor_fk">
+            <End Role="Suplidor" EntitySet="Suplidors" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Caja">
           <Key>
@@ -762,11 +816,12 @@
           <Property Name="ciudad" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="turno_id" Type="Int32" />
-          <Property Name="supervisor" Type="Boolean" />
           <NavigationProperty Name="Cajas" Relationship="heladeriaModel.caja_empleado_fk" FromRole="Empleado" ToRole="Caja" />
           <NavigationProperty Name="Turno" Relationship="heladeriaModel.empleado_turno_fk" FromRole="Empleado" ToRole="Turno" />
           <NavigationProperty Name="RegistroInventarios" Relationship="heladeriaModel.inventario_empleado_fk" FromRole="Empleado" ToRole="RegistroInventario" />
           <NavigationProperty Name="Ordens" Relationship="heladeriaModel.orden_empleado_fk" FromRole="Empleado" ToRole="Orden" />
+          <Property Type="String" Name="cargo" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_empleado_fk" FromRole="Empleado" ToRole="Venta" />
         </EntityType>
         <EntityType Name="INFO">
           <Key>
@@ -774,14 +829,6 @@
           </Key>
           <Property Name="llave" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="valor" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="NFC">
-          <Key>
-            <PropertyRef Name="no_nfc" />
-          </Key>
-          <Property Name="no_nfc" Type="Int32" Nullable="false" />
-          <Property Name="venta_id" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Venta" Relationship="heladeriaModel.nfc_venta" FromRole="NFC" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Oferta">
           <Key>
@@ -802,6 +849,7 @@
           <NavigationProperty Name="Producto" Relationship="heladeriaModel.oferta_producto_pk" FromRole="Oferta" ToRole="Producto" />
           <NavigationProperty Name="OfertaPorciento" Relationship="heladeriaModel.porciento_oferta_fk" FromRole="Oferta" ToRole="OfertaPorciento" />
           <NavigationProperty Name="Venta_Ofertas" Relationship="heladeriaModel.venta_ofertas_oferta_fk" FromRole="Oferta" ToRole="Venta_Ofertas" />
+          <Property Type="String" Name="codigo_cupon" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="OfertaPorciento">
           <Key>
@@ -855,6 +903,9 @@
           <NavigationProperty Name="RegistroInventario_Productos" Relationship="heladeriaModel.producto_fk" FromRole="Producto" ToRole="RegistroInventario_Productos" />
           <NavigationProperty Name="Venta_Productos" Relationship="heladeriaModel.producto_id_fk" FromRole="Producto" ToRole="Venta_Productos" />
           <NavigationProperty Name="SaborHelado" Relationship="heladeriaModel.sabor_helado_producto_fk" FromRole="Producto" ToRole="SaborHelado" />
+          <Property Type="Decimal" Name="punto_reorden" Precision="10" Scale="2" />
+          <Property Type="Int32" Name="suplidor" />
+          <NavigationProperty Name="Suplidor1" Relationship="heladeriaModel.producto_suplidor_fk" FromRole="Producto" ToRole="Suplidor" />
         </EntityType>
         <EntityType Name="RegistroInventario">
           <Key>
@@ -901,6 +952,7 @@
           <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="telefono" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Ordens" Relationship="heladeriaModel.orden_suplidor_fk" FromRole="Suplidor" ToRole="Orden" />
+          <NavigationProperty Name="Productoes" Relationship="heladeriaModel.producto_suplidor_fk" FromRole="Suplidor" ToRole="Producto" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -935,9 +987,12 @@
           <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Caja" Relationship="heladeriaModel.venta_caja_fk" FromRole="Venta" ToRole="Caja" />
           <NavigationProperty Name="Cliente" Relationship="heladeriaModel.venta_cliente_fk" FromRole="Venta" ToRole="Cliente" />
-          <NavigationProperty Name="NFCs" Relationship="heladeriaModel.nfc_venta" FromRole="Venta" ToRole="NFC" />
           <NavigationProperty Name="Venta_Productos" Relationship="heladeriaModel.venta_id_fk" FromRole="Venta" ToRole="Venta_Productos" />
           <NavigationProperty Name="Venta_Ofertas" Relationship="heladeriaModel.venta_ofertas_venta_fk" FromRole="Venta" ToRole="Venta_Ofertas" />
+          <Property Type="DateTime" Name="fecha_entrega" Precision="3" />
+          <Property Type="Int32" Name="entregado_por" />
+          <NavigationProperty Name="Empleado" Relationship="heladeriaModel.venta_empleado_fk" FromRole="Venta" ToRole="Empleado" />
+          <NavigationProperty Name="NCFs" Relationship="heladeriaModel.NCF_venta" FromRole="Venta" ToRole="NCF" />
         </EntityType>
         <EntityType Name="Venta_Ofertas">
           <Key>
@@ -1030,20 +1085,6 @@
             </Principal>
             <Dependent Role="Orden">
               <PropertyRef Name="empleado_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="nfc_venta">
-          <End Role="Venta" Type="heladeriaModel.Venta" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="NFC" Type="heladeriaModel.NFC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Venta">
-              <PropertyRef Name="venta_id" />
-            </Principal>
-            <Dependent Role="NFC">
-              <PropertyRef Name="venta_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1206,6 +1247,59 @@
           <Property Type="String" Name="forma_pago" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
         </ComplexType>
+        <EntityType Name="NCF">
+          <Key>
+            <PropertyRef Name="no_NCF" />
+          </Key>
+          <Property Type="String" Name="no_NCF" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="venta_id" Nullable="false" />
+          <NavigationProperty Name="Venta" Relationship="heladeriaModel.NCF_venta" FromRole="NCF" ToRole="Venta" />
+        </EntityType>
+        <Association Name="venta_empleado_fk">
+          <End Type="heladeriaModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="heladeriaModel.Venta" Role="Venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Venta">
+              <PropertyRef Name="entregado_por" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NCF_venta">
+          <End Type="heladeriaModel.Venta" Role="Venta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="heladeriaModel.NCF" Role="NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="venta_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_ComprobantesRegistrados_Result">
+          <Property Type="String" Name="no_NCF" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="Cliente" Nullable="true" MaxLength="61" />
+          <Property Type="String" Name="RNC" Nullable="true" MaxLength="15" />
+          <Property Type="Decimal" Name="total" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="MontoITBIS" Nullable="true" Precision="10" Scale="2" />
+        </ComplexType>
+        <Association Name="producto_suplidor_fk">
+          <End Type="heladeriaModel.Suplidor" Role="Suplidor" Multiplicity="0..1" />
+          <End Type="heladeriaModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suplidor">
+              <PropertyRef Name="suplidor_id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="suplidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1245,6 +1339,7 @@
           <EntitySetMapping Name="Empleadoes">
             <EntityTypeMapping TypeName="heladeriaModel.Empleado">
               <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
                 <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
                 <ScalarProperty Name="no_identificacion" ColumnName="no_identificacion" />
                 <ScalarProperty Name="tipo_identificacion" ColumnName="tipo_identificacion" />
@@ -1259,7 +1354,6 @@
                 <ScalarProperty Name="ciudad" ColumnName="ciudad" />
                 <ScalarProperty Name="provincia" ColumnName="provincia" />
                 <ScalarProperty Name="turno_id" ColumnName="turno_id" />
-                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1271,17 +1365,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="NFCs">
-            <EntityTypeMapping TypeName="heladeriaModel.NFC">
-              <MappingFragment StoreEntitySet="NFC">
-                <ScalarProperty Name="no_nfc" ColumnName="no_nfc" />
-                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Ofertas">
             <EntityTypeMapping TypeName="heladeriaModel.Oferta">
               <MappingFragment StoreEntitySet="Oferta">
+                <ScalarProperty Name="codigo_cupon" ColumnName="codigo_cupon" />
                 <ScalarProperty Name="oferta_id" ColumnName="oferta_id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -1333,6 +1420,8 @@
           <EntitySetMapping Name="Productoes">
             <EntityTypeMapping TypeName="heladeriaModel.Producto">
               <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="suplidor" ColumnName="suplidor" />
+                <ScalarProperty Name="punto_reorden" ColumnName="punto_reorden" />
                 <ScalarProperty Name="producto_id" ColumnName="producto_id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
@@ -1410,6 +1499,8 @@
           <EntitySetMapping Name="Ventas">
             <EntityTypeMapping TypeName="heladeriaModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
+                <ScalarProperty Name="entregado_por" ColumnName="entregado_por" />
+                <ScalarProperty Name="fecha_entrega" ColumnName="fecha_entrega" />
                 <ScalarProperty Name="venta_id" ColumnName="venta_id" />
                 <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
                 <ScalarProperty Name="caja_id" ColumnName="caja_id" />
@@ -1463,6 +1554,25 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_InsertSaborHelado" FunctionName="heladeriaModel.Store.sp_InsertSaborHelado" />
           <FunctionImportMapping FunctionImportName="sp_ObetenerNFCParaVenta" FunctionName="heladeriaModel.Store.sp_ObetenerNFCParaVenta" />
+          <EntitySetMapping Name="NCFs">
+            <EntityTypeMapping TypeName="heladeriaModel.NCF">
+              <MappingFragment StoreEntitySet="NCF">
+                <ScalarProperty Name="venta_id" ColumnName="venta_id" />
+                <ScalarProperty Name="no_NCF" ColumnName="no_NCF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ComprobantesRegistrados" FunctionName="heladeriaModel.Store.sp_ComprobantesRegistrados">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="heladeriaModel.sp_ComprobantesRegistrados_Result">
+                <ScalarProperty Name="no_NCF" ColumnName="no_NCF" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="RNC" ColumnName="RNC" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="MontoITBIS" ColumnName="MontoITBIS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

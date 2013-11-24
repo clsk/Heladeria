@@ -30,8 +30,8 @@
         {
             this.lblCorreo = new System.Windows.Forms.Label();
             this.lblClave = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbCorreo = new System.Windows.Forms.TextBox();
+            this.tbClave = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -53,19 +53,19 @@
             this.lblClave.TabIndex = 1;
             this.lblClave.Text = "Clave";
             // 
-            // textBox1
+            // tbCorreo
             // 
-            this.textBox1.Location = new System.Drawing.Point(108, 31);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(174, 20);
-            this.textBox1.TabIndex = 2;
+            this.tbCorreo.Location = new System.Drawing.Point(108, 31);
+            this.tbCorreo.Name = "tbCorreo";
+            this.tbCorreo.Size = new System.Drawing.Size(174, 20);
+            this.tbCorreo.TabIndex = 2;
             // 
-            // textBox2
+            // tbClave
             // 
-            this.textBox2.Location = new System.Drawing.Point(108, 74);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(174, 20);
-            this.textBox2.TabIndex = 3;
+            this.tbClave.Location = new System.Drawing.Point(108, 74);
+            this.tbClave.Name = "tbClave";
+            this.tbClave.Size = new System.Drawing.Size(174, 20);
+            this.tbClave.TabIndex = 3;
             // 
             // btnLogin
             // 
@@ -83,8 +83,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(342, 204);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbClave);
+            this.Controls.Add(this.tbCorreo);
             this.Controls.Add(this.lblClave);
             this.Controls.Add(this.lblCorreo);
             this.Name = "FormLogin";
@@ -98,8 +98,8 @@
 
         private System.Windows.Forms.Label lblCorreo;
         private System.Windows.Forms.Label lblClave;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbCorreo;
+        private System.Windows.Forms.TextBox tbClave;
         private System.Windows.Forms.Button btnLogin;
     }
 }

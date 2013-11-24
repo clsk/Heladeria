@@ -31,6 +31,7 @@ namespace DataLayer
         public int producto_id { get; set; }
         public string tipo { get; set; }
         public System.TimeSpan hora_disponible_empieza { get; set; }
+        public string codigo_cupon { get; set; }
     
         public virtual Producto Producto { get; set; }
         public virtual OfertaPorciento OfertaPorciento { get; set; }

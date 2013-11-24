@@ -28,11 +28,14 @@ namespace DataLayer
         public Nullable<bool> etiqueta_negra { get; set; }
         public Nullable<decimal> precio_venta { get; set; }
         public Nullable<decimal> precio_compra { get; set; }
+        public Nullable<decimal> punto_reorden { get; set; }
+        public Nullable<int> suplidor { get; set; }
     
         public virtual ICollection<Oferta> Ofertas { get; set; }
         public virtual ICollection<Orden_Productos> Orden_Productos { get; set; }
         public virtual ICollection<RegistroInventario_Productos> RegistroInventario_Productos { get; set; }
         public virtual ICollection<Venta_Productos> Venta_Productos { get; set; }
         public virtual SaborHelado SaborHelado { get; set; }
+        public virtual Suplidor Suplidor1 { get; set; }
     }
 }

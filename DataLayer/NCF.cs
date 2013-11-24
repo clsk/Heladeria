@@ -12,9 +12,9 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class NFC
+    public partial class NCF
     {
-        public int no_nfc { get; set; }
+        public string no_NCF { get; set; }
         public long venta_id { get; set; }
     
         public virtual Venta Venta { get; set; }

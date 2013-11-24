@@ -27,7 +27,7 @@ namespace DataLayer
             Object[] parameters = new Object[2];
             parameters[0] = new SqlParameter("@correo", correo);
             parameters[1] = new SqlParameter("@password", Utils.CalculateMD5Hash(password));
-            return Provider.GetProvider().Database.SqlQuery<Empleado>("SELECT * FROM Empleado WHERE correo = @correo AND password = @password", parameters).Single();
+            return Provider.GetProvider().Database.SqlQuery<Empleado>("SELECT * FROM Empleado WHERE correo = @correo AND password = @password", parameters).SingleOrDefault();
         }
     }
 

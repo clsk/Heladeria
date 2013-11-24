@@ -57,7 +57,7 @@ CREATE TABLE Empleado(
     ciudad VARCHAR(50),
     provincia VARCHAR(50),
 	turno_id INT,
-	supervisor BIT DEFAULT 0,
+	cargo varchar(20) CHECK(cargo IN('vendedor', 'supervisor','delivery')),
 	constraint empleado_turno_fk FOREIGN KEY (turno_id) REFERENCES Turno(turno_id)
 );
 
@@ -86,13 +86,27 @@ CREATE TABLE Cliente(
 	no_tarjeta SMALLINT, -- ultimos 4 digitos
 );
 
+CREATE TABLE Suplidor (
+	suplidor_id INT NOT NULL PRIMARY KEY identity(1,1),
+	nombre varchar(30) NOT NULL,
+	descripcion varchar(30),
+	calle varchar(50),
+	calle_no varchar(30),
+	ciudad varchar(50),
+	provincia varchar(50),
+	telefono varchar(16)
+)
+
  CREATE TABLE Producto(
     producto_id INT identity(1,1) PRIMARY KEY NOT NULL,
     nombre VARCHAR(50) NOT NULL,
     descripcion VARCHAR(100),
 	etiqueta_negra BIT DEFAULT 0,
     precio_venta money,
-	precio_compra money
+	precio_compra money,
+	punto_reorden DECIMAL(10, 2),
+	suplidor INT,
+	CONSTRAINT producto_suplidor_fk FOREIGN KEY (suplidor) REFERENCES Suplidor(suplidor_id)
 );
 
 CREATE TABLE SaborHelado(
@@ -120,17 +134,6 @@ CREATE TABLE RegistroInventario_Productos(
     CONSTRAINT producto_fk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id),
     CONSTRAINT inventario_fk FOREIGN KEY (inventario_id) REFERENCES RegistroInventario(inventario_id)
 );
-
-CREATE TABLE Suplidor (
-	suplidor_id INT NOT NULL PRIMARY KEY identity(1,1),
-	nombre varchar(30) NOT NULL,
-	descripcion varchar(30),
-	calle varchar(50),
-	calle_no varchar(30),
-	ciudad varchar(50),
-	provincia varchar(50),
-	telefono varchar(16)
-)
 
 CREATE TABLE Orden(
 	orden_id INT identity(1,1) PRIMARY KEY NOT NULL,
@@ -161,10 +164,13 @@ CREATE TABLE Venta(
     cliente_id INT,
     caja_id INT NOT NULL,
     fecha DATETIME NOT NULL,
+	fecha_entrega DATETIME,
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
 	total money DEFAULT 0.00,
+	entregado_por INT,
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
-    CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id)
+    CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id),
+	CONSTRAINT venta_empleado_fk FOREIGN KEY (entregado_por) REFERENCES Empleado(empleado_id)
 );
 
 CREATE TABLE Venta_Productos(
@@ -176,9 +182,6 @@ CREATE TABLE Venta_Productos(
     CONSTRAINT producto_id_fk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id)
 );
 
-/*---NOMBRE DE TABLA CORREGIDO---*/
-
-drop table NCF
 CREATE TABLE NCF(
     no_NCF VARCHAR (25) PRIMARY KEY NOT NULL,
 	venta_id BIGINT UNIQUE NOT NULL,
@@ -198,6 +201,7 @@ CREATE TABLE Oferta(
 	cantidad_minima INT, 
 	producto_id INT NOT NULL,
 	tipo varchar(20) NOT NULL CHECK (tipo IN ('2x1', 'porciento')),
+	codigo_cupon varchar(10),
 	constraint oferta_producto_pk FOREIGN KEY (producto_id) REFERENCES Producto(producto_id) 
 );
  
@@ -365,13 +369,14 @@ INSERT INTO Turno VALUES ('Semana manana', 31, '09:00:00', '13:00:00');
 INSERT INTO Turno VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
 
 /* Empleados */
--- TODO: introducir correos y cedulas
-INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, supervisor) VALUES 
-('001-1493849-1', 'cedula', 'aalvarez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Alan', 'Alvarez', '809-482-5924', 'calle 5', '#4 Residencial Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1, 1),
-('001-1494939-1', 'cedula', 'rmartinez@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2, 0),
-('001-4391939-7', 'Cedula', 'lpeguero@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Laide', 'Peguero', '809-394-2119', 'San Francisdo de Macoris', 'Gazcue', 'D. N', 'Santo Domingo', 'Manz. CQ Edif. 2', 1, 0),
-('223-4896545-1', 'Cedula', 'mpena@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Manuela', 'Pena', '809-213-2213', 'Rep. de Paraguay', 'Ens. La Fe', 'D. N.', 'Santo Domingo', 'No. 123', 2, 1),
-('223-5211298-1', 'Cedula', 'llugo@bon.com.do', '0b530ea2fea822b77d5a910956bc1db9', 'Lissanna', 'Lugo', '809-424-3923', 'Av. Bolivar', 'Ens. Evaristo Morales', 'D. N.', 'Santo Domingo', 'Edif. Rojo Apart. 21', 2, 0);
+-- Password is pass123
+INSERT INTO Empleado(no_identificacion, tipo_identificacion, correo, password, nombre, apellido, telefono, calle, no_casa, sector, ciudad, provincia, turno_id, cargo) VALUES 
+('001-1493849-1', 'cedula', 'aalvarez@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Alan', 'Alvarez', '809-482-5924', 'calle 5', '#4 Residencial Las Flores APTO 5A', 'Los Jardines', 'D.N.', 'Santo Domingo', 1, 'supervisor'),
+('001-1494939-1', 'cedula', 'rmartinez@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Ramon', 'Martinez', '809-820-9857', 'calle 8', '#25', 'Los Alcarrizos', 'D.N.', 'Santo Domingo', 2, 'vendedor'),
+('001-4311939-7', 'cedula', 'lpeguero@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Laide', 'Peguero', '809-394-2119', 'San Francisdo de Macoris', 'Gazcue', 'D. N', 'Santo Domingo', 'Manz. CQ Edif. 2', 1, 'vendedor'),
+('223-4896545-1', 'cedula', 'mpena@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Manuela', 'Pena', '809-213-2213', 'Rep. de Paraguay', 'Ens. La Fe', 'D. N.', 'Santo Domingo', 'No. 123', 2, 'supervisor'),
+('223-5211298-1', 'cedula', 'llugo@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Lissanna', 'Lugo', '809-424-3923', 'Av. Bolivar', 'Ens. Evaristo Morales', 'D. N.', 'Santo Domingo', 'Edif. Rojo Apart. 21', 2, 'vendedor'),
+('001-3850284-4', 'cedula', 'ralcantara@bon.com.do', '32250170a0dca92d53ec9624f336ca24', 'Ramon', 'Alcantara', '809-583-2849', 'Calle Estrella', '#85', 'Villa Mella', 'D.N.', 'Santo Domingo', 1, 'delivery');
 
 /* Clientes */
 INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sector, ciudad, provincia) VALUES 
@@ -749,8 +754,28 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
 
+/*Insert RegistroInventario*/
+INSERT INTO RegistroInventario (empleado_id, notas, fecha) VALUES
+(5, NULL, '1/13/2013'),
+(3, NULL, '1/14/2013'),
+(3, NULL, '1/15/2013'),
+(4, NULL, '1/16/2013'),
+(1, NULL, '1/17/2013'),
+(5, NULL, '1/18/2013'),
+(4, NULL, '1/19/2013'),
+(3, NULL, '1/20/2013'),
+(5, NULL, '1/21/2013'),
+(2, NULL, '1/22/2013'),
+(3, NULL, '1/23/2013'),
+(5, NULL, '1/24/2013'),
+(3, NULL, '1/25/2013'),
+(2, NULL, '1/26/2013'),
+(4, NULL, '1/27/2013'),
+(2, NULL, '1/28/2013'),
+(3, NULL, '1/29/2013'),
+(3, NULL, '2/1/2013'),
+(4, NULL, '2/2/2013')
 
-select * from RegistroInventario
 /*RegistroInventario_Productos*/
 INSERT INTO RegistroInventario_Productos (producto_id, inventario_id, cantidad) VALUES
 (12, 1, 30),
@@ -815,6 +840,12 @@ INSERT INTO RegistroInventario_Productos (producto_id, inventario_id, cantidad) 
 (3, 7, 20),
 (4, 7, 25),
 (12, 7, 30)
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Barquito', '2x1 en barquitos', '3/1/2013', '3/30/2013', 127, '09:00:00', '18:00:00', 1, '2x1');
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
 
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, total, forma_pago) VALUES 
@@ -1178,6 +1209,11 @@ INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (26, 14, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
+INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
 
 /*Tabla Suplidor*/
 INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, telefono)
@@ -1233,58 +1269,6 @@ INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, despachada, fecha_
 (4, 3, NULL,1,0, '6/1/2013',0, '6/1/2013'),
 (4, 1, NULL,0,0, '6/2/2013',1, '6/2/2013')
 
-/*Insert RegistroInventario*/
-INSERT INTO RegistroInventario (empleado_id, notas, fecha) VALUES
-(5, NULL, '1/13/2013'),
-(3, NULL, '1/14/2013'),
-(3, NULL, '1/15/2013'),
-(4, NULL, '1/16/2013'),
-(1, NULL, '1/17/2013'),
-(5, NULL, '1/18/2013'),
-(4, NULL, '1/19/2013'),
-(3, NULL, '1/20/2013'),
-(5, NULL, '1/21/2013'),
-(2, NULL, '1/22/2013'),
-(3, NULL, '1/23/2013'),
-(5, NULL, '1/24/2013'),
-(3, NULL, '1/25/2013'),
-(2, NULL, '1/26/2013'),
-(4, NULL, '1/27/2013'),
-(2, NULL, '1/28/2013'),
-(3, NULL, '1/29/2013'),
-(3, NULL, '2/1/2013'),
-(4, NULL, '2/2/2013')
-
-/* Test venta trigger */
-select * from Producto
-
-select * from venta;
-select * from Venta_Productos
-select * from Venta_Ofertas;
-INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
-select * from venta
-select * from Oferta
-
-select * from Oferta
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
-
-
-UPDATE Venta SET total = 0.00
-delete from Venta_Productos
-delete from Venta_Ofertas;
-/* END OF Test venta trigger */
-
-insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
-('2x1 Barquito', '2x1 en barquitos', '3/1/2013', '3/30/2013', 127, '09:00:00', '18:00:00', 1, '2x1');
-
-insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
-('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
-
-select * from Venta
-
 
 
 /* Queries (para reportes) */
@@ -1337,3 +1321,6 @@ END
 SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, precio_venta, precio_compra, 
 	ISNULL((SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
 		 WHERE RegistroInventario_Productos.producto_id = Producto.producto_id ORDER BY RegistroInventario.fecha DESC), 0) AS Cantidad FROM Producto
+
+
+SELECT * FROM Empleado

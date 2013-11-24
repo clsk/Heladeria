@@ -77,7 +77,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
-    <Compile Include="NFC.cs">
+    <Compile Include="NCF.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Oferta.cs">
@@ -107,6 +107,9 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_CajaCerrada_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_ComprobantesRegistrados_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_GetVentas_Result.cs">

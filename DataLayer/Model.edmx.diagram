@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="heladeriaModel.Cliente" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="heladeriaModel.Empleado" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="heladeriaModel.INFO" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="heladeriaModel.NFC" Width="1.5" PointX="9.75" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="heladeriaModel.Oferta" Width="1.5" PointX="7.5" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="heladeriaModel.OfertaPorciento" Width="1.5" PointX="9.75" PointY="19.375" IsExpanded="true" />
         <EntityTypeShape EntityType="heladeriaModel.Orden" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
@@ -30,7 +29,6 @@
         <AssociationConnector Association="heladeriaModel.empleado_turno_fk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.inventario_empleado_fk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.orden_empleado_fk" ManuallyRouted="false" />
-        <AssociationConnector Association="heladeriaModel.nfc_venta" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.oferta_producto_pk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.porciento_oferta_fk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.venta_ofertas_oferta_fk" ManuallyRouted="false" />
@@ -43,6 +41,10 @@
         <AssociationConnector Association="heladeriaModel.inventario_fk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.venta_id_fk" ManuallyRouted="false" />
         <AssociationConnector Association="heladeriaModel.venta_ofertas_venta_fk" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="heladeriaModel.NCF" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="heladeriaModel.venta_empleado_fk" />
+        <AssociationConnector Association="heladeriaModel.NCF_venta" />
+        <AssociationConnector Association="heladeriaModel.producto_suplidor_fk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -17,6 +17,7 @@ namespace DataLayer
         public Suplidor()
         {
             this.Ordens = new HashSet<Orden>();
+            this.Productoes = new HashSet<Producto>();
         }
     
         public int suplidor_id { get; set; }
@@ -29,5 +30,6 @@ namespace DataLayer
         public string telefono { get; set; }
     
         public virtual ICollection<Orden> Ordens { get; set; }
+        public virtual ICollection<Producto> Productoes { get; set; }
     }
 }

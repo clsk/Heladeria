@@ -32,7 +32,6 @@ namespace DataLayer
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Empleado> Empleadoes { get; set; }
         public DbSet<INFO> INFOes { get; set; }
-        public DbSet<NFC> NFCs { get; set; }
         public DbSet<Oferta> Ofertas { get; set; }
         public DbSet<OfertaPorciento> OfertaPorcientoes { get; set; }
         public DbSet<Orden> Ordens { get; set; }
@@ -47,18 +46,23 @@ namespace DataLayer
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<Venta_Ofertas> Venta_Ofertas { get; set; }
         public DbSet<Venta_Productos> Venta_Productos { get; set; }
+        public DbSet<NCF> NCFs { get; set; }
     
-        public virtual ObjectResult<sp_CajaCerrada_Result> sp_CajaCerrada(Nullable<System.DateTime> fc_Inicia, Nullable<System.DateTime> fc_Termina)
+        public virtual ObjectResult<sp_CajaCerrada_Result> sp_CajaCerrada(Nullable<int> empleado_id, Nullable<System.DateTime> fecha, Nullable<decimal> cash_salida)
         {
-            var fc_IniciaParameter = fc_Inicia.HasValue ?
-                new ObjectParameter("fc_Inicia", fc_Inicia) :
-                new ObjectParameter("fc_Inicia", typeof(System.DateTime));
+            var empleado_idParameter = empleado_id.HasValue ?
+                new ObjectParameter("empleado_id", empleado_id) :
+                new ObjectParameter("empleado_id", typeof(int));
     
-            var fc_TerminaParameter = fc_Termina.HasValue ?
-                new ObjectParameter("fc_Termina", fc_Termina) :
-                new ObjectParameter("fc_Termina", typeof(System.DateTime));
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CajaCerrada_Result>("sp_CajaCerrada", fc_IniciaParameter, fc_TerminaParameter);
+            var cash_salidaParameter = cash_salida.HasValue ?
+                new ObjectParameter("cash_salida", cash_salida) :
+                new ObjectParameter("cash_salida", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_CajaCerrada_Result>("sp_CajaCerrada", empleado_idParameter, fechaParameter, cash_salidaParameter);
         }
     
         public virtual int sp_CreateCliente(string nombre, string apellido, string telefono, string correo, string rNC, string calle, string no_casa, string sector, string ciudad, string provincia, ObjectParameter id)
@@ -159,6 +163,19 @@ namespace DataLayer
                 new ObjectParameter("venta_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ObetenerNFCParaVenta", venta_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_ComprobantesRegistrados_Result> sp_ComprobantesRegistrados(Nullable<System.DateTime> fc_desde, Nullable<System.DateTime> fc_hasta)
+        {
+            var fc_desdeParameter = fc_desde.HasValue ?
+                new ObjectParameter("fc_desde", fc_desde) :
+                new ObjectParameter("fc_desde", typeof(System.DateTime));
+    
+            var fc_hastaParameter = fc_hasta.HasValue ?
+                new ObjectParameter("fc_hasta", fc_hasta) :
+                new ObjectParameter("fc_hasta", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ComprobantesRegistrados_Result>("sp_ComprobantesRegistrados", fc_desdeParameter, fc_hastaParameter);
         }
     }
 }

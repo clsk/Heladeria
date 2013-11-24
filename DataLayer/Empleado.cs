@@ -19,6 +19,7 @@ namespace DataLayer
             this.Cajas = new HashSet<Caja>();
             this.RegistroInventarios = new HashSet<RegistroInventario>();
             this.Ordens = new HashSet<Orden>();
+            this.Ventas = new HashSet<Venta>();
         }
     
         public int empleado_id { get; set; }
@@ -35,11 +36,12 @@ namespace DataLayer
         public string ciudad { get; set; }
         public string provincia { get; set; }
         public Nullable<int> turno_id { get; set; }
-        public Nullable<bool> supervisor { get; set; }
+        public string cargo { get; set; }
     
         public virtual ICollection<Caja> Cajas { get; set; }
         public virtual Turno Turno { get; set; }
         public virtual ICollection<RegistroInventario> RegistroInventarios { get; set; }
         public virtual ICollection<Orden> Ordens { get; set; }
+        public virtual ICollection<Venta> Ventas { get; set; }
     }
 }
