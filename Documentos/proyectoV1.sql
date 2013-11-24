@@ -168,6 +168,7 @@ CREATE TABLE Venta(
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
 	total money DEFAULT 0.00,
 	entregado_por INT,
+	tarjeta_no VARCHAR(4),
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id),
 	CONSTRAINT venta_empleado_fk FOREIGN KEY (entregado_por) REFERENCES Empleado(empleado_id)
@@ -365,8 +366,9 @@ END
 /* ============== INTRODUCCION DE DATOS ===================== */
 
 /* Turnos */
-INSERT INTO Turno VALUES ('Semana manana', 31, '09:00:00', '13:00:00');
-INSERT INTO Turno VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
+SELECT * FROM TUrno
+INSERT INTO Turno(nombre, dias, hora_comienza, hora_termina) VALUES ('Semana manana', 31, '09:00:00', '13:00:00');
+INSERT INTO Turno(nombre, dias, hora_comienza, hora_termina) VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
 
 /* Empleados */
 -- Password is pass123

@@ -30,7 +30,6 @@ namespace Heladeria
                 if (empleado == null)
                 {
                     MessageBox.Show("No se pudo validar el usuario", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    MessageBox.Show(DataLayer.Utils.CalculateMD5Hash("MyPass123"));
                 }
                 else
                 {
@@ -38,12 +37,19 @@ namespace Heladeria
                     TurnoHelper productoHelper = new TurnoHelper();
                     empleado.Turno = productoHelper.Get(empleado.turno_id.Value);
 
-                    ProductosHelper productosHelper = new ProductosHelper();
-                    List<Producto> productos = productosHelper.GetAllProductosParaVenta();
-                    foreach (Producto producto in productos)
+                    // Find out if within Turno
+                    DateTime currentDate = DateTime.Now;
+                    int dayOfWeek = (int) Math.Pow(((int)currentDate.DayOfWeek) +1,2);
+                    if (empleado.Turno != null && ((empleado.Turno.dias & dayOfWeek) == dayOfWeek))
                     {
-                        MessageBox.Show(producto.nombre);
+                        MessageBox.Show("OK!");
                     }
+                    else
+                    {
+                        MessageBox.Show("Need Supervisor Approval");
+                    }
+                    // If not, request supervisor approval
+
                 }
             }
             catch (Exception ex)
