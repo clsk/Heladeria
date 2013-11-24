@@ -24,6 +24,7 @@ namespace Heladeria
             {
                 MessageBox.Show("Usted tiene una Caja abierta.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _caja = cajasAbiertas[0];
+                btnCaja.Text = "Abrir Caja";
             }
         }
 
@@ -37,9 +38,26 @@ namespace Heladeria
 
         private void btnCaja_Click(object sender, EventArgs e)
         {
-            CajaHelper cajaHelper = new CajaHelper();
-            _caja = cajaHelper.AbrirCaja(App.CurrentUser, 10000.00m);
-            MessageBox.Show(_caja.caja_id.ToString());
+            if (_caja == null)
+            {
+                DialogEfectivoCaja dialog = new DialogEfectivoCaja();
+                dialog.Location = this.Location;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                CajaHelper cajaHelper = new CajaHelper();
+                _caja = cajaHelper.AbrirCaja(App.CurrentUser, dialog.Efectivo);
+                dialog.Dispose();
+                MessageBox.Show(_caja.caja_id.ToString());
+            }
+
+            FormCaja frmCaja = new FormCaja(this, _caja);
+            frmCaja.Location = this.Location;
+            this.Hide();
+            frmCaja.Show();
         }
     }
 }

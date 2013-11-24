@@ -69,6 +69,12 @@
     <Compile Include="ClientsRecord.Designer.cs">
       <DependentUpon>ClientsRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogEfectivoCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogEfectivoCaja.Designer.cs">
+      <DependentUpon>DialogEfectivoCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogSupervisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ClientsRecord.resx">
       <DependentUpon>ClientsRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogEfectivoCaja.resx">
+      <DependentUpon>DialogEfectivoCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSupervisor.resx">
       <DependentUpon>DialogSupervisor.cs</DependentUpon>

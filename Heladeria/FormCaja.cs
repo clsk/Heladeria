@@ -11,9 +11,9 @@ using DataLayer;
 
 namespace Heladeria
 {
-    public partial class FormCaja : Form
+    public partial class FormCaja : BaseForm
     {
-        public FormCaja(Caja caja)
+        public FormCaja(Form previousForm, Caja caja) : base(previousForm)
         {
             InitializeComponent();
         }

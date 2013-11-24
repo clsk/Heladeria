@@ -30,21 +30,23 @@
         {
             this.btnCaja = new System.Windows.Forms.Button();
             this.btLogout = new System.Windows.Forms.Button();
+            this.btOrdenes = new System.Windows.Forms.Button();
+            this.btInventario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCaja
             // 
-            this.btnCaja.Location = new System.Drawing.Point(65, 69);
+            this.btnCaja.Location = new System.Drawing.Point(78, 45);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(108, 96);
             this.btnCaja.TabIndex = 0;
-            this.btnCaja.Text = "Caja";
+            this.btnCaja.Text = "Crear Caja";
             this.btnCaja.UseVisualStyleBackColor = true;
             this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
             // btLogout
             // 
-            this.btLogout.Location = new System.Drawing.Point(238, 69);
+            this.btLogout.Location = new System.Drawing.Point(284, 45);
             this.btLogout.Name = "btLogout";
             this.btLogout.Size = new System.Drawing.Size(108, 96);
             this.btLogout.TabIndex = 1;
@@ -52,11 +54,31 @@
             this.btLogout.UseVisualStyleBackColor = true;
             this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
             // 
+            // btOrdenes
+            // 
+            this.btOrdenes.Location = new System.Drawing.Point(284, 167);
+            this.btOrdenes.Name = "btOrdenes";
+            this.btOrdenes.Size = new System.Drawing.Size(108, 96);
+            this.btOrdenes.TabIndex = 2;
+            this.btOrdenes.Text = "Ordenes";
+            this.btOrdenes.UseVisualStyleBackColor = true;
+            // 
+            // btInventario
+            // 
+            this.btInventario.Location = new System.Drawing.Point(78, 167);
+            this.btInventario.Name = "btInventario";
+            this.btInventario.Size = new System.Drawing.Size(108, 96);
+            this.btInventario.TabIndex = 3;
+            this.btInventario.Text = "Inventario";
+            this.btInventario.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 275);
+            this.Controls.Add(this.btInventario);
+            this.Controls.Add(this.btOrdenes);
             this.Controls.Add(this.btLogout);
             this.Controls.Add(this.btnCaja);
             this.Name = "FormMain";
@@ -69,5 +91,7 @@
 
         private System.Windows.Forms.Button btnCaja;
         private System.Windows.Forms.Button btLogout;
+        private System.Windows.Forms.Button btOrdenes;
+        private System.Windows.Forms.Button btInventario;
     }
 }

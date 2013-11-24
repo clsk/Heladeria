@@ -93,6 +93,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btCancel;
             this.ClientSize = new System.Drawing.Size(294, 118);
             this.Controls.Add(this.btOK);
             this.Controls.Add(this.btCancel);
@@ -100,7 +101,9 @@
             this.Controls.Add(this.tbCorreo);
             this.Controls.Add(this.lblClave);
             this.Controls.Add(this.lblCorreo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "DialogSupervisor";
+            this.ShowInTaskbar = false;
             this.Text = "Aprobacion Supervisor";
             this.ResumeLayout(false);
             this.PerformLayout();

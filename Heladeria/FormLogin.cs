@@ -51,7 +51,9 @@ namespace Heladeria
                     }
 
                     DialogSupervisor dialog = new DialogSupervisor();
+                    dialog.Location = this.Location;
                     DialogResult result = dialog.ShowDialog();
+                    dialog.Dispose();
                     if (result == DialogResult.Cancel)
                     {
                         return;
@@ -64,8 +66,9 @@ namespace Heladeria
                 }
                 // Good to go! Take user to MainForm
                 App.CurrentUser = empleado;
-                this.Hide();
                 FormMain frmMain = new FormMain(this);
+                frmMain.Location = this.Location;
+                this.Hide();
                 frmMain.Show();
             }
             catch (Exception ex)
