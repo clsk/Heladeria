@@ -47,7 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BasePersona.cs" />
+    <Compile Include="AbstractEntityHelper.cs" />
     <Compile Include="Caja.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -57,11 +57,10 @@
     <Compile Include="Empleado.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Empleados.cs" />
+    <Compile Include="EmpleadosHelper.cs" />
     <Compile Include="INFO.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="IPersona.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -95,6 +94,7 @@
     <Compile Include="Producto.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductosHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="RegistroInventario.cs">
@@ -124,6 +124,7 @@
     <Compile Include="Turno.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="TurnoHelper.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Venta.cs">
       <DependentUpon>Model.tt</DependentUpon>

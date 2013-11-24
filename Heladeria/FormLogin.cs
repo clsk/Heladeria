@@ -21,9 +21,11 @@ namespace Heladeria
         private void btnLogin_Click(object sender, EventArgs e)
         {
             Empleado empleado;
+            EmpleadosHelper empleadoHelper = new EmpleadosHelper();
             try
             {
-                empleado = Empleados.Login(tbCorreo.Text, tbClave.Text);
+
+                empleado = empleadoHelper.Login(tbCorreo.Text, tbClave.Text);
 
                 if (empleado == null)
                 {
@@ -33,6 +35,15 @@ namespace Heladeria
                 else
                 {
                     MessageBox.Show("Usuario Autenticado!");
+                    TurnoHelper productoHelper = new TurnoHelper();
+                    empleado.Turno = productoHelper.Get(empleado.turno_id.Value);
+
+                    ProductosHelper productosHelper = new ProductosHelper();
+                    List<Producto> productos = productosHelper.GetAllProductosParaVenta();
+                    foreach (Producto producto in productos)
+                    {
+                        MessageBox.Show(producto.nombre);
+                    }
                 }
             }
             catch (Exception ex)
