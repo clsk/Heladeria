@@ -7,8 +7,12 @@ using System.Windows.Forms;
 
 namespace Heladeria
 {
-    public abstract class BaseForm : Form
+    public class BaseForm : Form
     {
+        public BaseForm()
+            : base()
+        { }
+
         public BaseForm(Form previousForm)
             : base()
         {

@@ -63,6 +63,7 @@ namespace Heladeria
                     }
                 }
                 // Good to go! Take user to MainForm
+                App.CurrentUser = empleado;
                 this.Hide();
                 FormMain frmMain = new FormMain(this);
                 frmMain.Show();

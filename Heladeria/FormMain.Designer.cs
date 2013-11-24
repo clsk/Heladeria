@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnCaja = new System.Windows.Forms.Button();
+            this.btLogout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCaja
@@ -40,11 +41,22 @@
             this.btnCaja.Text = "Caja";
             this.btnCaja.UseVisualStyleBackColor = true;
             // 
+            // btLogout
+            // 
+            this.btLogout.Location = new System.Drawing.Point(238, 69);
+            this.btLogout.Name = "btLogout";
+            this.btLogout.Size = new System.Drawing.Size(108, 96);
+            this.btLogout.TabIndex = 1;
+            this.btLogout.Text = "Salir";
+            this.btLogout.UseVisualStyleBackColor = true;
+            this.btLogout.Click += new System.EventHandler(this.btLogout_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 275);
+            this.Controls.Add(this.btLogout);
             this.Controls.Add(this.btnCaja);
             this.Name = "FormMain";
             this.Text = "Bienvenido!";
@@ -55,5 +67,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnCaja;
+        private System.Windows.Forms.Button btLogout;
     }
 }

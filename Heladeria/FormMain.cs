@@ -16,5 +16,11 @@ namespace Heladeria
         {
             InitializeComponent();
         }
+
+        private void btLogout_Click(object sender, EventArgs e)
+        {
+            App.CurrentUser = null;
+            this.Close();
+        }
     }
 }
