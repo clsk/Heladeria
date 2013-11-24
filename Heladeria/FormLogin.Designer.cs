@@ -66,6 +66,7 @@
             this.tbClave.Name = "tbClave";
             this.tbClave.Size = new System.Drawing.Size(174, 20);
             this.tbClave.TabIndex = 3;
+            this.tbClave.UseSystemPasswordChar = true;
             // 
             // btnLogin
             // 

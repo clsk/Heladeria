@@ -85,6 +85,7 @@
     <Compile Include="OfertaPorciento.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="OfertasHelper.cs" />
     <Compile Include="Orden.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
