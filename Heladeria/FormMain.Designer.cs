@@ -40,6 +40,7 @@
             this.btnCaja.TabIndex = 0;
             this.btnCaja.Text = "Caja";
             this.btnCaja.UseVisualStyleBackColor = true;
+            this.btnCaja.Click += new System.EventHandler(this.btnCaja_Click);
             // 
             // btLogout
             // 

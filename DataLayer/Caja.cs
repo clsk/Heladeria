@@ -22,7 +22,6 @@ namespace DataLayer
         public int caja_id { get; set; }
         public int empleado_id { get; set; }
         public decimal cash_entrada { get; set; }
-        public bool estado { get; set; }
         public System.DateTime fecha_abre { get; set; }
         public Nullable<System.DateTime> fecha_cierra { get; set; }
     

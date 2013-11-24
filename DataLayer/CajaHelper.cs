@@ -12,7 +12,19 @@ namespace DataLayer
 
         public List<Caja> GetAllCajasAbiertasDeEmpleado(int empleado_id) 
         {
-            return base.GetAll("empleado_id = " + empleado_id.ToString() + " AND estado = 1");
+            return base.GetAll("empleado_id = " + empleado_id.ToString() + " AND fecha_cierra is null");
+        }
+
+        public Caja AbrirCaja(Empleado empleado, decimal cash_entrada)
+        {
+            Caja caja = new Caja();
+            caja.empleado_id = empleado.empleado_id;
+            caja.cash_entrada = cash_entrada;
+            caja.fecha_abre = DateTime.Now;
+
+            caja = Provider.GetProvider().Cajas.Add(caja);
+            Provider.GetProvider().SaveChanges();
+            return caja;
         }
     }
 }

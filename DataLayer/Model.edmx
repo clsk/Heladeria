@@ -117,7 +117,6 @@
           <Property Name="caja_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="empleado_id" Type="int" Nullable="false" />
           <Property Name="cash_entrada" Type="money" Nullable="false" />
-          <Property Name="estado" Type="bit" Nullable="false" />
           <Property Name="fecha_abre" Type="datetime" Nullable="false" />
           <Property Name="fecha_cierra" Type="datetime" />
         </EntityType>
@@ -775,7 +774,6 @@
           <Property Name="caja_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="empleado_id" Type="Int32" Nullable="false" />
           <Property Name="cash_entrada" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
           <Property Name="fecha_abre" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="fecha_cierra" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Empleado" Relationship="heladeriaModel.caja_empleado_fk" FromRole="Caja" ToRole="Empleado" />
@@ -1314,7 +1312,6 @@
                 <ScalarProperty Name="caja_id" ColumnName="caja_id" />
                 <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
                 <ScalarProperty Name="cash_entrada" ColumnName="cash_entrada" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="fecha_abre" ColumnName="fecha_abre" />
                 <ScalarProperty Name="fecha_cierra" ColumnName="fecha_cierra" />
               </MappingFragment>
