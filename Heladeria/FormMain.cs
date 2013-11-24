@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace Heladeria
 {
@@ -15,6 +16,15 @@ namespace Heladeria
         public FormMain(Form previousForm) : base(previousForm)
         {
             InitializeComponent();
+
+            // Get open cajas
+            CajaHelper cajaHelper = new CajaHelper();
+            List<Caja> cajasAbiertas = cajaHelper.GetAllCajasAbiertasDeEmpleado(App.CurrentUser.empleado_id);
+            if (cajasAbiertas.Count > 0)
+            {
+                MessageBox.Show("Usted tiene una Caja abierta. ");
+                _caja = cajasAbiertas[0];
+            }
         }
 
         private void btLogout_Click(object sender, EventArgs e)
@@ -22,5 +32,7 @@ namespace Heladeria
             App.CurrentUser = null;
             this.Close();
         }
+
+        private Caja _caja;
     }
 }

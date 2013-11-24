@@ -51,6 +51,7 @@
     <Compile Include="Caja.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CajaHelper.cs" />
     <Compile Include="Cliente.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
