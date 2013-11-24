@@ -330,4 +330,6 @@ UpgradeLog*.XML
 
 
 ### Ignore App.config
-App.config
+Heladeria/App.config
+DataLayer/App.config
+Reportes/App.config
