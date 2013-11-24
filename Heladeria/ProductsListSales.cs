@@ -7,17 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace Views
 {
     public partial class ProductsListSales : Form
     {
-        public delegate void AllSelectedProducts(DataGridViewRow _selected);
 
-        public event AllSelectedProducts AddProducts;
-
-        public DataGridViewRow SelectedRow = new DataGridViewRow();
-        
         public ProductsListSales()
         {
             InitializeComponent();
@@ -25,17 +21,13 @@ namespace Views
 
         private void ListadoDeProductos_Load(object sender, EventArgs e)
         {
-            /*
-             * TODO:
-             *  Aqui iria la parte logica que se conecta con la base de datos.
-             *  Solo para cargar los productos.
-             */
-            var _Productos = Logica.Productos.GetAllProducts();
+            ProductosHelper _ProductosHelp = new ProductosHelper();
+            var _Productos = _ProductosHelp.GetAllProductosParaVenta();
 
             int num = 1;
             foreach (var OneProduct in _Productos)
             {
-                dgvListaProductos.Rows.Add(num, OneProduct.ProductID, OneProduct.ProductName, OneProduct.UnitsPrice);
+                dgvListaProductos.Rows.Add(num, OneProduct.producto_id, OneProduct.descripcion, OneProduct.precio_venta);
                 num++;
             }
 
@@ -46,13 +38,14 @@ namespace Views
         {
             if (e.RowIndex >= 0)
             {
-                SelectedRow = dgvListaProductos.Rows[e.RowIndex];
+                DataGridViewRow _row = new DataGridViewRow();
 
-                if (SelectedRow.Selected)
-                    this.AddProducts(SelectedRow);
-                else
-                    System.Windows.Forms.MessageBox.Show("No es posible agregar el producto.", "ERROR", MessageBoxButtons.OK);
+                _row = dgvListaProductos.Rows[e.RowIndex];
+
+                ClientOrder _venta = ClientOrder.GetInstance;
+                _venta.AddSelectedProduct(_row);
             }
+            this.Close();
         }
     }
 }

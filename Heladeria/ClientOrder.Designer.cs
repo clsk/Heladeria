@@ -301,7 +301,7 @@
             this.Controls.Add(this.dgvPedidoProductos);
             this.Controls.Add(this.plLogotype);
             this.Name = "ClientOrder";
-            this.Text = "ClientOrder";
+            this.Text = "Solicitud De Productos";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidoProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

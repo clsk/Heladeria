@@ -51,6 +51,24 @@
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ClientOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientOrder.Designer.cs">
+      <DependentUpon>ClientOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientPayment.Designer.cs">
+      <DependentUpon>ClientPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClientsRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClientsRecord.Designer.cs">
+      <DependentUpon>ClientsRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="DialogSupervisor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,8 +87,23 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProductsListSales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProductsListSales.Designer.cs">
+      <DependentUpon>ProductsListSales.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ClientOrder.resx">
+      <DependentUpon>ClientOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientPayment.resx">
+      <DependentUpon>ClientPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClientsRecord.resx">
+      <DependentUpon>ClientsRecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DialogSupervisor.resx">
       <DependentUpon>DialogSupervisor.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProductsListSales.resx">
+      <DependentUpon>ProductsListSales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
