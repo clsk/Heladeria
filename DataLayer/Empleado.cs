@@ -20,6 +20,7 @@ namespace DataLayer
             this.RegistroInventarios = new HashSet<RegistroInventario>();
             this.Ordens = new HashSet<Orden>();
             this.Ventas = new HashSet<Venta>();
+            this.Cajas1 = new HashSet<Caja>();
         }
     
         public int empleado_id { get; set; }
@@ -43,5 +44,6 @@ namespace DataLayer
         public virtual ICollection<RegistroInventario> RegistroInventarios { get; set; }
         public virtual ICollection<Orden> Ordens { get; set; }
         public virtual ICollection<Venta> Ventas { get; set; }
+        public virtual ICollection<Caja> Cajas1 { get; set; }
     }
 }

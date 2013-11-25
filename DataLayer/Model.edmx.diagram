@@ -45,6 +45,7 @@
         <AssociationConnector Association="heladeriaModel.venta_empleado_fk" />
         <AssociationConnector Association="heladeriaModel.NCF_venta" />
         <AssociationConnector Association="heladeriaModel.producto_suplidor_fk" />
+        <AssociationConnector Association="heladeriaModel.caja_autorizador_fk" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

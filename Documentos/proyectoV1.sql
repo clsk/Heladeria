@@ -67,7 +67,9 @@ CREATE TABLE Caja (
 	cash_entrada money NOT NULL,
 	fecha_abre DATETIME NOT NULL DEFAULT GETDATE(),
 	fecha_cierra DATETIME,
-	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
+	autorizador_cierre INT,
+	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
+	constraint caja_autorizador_fk FOREIGN KEY (autorizador_cierre) REFERENCES Empleado(empleado_id)
 );
 
 CREATE TABLE Cliente(
@@ -221,9 +223,6 @@ CREATE TABLE Venta_Ofertas (
 	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
 )
 
-SELECT * 
-FROM Producto 
-where precio_venta is not null
 
 /* ============== STORED PROCEDURES ========================= */
 
@@ -1332,3 +1331,5 @@ SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, pre
 
 select * from Caja
 delete from Caja WHERE caja_id = 45
+select * from empleado
+SELECT * FROM Producto where precio_venta is not null

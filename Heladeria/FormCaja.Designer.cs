@@ -110,6 +110,7 @@
             this.btVenta.TabIndex = 8;
             this.btVenta.Text = "Nueva Venta";
             this.btVenta.UseVisualStyleBackColor = true;
+            this.btVenta.Click += new System.EventHandler(this.btVenta_Click);
             // 
             // FormCaja
             // 

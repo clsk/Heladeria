@@ -28,6 +28,7 @@ namespace Heladeria
                 return;
             }
 
+            Supervisor = supervisor;
             try
             {
                 EfectivoSalida = Decimal.Parse(tbEfectivo.Text);
@@ -46,6 +47,12 @@ namespace Heladeria
         }
 
         public decimal EfectivoSalida
+        {
+            get;
+            private set;
+        }
+
+        public Empleado Supervisor
         {
             get;
             private set;

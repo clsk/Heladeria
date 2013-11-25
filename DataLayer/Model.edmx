@@ -25,6 +25,10 @@
           <EntitySet Name="Venta" EntityType="heladeriaModel.Store.Venta" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Venta_Ofertas" EntityType="heladeriaModel.Store.Venta_Ofertas" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Venta_Productos" EntityType="heladeriaModel.Store.Venta_Productos" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="caja_autorizador_fk" Association="heladeriaModel.Store.caja_autorizador_fk">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Caja" EntitySet="Caja" />
+          </AssociationSet>
           <AssociationSet Name="caja_empleado_fk" Association="heladeriaModel.Store.caja_empleado_fk">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Caja" EntitySet="Caja" />
@@ -119,6 +123,7 @@
           <Property Name="cash_entrada" Type="money" Nullable="false" />
           <Property Name="fecha_abre" Type="datetime" Nullable="false" />
           <Property Name="fecha_cierra" Type="datetime" />
+          <Property Name="autorizador_cierre" Type="int" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -325,6 +330,18 @@
           <Property Name="producto_id" Type="int" Nullable="false" />
           <Property Name="cantidad" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="caja_autorizador_fk">
+          <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="0..1" />
+          <End Role="Caja" Type="heladeriaModel.Store.Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="autorizador_cierre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="caja_empleado_fk">
           <End Role="Empleado" Type="heladeriaModel.Store.Empleado" Multiplicity="1" />
           <End Role="Caja" Type="heladeriaModel.Store.Caja" Multiplicity="*" />
@@ -728,6 +745,10 @@
             <End Role="Suplidor" EntitySet="Suplidors" />
             <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
+          <AssociationSet Name="caja_autorizador_fk" Association="heladeriaModel.caja_autorizador_fk">
+            <End Role="Empleado" EntitySet="Empleadoes" />
+            <End Role="Caja" EntitySet="Cajas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Caja">
           <Key>
@@ -740,6 +761,8 @@
           <Property Name="fecha_cierra" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Empleado" Relationship="heladeriaModel.caja_empleado_fk" FromRole="Caja" ToRole="Empleado" />
           <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_caja_fk" FromRole="Caja" ToRole="Venta" />
+          <Property Type="Int32" Name="autorizador_cierre" />
+          <NavigationProperty Name="Empleado1" Relationship="heladeriaModel.caja_autorizador_fk" FromRole="Caja" ToRole="Empleado" />
         </EntityType>
         <EntityType Name="Cliente">
           <Key>
@@ -783,6 +806,7 @@
           <NavigationProperty Name="Ordens" Relationship="heladeriaModel.orden_empleado_fk" FromRole="Empleado" ToRole="Orden" />
           <Property Type="String" Name="cargo" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_empleado_fk" FromRole="Empleado" ToRole="Venta" />
+          <NavigationProperty Name="Cajas1" Relationship="heladeriaModel.caja_autorizador_fk" FromRole="Empleado" ToRole="Caja" />
         </EntityType>
         <EntityType Name="INFO">
           <Key>
@@ -1262,6 +1286,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="caja_autorizador_fk">
+          <End Type="heladeriaModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="heladeriaModel.Caja" Role="Caja" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="empleado_id" />
+            </Principal>
+            <Dependent Role="Caja">
+              <PropertyRef Name="autorizador_cierre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1271,6 +1307,7 @@
           <EntitySetMapping Name="Cajas">
             <EntityTypeMapping TypeName="heladeriaModel.Caja">
               <MappingFragment StoreEntitySet="Caja">
+                <ScalarProperty Name="autorizador_cierre" ColumnName="autorizador_cierre" />
                 <ScalarProperty Name="caja_id" ColumnName="caja_id" />
                 <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
                 <ScalarProperty Name="cash_entrada" ColumnName="cash_entrada" />

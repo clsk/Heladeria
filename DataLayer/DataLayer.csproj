@@ -96,6 +96,7 @@
     <Compile Include="Producto.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductoOrden.cs" />
     <Compile Include="ProductosHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />

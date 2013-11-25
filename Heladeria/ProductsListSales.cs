@@ -17,10 +17,7 @@ namespace Views
         public ProductsListSales()
         {
             InitializeComponent();
-        }
 
-        private void ListadoDeProductos_Load(object sender, EventArgs e)
-        {
             ProductosHelper _ProductosHelp = new ProductosHelper();
             var _Productos = _ProductosHelp.GetAllProductosParaVenta();
 

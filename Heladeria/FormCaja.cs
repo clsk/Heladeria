@@ -53,6 +53,7 @@ namespace Heladeria
             }
 
             _caja.fecha_cierra = DateTime.Now;
+            _caja.autorizador_cierre = dialog.Supervisor.empleado_id;
             _cajaHelper.SaveChanges();
             this.Close();
         }
@@ -61,5 +62,11 @@ namespace Heladeria
         private CajaHelper _cajaHelper;
         private decimal _ventasEfectivo;
         private decimal _ventasTarjeta;
+
+        private void btVenta_Click(object sender, EventArgs e)
+        {
+            Views.ClientOrder.GetInstance.Location = this.Location;
+            Views.ClientOrder.GetInstance.Show();
+        }
     }
 }
