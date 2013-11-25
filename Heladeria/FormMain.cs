@@ -62,10 +62,10 @@ namespace Heladeria
 
         private void btOrdenes_Click(object sender, EventArgs e)
         {
-            FormNewOrden frmOrden = new FormNewOrden(this);
-            frmOrden.Location = this.Location;
+            FormViewOrders frmOrders = new FormViewOrders(this);
+            frmOrders.Location = this.Location;
             this.Hide();
-            frmOrden.Show();
+            frmOrders.Show();
         }
     }
 }

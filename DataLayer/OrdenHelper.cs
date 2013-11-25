@@ -12,11 +12,27 @@ namespace DataLayer
             : base("Orden")
         { }
 
-        /*
-        public Orden CrearOrden(List<ProductoOrden> productos)
+        public Orden CrearOrden(int empleado_id, int suplidor_id, List<ProductoOrden> productos)
         {
+            Orden orden = new Orden();
+            orden.empleado_id = empleado_id;
+            orden.suplidor_id = suplidor_id;
+            orden.fecha_ordenada = DateTime.Now;
+            orden = Provider.GetProvider().Ordens.Add(orden);
+            Provider.GetProvider().SaveChanges();
 
+            foreach (ProductoOrden producto in productos)
+            {
+                Orden_Productos orden_Producto = new Orden_Productos();
+                orden_Producto.orden_id = orden.orden_id;
+                orden_Producto.producto_id = producto.ProductoID;
+                orden_Producto.cantidad = producto.Cantidad;
+                Provider.GetProvider().Orden_Productos.Add(orden_Producto);
+            }
+
+            Provider.GetProvider().SaveChanges();
+
+            return orden;
         }
-         * */
     }
 }

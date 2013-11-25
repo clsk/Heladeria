@@ -12,10 +12,18 @@ namespace DataLayer
         {
             _producto = producto;
             Ordenar = false;
-            Cantidad = 0m;
+            Cantidad = 0;
 
             InventarioHelper inventarioHelper = new InventarioHelper();
             CantidadExistencia = inventarioHelper.GetProductoCantidad(_producto.producto_id); 
+        }
+
+        public int ProductoID
+        {
+            get
+            {
+                return _producto.producto_id;
+            }
         }
 
         public string Nombre
@@ -70,7 +78,7 @@ namespace DataLayer
             set;
         }
 
-        public decimal Cantidad
+        public int Cantidad
         {
             get;
             set;

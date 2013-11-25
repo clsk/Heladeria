@@ -59,12 +59,11 @@ namespace Heladeria
                 return;
             }
 
-            Orden orden = new Orden();
+            OrdenHelper ordenHelper = new OrdenHelper();
+            Orden orden = ordenHelper.CrearOrden(App.CurrentUser.empleado_id, 3, toBuy);
+
 
             // TODO:
-            // Show total before committing
-            // Create Orden
-            // Create Orden_Producto for each producto
             // Show summary
             // Make sure new order is added to open orders dgv
 
