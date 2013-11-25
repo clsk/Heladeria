@@ -117,9 +117,7 @@
     <Compile Include="FormNewOrden.Designer.cs">
       <DependentUpon>FormNewOrden.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductsListSales.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ProductsListSales.cs" />
     <Compile Include="ProductsListSales.Designer.cs">
       <DependentUpon>ProductsListSales.cs</DependentUpon>
     </Compile>
