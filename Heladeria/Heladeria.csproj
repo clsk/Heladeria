@@ -93,6 +93,12 @@
     <Compile Include="FormCaja.Designer.cs">
       <DependentUpon>FormCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditCard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreditCard.Designer.cs">
+      <DependentUpon>CreditCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaja.resx">
       <DependentUpon>FormCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditCard.resx">
+      <DependentUpon>CreditCard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>

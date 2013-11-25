@@ -48,8 +48,21 @@
             this.tbItbis = new System.Windows.Forms.TextBox();
             this.lbItbis = new System.Windows.Forms.Label();
             this.dtpFechaVenta = new System.Windows.Forms.DateTimePicker();
+            this.btnCancelar = new System.Windows.Forms.Button();
+            this.btnFacturar = new System.Windows.Forms.Button();
+            this.pnlCliente = new System.Windows.Forms.Panel();
+            this.tbNombreCliente = new System.Windows.Forms.TextBox();
+            this.lbNombreCliente = new System.Windows.Forms.Label();
+            this.mtbNoRNC = new System.Windows.Forms.MaskedTextBox();
+            this.lbRNC = new System.Windows.Forms.Label();
+            this.cbIncluirComprobante = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturar)).BeginInit();
             this.gbInfoPago.SuspendLayout();
+            this.pnlCliente.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvFacturar
@@ -246,12 +259,137 @@
             this.dtpFechaVenta.Size = new System.Drawing.Size(270, 20);
             this.dtpFechaVenta.TabIndex = 14;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.Red;
+            this.btnCancelar.Location = new System.Drawing.Point(11, 578);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(120, 38);
+            this.btnCancelar.TabIndex = 18;
+            this.btnCancelar.Text = "CANCELAR";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
+            // btnFacturar
+            // 
+            this.btnFacturar.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFacturar.ForeColor = System.Drawing.Color.Green;
+            this.btnFacturar.Location = new System.Drawing.Point(897, 578);
+            this.btnFacturar.Name = "btnFacturar";
+            this.btnFacturar.Size = new System.Drawing.Size(120, 38);
+            this.btnFacturar.TabIndex = 17;
+            this.btnFacturar.Text = "FACTURAR";
+            this.btnFacturar.UseVisualStyleBackColor = true;
+            this.btnFacturar.Click += new System.EventHandler(this.btnFacturar_Click);
+            // 
+            // pnlCliente
+            // 
+            this.pnlCliente.Controls.Add(this.tbNombreCliente);
+            this.pnlCliente.Controls.Add(this.lbNombreCliente);
+            this.pnlCliente.Controls.Add(this.mtbNoRNC);
+            this.pnlCliente.Controls.Add(this.lbRNC);
+            this.pnlCliente.Location = new System.Drawing.Point(333, 511);
+            this.pnlCliente.Name = "pnlCliente";
+            this.pnlCliente.Size = new System.Drawing.Size(371, 97);
+            this.pnlCliente.TabIndex = 20;
+            this.pnlCliente.Visible = false;
+            // 
+            // tbNombreCliente
+            // 
+            this.tbNombreCliente.Location = new System.Drawing.Point(86, 56);
+            this.tbNombreCliente.Name = "tbNombreCliente";
+            this.tbNombreCliente.Size = new System.Drawing.Size(267, 20);
+            this.tbNombreCliente.TabIndex = 21;
+            this.tbNombreCliente.TextChanged += new System.EventHandler(this.tbNombreCliente_TextChanged);
+            // 
+            // lbNombreCliente
+            // 
+            this.lbNombreCliente.AutoSize = true;
+            this.lbNombreCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNombreCliente.Location = new System.Drawing.Point(15, 57);
+            this.lbNombreCliente.Name = "lbNombreCliente";
+            this.lbNombreCliente.Size = new System.Drawing.Size(62, 17);
+            this.lbNombreCliente.TabIndex = 20;
+            this.lbNombreCliente.Text = "Nombre:";
+            // 
+            // mtbNoRNC
+            // 
+            this.mtbNoRNC.Location = new System.Drawing.Point(86, 16);
+            this.mtbNoRNC.Mask = "000-0000000-0";
+            this.mtbNoRNC.Name = "mtbNoRNC";
+            this.mtbNoRNC.Size = new System.Drawing.Size(107, 20);
+            this.mtbNoRNC.TabIndex = 19;
+            this.mtbNoRNC.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mtbNoRNC_MaskInputRejected);
+            // 
+            // lbRNC
+            // 
+            this.lbRNC.AutoSize = true;
+            this.lbRNC.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRNC.Location = new System.Drawing.Point(15, 17);
+            this.lbRNC.Name = "lbRNC";
+            this.lbRNC.Size = new System.Drawing.Size(41, 17);
+            this.lbRNC.TabIndex = 18;
+            this.lbRNC.Text = "RNC:";
+            // 
+            // cbIncluirComprobante
+            // 
+            this.cbIncluirComprobante.AutoSize = true;
+            this.cbIncluirComprobante.Location = new System.Drawing.Point(333, 488);
+            this.cbIncluirComprobante.Name = "cbIncluirComprobante";
+            this.cbIncluirComprobante.Size = new System.Drawing.Size(120, 17);
+            this.cbIncluirComprobante.TabIndex = 19;
+            this.cbIncluirComprobante.Text = "Incluir Comprobante";
+            this.cbIncluirComprobante.UseVisualStyleBackColor = true;
+            this.cbIncluirComprobante.CheckedChanged += new System.EventHandler(this.cbIncluirComprobante_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.textBox2);
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Location = new System.Drawing.Point(711, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(306, 119);
+            this.panel1.TabIndex = 21;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(17, 60);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(274, 44);
+            this.textBox2.TabIndex = 19;
+            this.textBox2.Text = "Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.Black;
+            this.textBox1.Location = new System.Drawing.Point(17, 20);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(274, 34);
+            this.textBox1.TabIndex = 10;
+            this.textBox1.Text = "HELADERIA BON ";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // ClientPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ClientSize = new System.Drawing.Size(1034, 581);
+            this.ClientSize = new System.Drawing.Size(1034, 628);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlCliente);
+            this.Controls.Add(this.cbIncluirComprobante);
+            this.Controls.Add(this.btnCancelar);
+            this.Controls.Add(this.btnFacturar);
             this.Controls.Add(this.tbItbis);
             this.Controls.Add(this.lbItbis);
             this.Controls.Add(this.dtpFechaVenta);
@@ -263,6 +401,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturar)).EndInit();
             this.gbInfoPago.ResumeLayout(false);
             this.gbInfoPago.PerformLayout();
+            this.pnlCliente.ResumeLayout(false);
+            this.pnlCliente.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -289,5 +431,16 @@
         private System.Windows.Forms.TextBox tbItbis;
         private System.Windows.Forms.Label lbItbis;
         private System.Windows.Forms.DateTimePicker dtpFechaVenta;
+        private System.Windows.Forms.Button btnCancelar;
+        private System.Windows.Forms.Button btnFacturar;
+        private System.Windows.Forms.Panel pnlCliente;
+        private System.Windows.Forms.TextBox tbNombreCliente;
+        private System.Windows.Forms.Label lbNombreCliente;
+        private System.Windows.Forms.MaskedTextBox mtbNoRNC;
+        private System.Windows.Forms.Label lbRNC;
+        private System.Windows.Forms.CheckBox cbIncluirComprobante;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
