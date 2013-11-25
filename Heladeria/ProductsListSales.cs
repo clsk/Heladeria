@@ -13,7 +13,6 @@ namespace Heladeria
 {
     public partial class ProductsListSales : BaseForm
     {
-
         public ProductsListSales (Form previousForm) : base (previousForm)
         {
             InitializeComponent();
@@ -31,13 +30,14 @@ namespace Heladeria
             _Productos.Clear();
         }
 
-        private void dgvListaProductos_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvListaProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow _row = new DataGridViewRow();
 
                 _row = dgvListaProductos.Rows[e.RowIndex];
+
                 ClientOrder _venta = ClientOrder.GetInstance;
                 _venta.AddSelectedProduct(_row);
             }
