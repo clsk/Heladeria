@@ -20,6 +20,7 @@ namespace Heladeria
         private void btOK_Click(object sender, EventArgs e)
         {
             Efectivo = Decimal.Parse(tbEfectivo.Text);
+            this.DialogResult = DialogResult.OK;
         }
 
         public decimal Efectivo

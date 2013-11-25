@@ -11,16 +11,11 @@ using DataLayer;
 
 namespace Heladeria
 {
-    public partial class DialogSupervisor : Form
+    public partial class DialogCuadreCaja : Form
     {
-        public DialogSupervisor()
+        public DialogCuadreCaja()
         {
             InitializeComponent();
-            btCancel.DialogResult = DialogResult.Cancel;
-        }
-
-        private void btCancel_Click(object sender, EventArgs e)
-        {
         }
 
         private void btOK_Click(object sender, EventArgs e)
@@ -33,7 +28,27 @@ namespace Heladeria
                 return;
             }
 
+            try
+            {
+                EfectivoSalida = Decimal.Parse(tbEfectivo.Text);
+            }
+            catch (Exception ex)
+            {
+                if (DialogResult.Cancel == MessageBox.Show(ex.ToString(), "Error de entrada en Cantidad Efectivo!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error))
+                {
+                    this.DialogResult = DialogResult.Cancel;
+                }
+
+                return;
+            }
+
             this.DialogResult = DialogResult.OK;
+        }
+
+        public decimal EfectivoSalida
+        {
+            get;
+            private set;
         }
     }
 }

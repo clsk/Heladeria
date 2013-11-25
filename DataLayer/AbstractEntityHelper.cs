@@ -18,8 +18,7 @@ namespace DataLayer
         {
             try
             {
-                List<EntityType> entities = Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table, new object[0]).ToList();
-                return entities;
+                return Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table, new object[0]).ToList();
             }
             catch (Exception ex)
             {
@@ -31,8 +30,7 @@ namespace DataLayer
         {
             try
             {
-                List<EntityType> entities = Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + conditional_str, new object[0]).ToList();
-                return entities;
+                return Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + conditional_str, new object[0]).ToList();
             }
             catch (Exception ex)
             {
@@ -46,8 +44,7 @@ namespace DataLayer
             {
                 Object[] parameters = new Object[1];
                 parameters[0] = new SqlParameter("@id", id);
-                EntityType entity = Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + id_parameter + " = @id", parameters).SingleOrDefault();
-                return entity;
+                return Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + id_parameter + " = @id", parameters).SingleOrDefault();
             }
             catch (Exception ex)
             {
@@ -64,13 +61,17 @@ namespace DataLayer
         {
             try
             {
-                EntityType entity = Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + conditional_str).SingleOrDefault();
-                return entity;
+                return Provider.GetProvider().Database.SqlQuery<EntityType>("SELECT * FROM " + _table + " WHERE " + conditional_str).SingleOrDefault();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+
+        public virtual void SaveChanges()
+        {
+            Provider.GetProvider().SaveChanges();
         }
 
         protected string _table; 

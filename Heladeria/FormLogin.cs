@@ -24,7 +24,6 @@ namespace Heladeria
             EmpleadosHelper empleadoHelper = new EmpleadosHelper();
             try
             {
-
                 empleado = empleadoHelper.Login(tbCorreo.Text, tbClave.Text);
                 tbClave.Clear();
                 if (empleado == null)
@@ -33,8 +32,8 @@ namespace Heladeria
                     return;
                 }
 
-                TurnoHelper productoHelper = new TurnoHelper();
-                empleado.Turno = productoHelper.Get(empleado.turno_id.Value);
+                TurnoHelper turnoHelper = new TurnoHelper();
+                empleado.Turno = turnoHelper.Get(empleado.turno_id.Value);
 
                 // Find out if within Turno
                 DateTime currentDate = DateTime.Now;
@@ -56,11 +55,6 @@ namespace Heladeria
                     dialog.Dispose();
                     if (result == DialogResult.Cancel)
                     {
-                        return;
-                    }
-                    else if (result == DialogResult.Abort)
-                    {
-                        MessageBox.Show("Solor un supervisor puede darle permiso a ingresar al sistema fuera de horario", "Este usuario no es un supervisor", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }

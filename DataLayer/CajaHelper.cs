@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace DataLayer
 {
@@ -25,6 +26,25 @@ namespace DataLayer
             caja = Provider.GetProvider().Cajas.Add(caja);
             Provider.GetProvider().SaveChanges();
             return caja;
+        }
+
+        public decimal CalcularVentasEfectivo(int caja_id)
+        {
+            Object[] parameters = new Object[1];
+            parameters[0] = new SqlParameter("@caja_id", caja_id);
+            return Provider.GetProvider().Database.SqlQuery<decimal>("SELECT ISNULL(SUM(venta.total),0.00) FROM Venta WHERE Venta.caja_id = @caja_id AND Venta.forma_pago = 'efectivo'", parameters).SingleOrDefault();
+        }
+
+        public decimal CalcularVentasTarjeta(int caja_id)
+        {
+            Object[] parameters = new Object[1];
+            parameters[0] = new SqlParameter("@caja_id", caja_id);
+            return Provider.GetProvider().Database.SqlQuery<decimal>("SELECT ISNULL(SUM(venta.total),0.00) FROM Venta WHERE Venta.caja_id = @caja_id AND Venta.forma_pago = 'tarjeta'", parameters).SingleOrDefault();
+        }
+
+        public void Attach(Caja caja)
+        {
+            Provider.GetProvider().Cajas.Attach(caja);
         }
     }
 }
