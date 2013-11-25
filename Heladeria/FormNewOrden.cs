@@ -14,11 +14,12 @@ namespace Heladeria
     public partial class FormNewOrden : BaseForm
     {
         private Suplidor _suplidor;
-        public FormNewOrden(Form previousForm) : base(previousForm)
+        public FormNewOrden(Form previousForm, Suplidor suplidor) : base(previousForm)
         {
             InitializeComponent();
+            _suplidor = suplidor;
             ProductosHelper productoHelper = new ProductosHelper();
-            List<Producto> productos = productoHelper.GetAll("suplidor = 3");
+            List<Producto> productos = productoHelper.GetAll("suplidor = " + suplidor.suplidor_id);
             List<ProductoOrden> productosSuplidor = new List<ProductoOrden>(productos.Count);
             foreach (Producto producto in productos)
             {
@@ -28,6 +29,14 @@ namespace Heladeria
             _productos = productosSuplidor;
             dgvProductos.DataSource = _productos;
 
+        }
+
+        public FormNewOrden(Form previousForm, List<ProductoOrden> productos)
+            : base(previousForm)
+        {
+            InitializeComponent();
+            _productos = productos;
+            dgvProductos.DataSource = _productos;
         }
 
         private List<ProductoOrden> _productos;
@@ -68,6 +77,25 @@ namespace Heladeria
             // Make sure new order is added to open orders dgv
 
 
+        }
+
+        private decimal CalcularTotal()
+        {
+            decimal total = 0;
+            foreach (ProductoOrden producto in _productos)
+            {
+                if (producto.Ordenar && producto.Cantidad > 0)
+                {
+                    total += (producto.PrecioCompra * producto.Cantidad);
+                }
+            }
+
+            return total;
+        }
+
+        private void dgvProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            tbTotal.Text = CalcularTotal().ToString();
         }
     }
 }

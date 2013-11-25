@@ -32,7 +32,14 @@ namespace Heladeria
 
         private void btNuevaOrden_Click(object sender, EventArgs e)
         {
-            FormNewOrden frmNewOrden = new FormNewOrden(this);
+            DialogSuplidores dialog = new DialogSuplidores();
+            dialog.Location = this.Location;
+            DialogResult result = dialog.ShowDialog();
+            if (result == DialogResult.Cancel)
+                return;
+
+
+            FormNewOrden frmNewOrden = new FormNewOrden(this, dialog.SelectedSuplidor);
             frmNewOrden.Location = this.Location;
             this.Hide();
             frmNewOrden.Show();

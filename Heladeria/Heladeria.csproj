@@ -87,6 +87,12 @@
     <Compile Include="DialogSupervisor.Designer.cs">
       <DependentUpon>DialogSupervisor.cs</DependentUpon>
     </Compile>
+    <Compile Include="DialogSuplidores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DialogSuplidores.Designer.cs">
+      <DependentUpon>DialogSuplidores.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DialogSupervisor.resx">
       <DependentUpon>DialogSupervisor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DialogSuplidores.resx">
+      <DependentUpon>DialogSuplidores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCaja.resx">
       <DependentUpon>FormCaja.cs</DependentUpon>
