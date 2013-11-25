@@ -31,6 +31,8 @@
             this.btCancelar = new System.Windows.Forms.Button();
             this.btOrdenar = new System.Windows.Forms.Button();
             this.dgvProductos = new System.Windows.Forms.DataGridView();
+            this.tbSubTotal = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,11 +66,31 @@
             this.dgvProductos.Size = new System.Drawing.Size(868, 325);
             this.dgvProductos.TabIndex = 0;
             // 
+            // tbSubTotal
+            // 
+            this.tbSubTotal.Location = new System.Drawing.Point(375, 363);
+            this.tbSubTotal.Name = "tbSubTotal";
+            this.tbSubTotal.Size = new System.Drawing.Size(100, 20);
+            this.tbSubTotal.TabIndex = 3;
+            this.tbSubTotal.Text = "0.00";
+            this.tbSubTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(301, 366);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Sub-Total";
+            // 
             // FormNewOrden
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(892, 398);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbSubTotal);
             this.Controls.Add(this.btCancelar);
             this.Controls.Add(this.btOrdenar);
             this.Controls.Add(this.dgvProductos);
@@ -76,6 +98,7 @@
             this.Text = "FormNewOrden";
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -84,5 +107,7 @@
         private System.Windows.Forms.DataGridView dgvProductos;
         private System.Windows.Forms.Button btOrdenar;
         private System.Windows.Forms.Button btCancelar;
+        private System.Windows.Forms.TextBox tbSubTotal;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -61,9 +61,11 @@ namespace Heladeria
 
             Orden orden = new Orden();
 
+            // TODO:
+            // Show total before committing
             // Create Orden
             // Create Orden_Producto for each producto
-            // show total (and maybe suplidor info)
+            // Show summary
             // Make sure new order is added to open orders dgv
 
 
