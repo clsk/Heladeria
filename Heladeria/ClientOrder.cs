@@ -38,16 +38,6 @@ namespace Views
             
         }
 
-        private void btnAgregarProducto_Click(object sender, EventArgs e)
-        {
-            if (SelectedProducts.Count != dgvPedidoProductos.RowCount) {
-                ReadDataGridView();
-            }
-            ProductsListSales _productsSales = new ProductsListSales();
-            _productsSales.ShowDialog();
-            ShowInDGV();
-        }
-
         public void AddSelectedProduct(DataGridViewRow OneSelected)
         {
             string _idAux = "";
@@ -132,23 +122,34 @@ namespace Views
             }        
         }
 
-        private void btnProcesar_Click(object sender, EventArgs e)
+        private void btnAgregarProducto_Click_1(object sender, EventArgs e)
         {
-            if (dgvPedidoProductos.RowCount > 0)
+            if (SelectedProducts.Count != dgvPedidoProductos.RowCount)
             {
                 ReadDataGridView();
-                PlaceOrder();
-                Heladeria.ClientPayment _payToMe = new Heladeria.ClientPayment();
-                _payToMe.SetProductsOrder(SelectedProducts);
-                _payToMe.ShowDialog();
-                this.Close();
             }
-            else {
-                System.Windows.Forms.MessageBox.Show("No existen Productos Seleccionados.", "ERROR", MessageBoxButtons.OK);
-            }
+            ProductsListSales _productsSales = new ProductsListSales();
+            _productsSales.ShowDialog();
+            ShowInDGV();
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
+        private void btnReset_Click_1(object sender, EventArgs e)
+        {
+            SelectedProducts.Clear();
+            tbItbis.Text = "0.00";
+            tbMontoTotal.Text = "0.00";
+            tbSubTotal.Text = "0.00";
+            dgvPedidoProductos.RowCount = 0;
+        }
+
+        private void btnCerrar_Click_1(object sender, EventArgs e)
+        {
+            SelectedProducts.Clear();
+            dgvPedidoProductos.RowCount = 0;
+            this.Close();
+        }
+
+        private void btnActualizar_Click_1(object sender, EventArgs e)
         {
             if (dgvPedidoProductos.RowCount > 0)
             {
@@ -158,16 +159,18 @@ namespace Views
                 int CantRows = dgvPedidoProductos.RowCount;
                 DataGridViewRow _row = new DataGridViewRow();
 
-                while (i < CantRows) {
+                while (i < CantRows)
+                {
                     _row = dgvPedidoProductos.Rows[i];
                     cant = int.Parse((_row.Cells["CantidadArticulos"].Value.ToString()));
                     precio = Convert.ToDouble(_row.Cells["PrecioUnitarioArt"].Value.ToString());
-                    if (cant > 1) {
+                    if (cant > 1)
+                    {
                         _row.Cells["PreciosTotalArt"].Value = (precio * cant).ToString();
                     }
                     i++;
                 }
-                
+
                 /*Actualizacion de Totales de Venta*/
                 double _sub = 0;
                 double _desc = 0;
@@ -188,23 +191,27 @@ namespace Views
                 tbItbis.Text = "RD$ " + _itbis.ToString();
                 tbMontoTotal.Text = "RD$ " + _total.ToString();
             }
-            else {
+            else
+            {
                 System.Windows.Forms.MessageBox.Show("No es posible actualizar la tabla.", "ERROR", MessageBoxButtons.OK);
             }
         }
-       
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            SelectedProducts.Clear();
-            tbItbis.Text = "0.00";
-            tbMontoTotal.Text = "0.00";
-            tbSubTotal.Text = "0.00";
-            dgvPedidoProductos.RowCount = 0;
-        }
 
-        private void btnCerrar_Click(object sender, EventArgs e)
+        private void btnProcesar_Click_1(object sender, EventArgs e)
         {
-            this.Close();
+            if (dgvPedidoProductos.RowCount > 0)
+            {
+                ReadDataGridView();
+                PlaceOrder();
+                Heladeria.ClientPayment _payToMe = new Heladeria.ClientPayment();
+                _payToMe.SetProductsOrder(SelectedProducts);
+                _payToMe.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("No existen Productos Seleccionados.", "ERROR", MessageBoxButtons.OK);
+            }
         }
     }
 }

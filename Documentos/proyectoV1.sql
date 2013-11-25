@@ -221,6 +221,9 @@ CREATE TABLE Venta_Ofertas (
 	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
 )
 
+SELECT * 
+FROM Producto 
+where precio_venta is not null
 
 /* ============== STORED PROCEDURES ========================= */
 

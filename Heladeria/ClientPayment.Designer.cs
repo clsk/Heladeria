@@ -155,6 +155,7 @@
             this.cbFormaDePago.Name = "cbFormaDePago";
             this.cbFormaDePago.Size = new System.Drawing.Size(227, 25);
             this.cbFormaDePago.TabIndex = 1;
+            this.cbFormaDePago.SelectedIndexChanged += new System.EventHandler(this.cbFormaDePago_SelectedIndexChanged);
             // 
             // lbResto
             // 
@@ -204,6 +205,7 @@
             this.tbMontoRecibido.ReadOnly = true;
             this.tbMontoRecibido.Size = new System.Drawing.Size(227, 70);
             this.tbMontoRecibido.TabIndex = 4;
+            this.tbMontoRecibido.TextChanged += new System.EventHandler(this.tbMontoRecibido_TextChanged_1);
             // 
             // plLogotype
             // 

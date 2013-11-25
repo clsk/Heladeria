@@ -60,7 +60,23 @@ namespace Heladeria
             UploadData();
         }
 
-        private void tbMontoRecibido_TextChanged(object sender, EventArgs e)
+        private void cbFormaDePago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbFormaDePago.SelectedItem.ToString() == "Efectivo")
+            {
+                tbMontoRecibido.ReadOnly = false;
+            }
+            else
+            {
+                tbMontoRecibido.Text = tbMontoPagar.Text;
+                double _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
+                double _Pagar = Convert.ToDouble(tbMontoRecibido.Text.ToString());
+                double _resto = _Pagar - _Pago;
+                tbResto.Text = _resto.ToString();
+            }
+        }
+
+        private void tbMontoRecibido_TextChanged_1(object sender, EventArgs e)
         {
             double _Pago;
             double _Pagar;
@@ -75,22 +91,6 @@ namespace Heladeria
             else
             {
                 tbMontoRecibido.Text = "0.00";
-            }
-        }
-
-        private void cbFormaDePago_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cbFormaDePago.SelectedItem.ToString() == "Efectivo")
-            {
-                tbMontoRecibido.ReadOnly = false;
-            }
-            else
-            {
-                tbMontoRecibido.Text = tbMontoPagar.Text;
-                double _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
-                double _Pagar = Convert.ToDouble(tbMontoRecibido.Text.ToString());
-                double _resto = _Pagar - _Pago;
-                tbResto.Text = _resto.ToString();
             }
         }
     }

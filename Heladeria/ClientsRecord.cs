@@ -43,5 +43,15 @@ namespace Views
              *  nuevas del cliente.
              */
         }
+
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

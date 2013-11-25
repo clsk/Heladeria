@@ -67,6 +67,7 @@
             this.btnAyuda.TabIndex = 28;
             this.btnAyuda.Text = "Ayuda";
             this.btnAyuda.UseVisualStyleBackColor = true;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // btnHome
             // 
@@ -76,6 +77,7 @@
             this.btnHome.TabIndex = 27;
             this.btnHome.Text = "Inicio";
             this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // gbInformacionesCliente
             // 
