@@ -11,10 +11,10 @@ using DataLayer;
 
 namespace Heladeria
 {
-    public partial class ProductsListSales
+    public partial class ProductsListSales : BaseForm
     {
 
-        public ProductsListSales ()
+        public ProductsListSales (Form previousForm) : base (previousForm)
         {
             InitializeComponent();
 
@@ -41,6 +41,7 @@ namespace Heladeria
                 ClientOrder _venta = ClientOrder.GetInstance;
                 _venta.AddSelectedProduct(_row);
             }
+            this.Close();
         }
     }
 }
