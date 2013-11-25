@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Views
+namespace Heladeria
 {
-    public partial class ClientOrder : Form
+    public partial class ClientOrder : BaseForm
     {
         private static ClientOrder _instance;
 
@@ -20,7 +20,7 @@ namespace Views
             {
                 if (_instance == null)
                 {
-                    _instance = new ClientOrder();
+                    _instance = new ClientOrder ();
                 }
                 return _instance;
             }
@@ -28,9 +28,13 @@ namespace Views
         
         static List<DataGridViewRow> SelectedProducts = new List<DataGridViewRow>();
 
-        public ClientOrder()
+        public ClientOrder(Form previousForm) : base (previousForm)
         {
             InitializeComponent();
+        }
+
+        private ClientOrder () { 
+        
         }
 
         private void ClientOrder_Load(object sender, EventArgs e)
@@ -128,7 +132,7 @@ namespace Views
             {
                 ReadDataGridView();
             }
-            ProductsListSales _productsSales = new ProductsListSales();
+            ProductsListSales _productsSales = new ProductsListSales(this);
             _productsSales.ShowDialog();
             ShowInDGV();
         }
@@ -203,7 +207,7 @@ namespace Views
             {
                 ReadDataGridView();
                 PlaceOrder();
-                Heladeria.ClientPayment _payToMe = new Heladeria.ClientPayment();
+                ClientPayment _payToMe = new ClientPayment(this);
                 _payToMe.SetProductsOrder(SelectedProducts);
                 _payToMe.ShowDialog();
                 this.Close();

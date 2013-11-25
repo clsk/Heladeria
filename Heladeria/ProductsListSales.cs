@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataLayer;
 
-namespace Views
+namespace Heladeria
 {
-    public partial class ProductsListSales : Form
+    public partial class ProductsListSales : BaseForm
     {
 
-        public ProductsListSales()
+        public ProductsListSales (Form previousForm) : base (previousForm)
         {
             InitializeComponent();
 
@@ -38,7 +38,6 @@ namespace Views
                 DataGridViewRow _row = new DataGridViewRow();
 
                 _row = dgvListaProductos.Rows[e.RowIndex];
-
                 ClientOrder _venta = ClientOrder.GetInstance;
                 _venta.AddSelectedProduct(_row);
             }
