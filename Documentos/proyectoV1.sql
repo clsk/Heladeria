@@ -141,12 +141,13 @@ CREATE TABLE Orden(
 	empleado_id INT NOT NULL,
 	suplidor_id INT NOT NULL,
 	NOTAS TEXT,
+	fecha_ordenada DATETIME, 
 	aceptada BIT DEFAULT 0,
-	fecha_aceptada DATE,
+	fecha_aceptada DATETIME,
 	despachada BIT DEFAULT 0,
-	fecha_despachada DATE,
+	fecha_despachada DATETIME,
 	recibida BIT DEFAULT 0,
-	fecha_recibida DATE,
+	fecha_recibida DATETIME,
 	constraint orden_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
 	constraint orden_suplidor_fk FOREIGN KEY (suplidor_id) REFERENCES Suplidor(suplidor_id)
 );
@@ -1226,6 +1227,7 @@ INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, t
 VALUES ('Don Confinteria', 'Conos, Chispas y demás', 'Juana Saltitopa', 'No. 42', 'D. N.', 'Santo Domingo', '809-234-5235'),
 	('Kids Party', 'Decoraciones Festivas', 'Plaza Naco', 'Local 23', 'D. N.', 'Santo Domingo', '809-125-2352'),
 	('Central Bon', 'Helados, Mermeladas, Otros', 'Zona Industrial de Herrera', 'No. 45', 'D. N.', 'Santo Domingo', '809-523-5123')
+UPDATE Producto SET suplidor = 3
 
 /*Orden*/
 INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, fecha_aceptada, fecha_despachada, recibida, fecha_recibida)

@@ -62,6 +62,7 @@
     <Compile Include="INFO.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="InventarioHelper.cs" />
     <Compile Include="Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -90,6 +91,7 @@
     <Compile Include="Orden.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdenHelper.cs" />
     <Compile Include="Orden_Productos.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -121,6 +123,7 @@
     <Compile Include="Suplidor.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SuplidorHelper.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

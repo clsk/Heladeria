@@ -156,12 +156,14 @@ namespace Heladeria
             string _line;
             
             int _lastSold = 2;
-            
-            for (int i = 0; i < dgvFacturar.RowCount; i++) {
+
+            for (int i = 0; i < dgvFacturar.RowCount; i++)
+            {
                 _line = "( " + _lastSold.ToString() + ", ";
                 _line += dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString() + ", ";
                 _line += dgvFacturar.Rows[i].Cells["Amount"].Value.ToString() + ")";
                 _VentaProductoCantidad.Add(_line);
+            }
         }
     }
 }

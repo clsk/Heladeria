@@ -209,12 +209,13 @@
           <Property Name="empleado_id" Type="int" Nullable="false" />
           <Property Name="suplidor_id" Type="int" Nullable="false" />
           <Property Name="NOTAS" Type="text" />
+          <Property Name="fecha_ordenada" Type="datetime" Nullable="false" />
           <Property Name="aceptada" Type="bit" />
-          <Property Name="fecha_aceptada" Type="date" />
+          <Property Name="fecha_aceptada" Type="datetime" />
           <Property Name="despachada" Type="bit" />
-          <Property Name="fecha_despachada" Type="date" />
+          <Property Name="fecha_despachada" Type="datetime" />
           <Property Name="recibida" Type="bit" />
-          <Property Name="fecha_recibida" Type="date" />
+          <Property Name="fecha_recibida" Type="datetime" />
         </EntityType>
         <EntityType Name="Orden_Productos">
           <Key>
@@ -853,14 +854,15 @@
           <Property Name="suplidor_id" Type="Int32" Nullable="false" />
           <Property Name="NOTAS" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="aceptada" Type="Boolean" />
-          <Property Name="fecha_aceptada" Type="DateTime" Precision="0" />
+          <Property Name="fecha_aceptada" Type="DateTime" Precision="3" />
           <Property Name="despachada" Type="Boolean" />
-          <Property Name="fecha_despachada" Type="DateTime" Precision="0" />
+          <Property Name="fecha_despachada" Type="DateTime" Precision="3" />
           <Property Name="recibida" Type="Boolean" />
-          <Property Name="fecha_recibida" Type="DateTime" Precision="0" />
+          <Property Name="fecha_recibida" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Empleado" Relationship="heladeriaModel.orden_empleado_fk" FromRole="Orden" ToRole="Empleado" />
           <NavigationProperty Name="Orden_Productos" Relationship="heladeriaModel.orden_producto_orden_fk" FromRole="Orden" ToRole="Orden_Productos" />
           <NavigationProperty Name="Suplidor" Relationship="heladeriaModel.orden_suplidor_fk" FromRole="Orden" ToRole="Suplidor" />
+          <Property Type="DateTime" Name="fecha_ordenada" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Orden_Productos">
           <Key>
@@ -1393,6 +1395,7 @@
           <EntitySetMapping Name="Ordens">
             <EntityTypeMapping TypeName="heladeriaModel.Orden">
               <MappingFragment StoreEntitySet="Orden">
+                <ScalarProperty Name="fecha_ordenada" ColumnName="fecha_ordenada" />
                 <ScalarProperty Name="orden_id" ColumnName="orden_id" />
                 <ScalarProperty Name="empleado_id" ColumnName="empleado_id" />
                 <ScalarProperty Name="suplidor_id" ColumnName="suplidor_id" />

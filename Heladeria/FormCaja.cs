@@ -65,8 +65,11 @@ namespace Heladeria
 
         private void btVenta_Click(object sender, EventArgs e)
         {
-            Views.ClientOrder.GetInstance.Location = this.Location;
-            Views.ClientOrder.GetInstance.Show();
+            ClientOrder frmVenta = new ClientOrder(this);
+            frmVenta.Location = this.Location;
+            this.Hide();
+            frmVenta.Show();
+
         }
     }
 }

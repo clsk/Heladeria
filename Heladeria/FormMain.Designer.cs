@@ -62,6 +62,7 @@
             this.btOrdenes.TabIndex = 2;
             this.btOrdenes.Text = "Ordenes";
             this.btOrdenes.UseVisualStyleBackColor = true;
+            this.btOrdenes.Click += new System.EventHandler(this.btOrdenes_Click);
             // 
             // btInventario
             // 

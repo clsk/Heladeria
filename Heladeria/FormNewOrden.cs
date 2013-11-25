@@ -7,14 +7,66 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace Heladeria
 {
-    public partial class FormNewOrden : Form
+    public partial class FormNewOrden : BaseForm
     {
-        public FormNewOrden()
+        private Suplidor _suplidor;
+        public FormNewOrden(Form previousForm) : base(previousForm)
         {
             InitializeComponent();
+            ProductosHelper productoHelper = new ProductosHelper();
+            List<Producto> productos = productoHelper.GetAll("suplidor = 3");
+            List<ProductoOrden> productosSuplidor = new List<ProductoOrden>(productos.Count);
+            foreach (Producto producto in productos)
+            {
+                productosSuplidor.Add(new ProductoOrden(producto));
+            }
+
+            _productos = productosSuplidor;
+            dgvProductos.DataSource = _productos;
+
+        }
+
+        private List<ProductoOrden> _productos;
+
+        private void btCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btOrdenar_Click(object sender, EventArgs e)
+        {
+            List<ProductoOrden> toBuy = new List<ProductoOrden>();
+            foreach (ProductoOrden producto in _productos)
+            {
+                if (producto.Ordenar && producto.Cantidad > 0)
+                {
+                    toBuy.Add(producto);
+                }
+            }
+
+            if (toBuy.Count == 0)
+            {
+                DialogResult result = MessageBox.Show("No a seleccionado ningun articulo para ordenar", "Error!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                if (result == DialogResult.Cancel)
+                {
+                    this.Close();
+                }
+
+                return;
+            }
+
+            Orden orden = new Orden();
+
+            // Create Orden
+            // Create Orden_Producto for each producto
+            // show total (and maybe suplidor info)
+            // Make sure new order is added to open orders dgv
+
+
         }
     }
 }

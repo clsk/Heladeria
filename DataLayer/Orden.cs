@@ -29,6 +29,7 @@ namespace DataLayer
         public Nullable<System.DateTime> fecha_despachada { get; set; }
         public Nullable<bool> recibida { get; set; }
         public Nullable<System.DateTime> fecha_recibida { get; set; }
+        public System.DateTime fecha_ordenada { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual ICollection<Orden_Productos> Orden_Productos { get; set; }

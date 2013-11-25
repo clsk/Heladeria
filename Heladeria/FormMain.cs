@@ -59,5 +59,13 @@ namespace Heladeria
             this.Hide();
             frmCaja.Show();
         }
+
+        private void btOrdenes_Click(object sender, EventArgs e)
+        {
+            FormNewOrden frmOrden = new FormNewOrden(this);
+            frmOrden.Location = this.Location;
+            this.Hide();
+            frmOrden.Show();
+        }
     }
 }

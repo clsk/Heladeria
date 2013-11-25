@@ -11,6 +11,11 @@ namespace DataLayer
         public ProductoOrden(Producto producto)
         {
             _producto = producto;
+            Ordenar = false;
+            Cantidad = 0m;
+
+            InventarioHelper inventarioHelper = new InventarioHelper();
+            CantidadExistencia = inventarioHelper.GetProductoCantidad(_producto.producto_id); 
         }
 
         public string Nombre
@@ -37,31 +42,35 @@ namespace DataLayer
             }
         }
 
-        public decimal PrecioVenta
-        {
-            get
-            {
-                return _producto.precio_venta.Value;
-            }
-        }
-
         public bool EtiquetaNegra
         {
             get
             {
-                return _producto.etiqueta_negra.Value;
+                return _producto.etiqueta_negra.HasValue ? _producto.etiqueta_negra.Value : false;
             }
+        }
+
+        public decimal CantidadExistencia
+        {
+            get;
+            private set;
         }
 
         public decimal PuntoReorden
         {
             get
             {
-                return _producto.punto_reorden.Value;
+                return _producto.punto_reorden.HasValue ? _producto.punto_reorden.Value : 0;
             }
         }
 
-        public string Suplidor
+        public bool Ordenar
+        {
+            get;
+            set;
+        }
+
+        public decimal Cantidad
         {
             get;
             set;

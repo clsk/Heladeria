@@ -25,6 +25,6 @@ namespace Heladeria
             _previousForm.Show();
         }
 
-        private Form _previousForm;
+        protected Form _previousForm;
     }
 }
