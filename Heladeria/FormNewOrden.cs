@@ -13,7 +13,6 @@ namespace Heladeria
 {
     public partial class FormNewOrden : BaseForm
     {
-        private Suplidor _suplidor;
         public FormNewOrden(Form previousForm, Suplidor suplidor) : base(previousForm)
         {
             InitializeComponent();
@@ -31,15 +30,30 @@ namespace Heladeria
 
         }
 
-        public FormNewOrden(Form previousForm, List<ProductoOrden> productos)
+        public FormNewOrden(Form previousForm, Orden orden) 
             : base(previousForm)
         {
             InitializeComponent();
-            _productos = productos;
+
+            Orden_ProductosHelper helper = new Orden_ProductosHelper();
+            ProductosHelper productoHelper = new ProductosHelper();
+            List<Orden_Productos> ordenProductos = helper.GetAllFromOrden(orden.orden_id);
+            _productos = new List<ProductoOrden>();
+            foreach (Orden_Productos ordenProducto in ordenProductos)
+            {
+                Producto producto = productoHelper.Get(ordenProducto.producto_id);
+                ProductoOrden productoOrden = new ProductoOrden(producto);
+                productoOrden.Cantidad = ordenProducto.cantidad;
+                productoOrden.Ordenar = true;
+                _productos.Add(productoOrden);
+            }
+            dgvProductos.ReadOnly = true;
             dgvProductos.DataSource = _productos;
+            dgvProductos_CellEndEdit(null, null);
+            btCancelar.Hide();
+            btOrdenar.Hide();
         }
 
-        private List<ProductoOrden> _productos;
 
         private void btCancelar_Click(object sender, EventArgs e)
         {
@@ -68,15 +82,17 @@ namespace Heladeria
                 return;
             }
 
+            DialogResult dialogResult = MessageBox.Show("Su total es de " + tbTotal.Text + ".\nDesea completar la Orden?", "Confirme Orden", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (dialogResult == DialogResult.Cancel)
+            {
+                return;
+            }
+
             OrdenHelper ordenHelper = new OrdenHelper();
-            Orden orden = ordenHelper.CrearOrden(App.CurrentUser.empleado_id, 3, toBuy);
-
-
-            // TODO:
-            // Show summary
-            // Make sure new order is added to open orders dgv
-
-
+            Orden orden = ordenHelper.CrearOrden(App.CurrentUser.empleado_id, _suplidor.suplidor_id, toBuy);
+            MessageBox.Show("Su Orden ha sido completada.", "Orden Completada Existosamente!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ((FormViewOrders)base._previousForm).AddOrden(orden);
+            this.Close();
         }
 
         private decimal CalcularTotal()
@@ -95,7 +111,10 @@ namespace Heladeria
 
         private void dgvProductos_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            tbTotal.Text = CalcularTotal().ToString();
+            tbTotal.Text = "RD$" + CalcularTotal().ToString();
         }
+
+        private List<ProductoOrden> _productos;
+        private Suplidor _suplidor;
     }
 }

@@ -96,6 +96,7 @@
     <Compile Include="Orden_Productos.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Orden_ProductosHelper.cs" />
     <Compile Include="Producto.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

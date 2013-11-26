@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace DataLayer
 {
@@ -65,6 +66,15 @@ namespace DataLayer
                     return _orden.fecha_aceptada.HasValue ? _orden.fecha_aceptada.Value.ToString() : "";
                 else
                     return FechaOrden;
+            }
+        }
+
+        [Browsable(false)]
+        public Orden Orden
+        {
+            get
+            {
+                return _orden;
             }
         }
 
