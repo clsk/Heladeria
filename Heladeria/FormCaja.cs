@@ -58,6 +58,14 @@ namespace Heladeria
             this.Close();
         }
 
+        public Caja Caja
+        {
+            get
+            {
+                return _caja;
+            }
+        }
+
         private Caja _caja;
         private CajaHelper _cajaHelper;
         private decimal _ventasEfectivo;
