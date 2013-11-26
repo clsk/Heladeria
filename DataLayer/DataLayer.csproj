@@ -139,6 +139,7 @@
     <Compile Include="Venta.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="VentaHelper.cs" />
     <Compile Include="Venta_Ofertas.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
