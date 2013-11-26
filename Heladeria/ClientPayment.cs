@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace Heladeria
 {
@@ -14,7 +15,7 @@ namespace Heladeria
     {
         private string FourDigits;
 
-        List<string> _VentaProductoCantidad = new List<string>();
+        List<Tuple<int, int>> _VentaProductoCantidad = new List<Tuple<int, int>>();
         
         public ClientPayment (Form previousForm) : base (previousForm)
         {
@@ -118,16 +119,50 @@ namespace Heladeria
         {
             _VentaProductoCantidad.Clear();
 
-            string Pago = cbFormaDePago.SelectedItem.ToString();
-            string RNC = mtbNoRNC.Text.ToString();
-
-            string _line;
+            int _productID;
+            int _cant;
+            int NoCaja = ((ClientOrder)base._previousForm).GetCajaNumber();
+            string _payType = cbFormaDePago.SelectedItem.ToString();
+            VentaHelper _ThisVenta = new VentaHelper();
 
             for (int i = 0; i < dgvFacturar.RowCount; i++)
             {
-                _line = "( " + dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString() + ", ";
-                _line += dgvFacturar.Rows[i].Cells["Amount"].Value.ToString() + ")";
-                _VentaProductoCantidad.Add(_line);
+                _productID = int.Parse(dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString());
+                _cant = int.Parse(dgvFacturar.Rows[i].Cells["Amount"].Value.ToString());
+                Tuple<int, int> _venta = new Tuple<int, int>(_productID, _cant);
+                _VentaProductoCantidad.Add(_venta);
+            }
+            //int caja_id, string forma_pago, List<Tuple<int, int>> productos, string tarjeta_no = "", int cliente_id = 0
+
+            if (!cbDelivery.Checked)
+            {
+                if (_payType == "Efectivo")
+                {
+                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, "", 0);
+                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                    this.Close();
+                }
+                else
+                {
+                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, FourDigits, 0);
+                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                    this.Close();
+                }
+            }
+            else
+            {
+                if (_payType == "Efectivo")
+                {
+                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, "", 0);
+                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                    this.Close();
+                }
+                else
+                {
+                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, FourDigits, 0);
+                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                    this.Close();
+                }
             }
         }
 
@@ -154,6 +189,14 @@ namespace Heladeria
             {
                 tbMontoRecibido.Text = "0.00";
             }
+        }
+
+        private void cbDelivery_CheckedChanged(object sender, EventArgs e)
+        {
+            ClientsRecord frmClient = new ClientsRecord(this);
+            frmClient.Location = this.Location;
+            this.Hide();
+            frmClient.Show();
         }
     }
 }

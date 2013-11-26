@@ -1,4 +1,4 @@
-﻿namespace Views
+﻿namespace Heladeria
 {
     partial class ClientsRecord
     {

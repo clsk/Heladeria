@@ -252,5 +252,10 @@ namespace Heladeria
             SelectedProducts.Clear();
             dgvPedidoProductos.RowCount = 0;
         }
+
+        
+        public int GetCajaNumber() {
+            return ((FormCaja)base._previousForm).GetCajaID();
+        }
     }
 }

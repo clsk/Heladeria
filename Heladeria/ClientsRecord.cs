@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Views
+namespace Heladeria
 {
-    public partial class ClientsRecord : Form
+    public partial class ClientsRecord : BaseForm
     {
-        public ClientsRecord()
+        public ClientsRecord(Form previousForm) : base(previousForm)
         {
             InitializeComponent();
         }

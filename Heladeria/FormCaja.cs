@@ -80,5 +80,9 @@ namespace Heladeria
             frmVenta.Show();
 
         }
+
+        public int GetCajaID() {
+            return _caja.caja_id;
+        }
     }
 }

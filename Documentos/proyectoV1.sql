@@ -276,6 +276,8 @@ DROP PROCEDURE sp_CajaCerrada;
 
 EXECUTE sp_CajaCerrada @fc_Inicia = '2013/03/23', @fc_Termina = '2013/03/25'
 
+SELECT *
+FROM Venta
 
 /*Procedure para Reporte de Comprobantes Usados*/
 

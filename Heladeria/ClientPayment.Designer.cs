@@ -59,6 +59,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cbDelivery = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturar)).BeginInit();
             this.gbInfoPago.SuspendLayout();
             this.pnlCliente.SuspendLayout();
@@ -379,12 +380,24 @@
             this.textBox1.Text = "HELADERIA BON ";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // cbDelivery
+            // 
+            this.cbDelivery.AutoSize = true;
+            this.cbDelivery.Location = new System.Drawing.Point(640, 488);
+            this.cbDelivery.Name = "cbDelivery";
+            this.cbDelivery.Size = new System.Drawing.Size(64, 17);
+            this.cbDelivery.TabIndex = 22;
+            this.cbDelivery.Text = "Delivery";
+            this.cbDelivery.UseVisualStyleBackColor = true;
+            this.cbDelivery.CheckedChanged += new System.EventHandler(this.cbDelivery_CheckedChanged);
+            // 
             // ClientPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1034, 628);
+            this.Controls.Add(this.cbDelivery);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlCliente);
             this.Controls.Add(this.cbIncluirComprobante);
@@ -443,5 +456,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox cbDelivery;
     }
 }
