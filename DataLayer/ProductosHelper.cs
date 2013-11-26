@@ -17,6 +17,10 @@ namespace DataLayer
             return base.GetAll("precio_venta is not null");
         }
 
+        public override List<Producto> GetAll()
+        {
+            return base.GetAll("nombre != 'Delivery'");
+        }
 
     }
 }
