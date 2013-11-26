@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DataLayer;
 
 namespace Heladeria
 {
@@ -49,9 +50,10 @@ namespace Heladeria
 
             if (!ExistProduct(_idAux))
             {
-                SelectedProducts.Add(OneSelected);                
+                SelectedProducts.Add(OneSelected);
             }
-            else {
+            else
+            {
                 System.Windows.Forms.MessageBox.Show("Este producto ya existe en la lista.", "ERROR", MessageBoxButtons.OK);
             }
         }
@@ -61,7 +63,8 @@ namespace Heladeria
             bool _exist = false;
             string _idAux = "";
 
-            if (SelectedProducts.Count > 0) {
+            if (SelectedProducts.Count > 0)
+            {
                 while (i < SelectedProducts.Count)
                 {
                     _idAux = SelectedProducts.ElementAt(i).Cells["CodigoArticulo"].Value.ToString();
@@ -90,7 +93,7 @@ namespace Heladeria
                 string _precio = SelectedProducts.ElementAt(i).Cells["PrecioUnitarioArt"].Value.ToString();
                 dgvPedidoProductos.Rows.Add(i + 1, _id, _nombre, 1, _precio, _precio);
                 i++;
-            }          
+            }         
         }
 
         private void ReadDataGridView()
@@ -104,7 +107,7 @@ namespace Heladeria
                 while (i < CantRows)
                 {
                     _row = dgvPedidoProductos.Rows[i];
-                    if (_row.Cells["CodigoArticulo"].Value != SelectedProducts.ElementAt(i).Cells["CodigoArticulo"].Value)
+                    if (_row.Cells["CodigoArticulo"].Value.ToString() != SelectedProducts.ElementAt(i).Cells["CodigoArticulo"].Value.ToString())
                     {
                         SelectedProducts.Remove(SelectedProducts.ElementAt(i));
                     }
@@ -123,10 +126,10 @@ namespace Heladeria
                 _row = dgvPedidoProductos.Rows[i];
                 SelectedProducts.Add(_row);
                 i++;
-            }        
+            }           
         }
 
-        private void btnAgregarProducto_Click_1(object sender, EventArgs e)
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
             if (SelectedProducts.Count != dgvPedidoProductos.RowCount)
             {
@@ -137,7 +140,7 @@ namespace Heladeria
             ShowInDGV();
         }
 
-        private void btnReset_Click_1(object sender, EventArgs e)
+        private void btnReset_Click(object sender, EventArgs e)
         {
             SelectedProducts.Clear();
             tbItbis.Text = "0.00";
@@ -146,14 +149,14 @@ namespace Heladeria
             dgvPedidoProductos.RowCount = 0;
         }
 
-        private void btnCerrar_Click_1(object sender, EventArgs e)
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
             SelectedProducts.Clear();
             dgvPedidoProductos.RowCount = 0;
             this.Close();
         }
 
-        private void btnActualizar_Click_1(object sender, EventArgs e)
+        private void btnActualizar_Click(object sender, EventArgs e)
         {
             if (dgvPedidoProductos.RowCount > 0)
             {
@@ -170,8 +173,34 @@ namespace Heladeria
                     precio = Convert.ToDouble(_row.Cells["PrecioUnitarioArt"].Value.ToString());
                     if (cant > 1)
                     {
-                        _row.Cells["PreciosTotalArt"].Value = (precio * cant).ToString();
+                        string _idAux = "";
+                        _idAux = _row.Cells["CodigoArticulo"].Value.ToString();
+
+                        OfertasHelper _ofertas = new OfertasHelper();
+                        Oferta _ThisOffert = new Oferta();
+
+                        _ThisOffert = _ofertas.Get("producto_id", int.Parse(_idAux));
+
+                        if (_ThisOffert != null)
+                        {
+                            DateTime _today = DateTime.Now;
+                            int _ThisDay = (int)_today.DayOfWeek;
+                            int available = (int)Math.Pow(2, _ThisDay);
+
+                            if (((_ThisOffert.dias_disponible & available) != available) && (_today.TimeOfDay < _ThisOffert.hora_disponible_termina)
+                                    && (_today.TimeOfDay > _ThisOffert.hora_disponible_empieza) && (_today.Date < _ThisOffert.fecha_termina)
+                                    && (_today.Date > _ThisOffert.fecha_empieza))
+                            {
+                                if (cant % 2 == 0)
+                                {
+                                    string _NomOferta = _ThisOffert.nombre;
+                                    _row.Cells["DescripcionArticulo"].Value = _NomOferta;
+                                    cant = 1;
+                                }
+                            }
+                        }
                     }
+                    _row.Cells["PreciosTotalArt"].Value = (precio * cant).ToString();
                     i++;
                 }
 
@@ -201,7 +230,7 @@ namespace Heladeria
             }
         }
 
-        private void btnProcesar_Click_1(object sender, EventArgs e)
+        private void btnProcesar_Click(object sender, EventArgs e)
         {
             if (dgvPedidoProductos.RowCount > 0)
             {
@@ -216,6 +245,12 @@ namespace Heladeria
             {
                 System.Windows.Forms.MessageBox.Show("No existen Productos Seleccionados.", "ERROR", MessageBoxButtons.OK);
             }
+        }
+
+        public void CleanClientOrder()
+        {
+            SelectedProducts.Clear();
+            dgvPedidoProductos.RowCount = 0;
         }
     }
 }

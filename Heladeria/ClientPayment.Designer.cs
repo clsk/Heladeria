@@ -218,7 +218,7 @@
             this.tbMontoRecibido.ReadOnly = true;
             this.tbMontoRecibido.Size = new System.Drawing.Size(227, 70);
             this.tbMontoRecibido.TabIndex = 4;
-            this.tbMontoRecibido.TextChanged += new System.EventHandler(this.tbMontoRecibido_TextChanged_1);
+            this.tbMontoRecibido.TextChanged += new System.EventHandler(this.tbMontoRecibido_TextChanged);
             // 
             // plLogotype
             // 
@@ -398,6 +398,7 @@
             this.Controls.Add(this.plLogotype);
             this.Name = "ClientPayment";
             this.Text = "ClientPayment";
+            this.Load += new System.EventHandler(this.ClientPayment_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturar)).EndInit();
             this.gbInfoPago.ResumeLayout(false);
             this.gbInfoPago.PerformLayout();

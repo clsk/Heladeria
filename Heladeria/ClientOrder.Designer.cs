@@ -148,7 +148,7 @@
             this.btnActualizar.TabIndex = 27;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // btnCerrar
             // 
@@ -160,7 +160,7 @@
             this.btnCerrar.TabIndex = 26;
             this.btnCerrar.Text = "Salir";
             this.btnCerrar.UseVisualStyleBackColor = true;
-            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click_1);
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // btnReset
             // 
@@ -172,7 +172,7 @@
             this.btnReset.TabIndex = 25;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.btnReset_Click_1);
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // btnProcesar
             // 
@@ -184,7 +184,7 @@
             this.btnProcesar.TabIndex = 24;
             this.btnProcesar.Text = "Procesar";
             this.btnProcesar.UseVisualStyleBackColor = true;
-            this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click_1);
+            this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click);
             // 
             // tbMontoTotal
             // 
@@ -282,7 +282,7 @@
             this.btnAgregarProducto.TabIndex = 15;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
-            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click_1);
+            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
             // ClientOrder
             // 

@@ -141,12 +141,12 @@ CREATE TABLE Orden(
 	empleado_id INT NOT NULL,
 	suplidor_id INT NOT NULL,
 	NOTAS TEXT,
-	fecha_ordenada DATETIME NOT NULL DEFAULT GETDATE(), 
-	aceptada BIT NOT NULL DEFAULT 0,
+	fecha_ordenada DATETIME, 
+	aceptada BIT DEFAULT 0,
 	fecha_aceptada DATETIME,
-	despachada BIT NOT NULL DEFAULT 0,
+	despachada BIT DEFAULT 0,
 	fecha_despachada DATETIME,
-	recibida BIT NOT NULL DEFAULT 0,
+	recibida BIT DEFAULT 0,
 	fecha_recibida DATETIME,
 	constraint orden_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
 	constraint orden_suplidor_fk FOREIGN KEY (suplidor_id) REFERENCES Suplidor(suplidor_id)
@@ -338,6 +338,8 @@ BEGIN
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
 														(dias_disponible & POWER(2, DATEPART(DW, @venta_fecha-1)) > 0);
+	PRINT @oferta_id
+
 
 
 	IF (@oferta_tipo = '2x1')
@@ -572,10 +574,13 @@ insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_dispo
 ('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
 
 insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
-('2x1 Malteada Etiqueta Tradicional', '2x1 en Malteadas Etiqueta Tradicional', '11/15/2013', '1/30/2014', 24, '00:00:00', '18:00:00', 13, '2x1');
+('2x1 Malteada Etiq. Trad.', '2x1 en Malteadas Etiqueta Tradicional', '11/15/2013', '1/30/2014', 24, '00:00:00', '18:00:00', 13, '2x1');
 
 SELECT *
 FROM Producto
+
+SELECT *
+FROM Oferta
 
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
@@ -942,6 +947,10 @@ INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
+insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
 
 /*NCF*/
 INSERT INTO NCF(no_NCF, venta_id) VALUES 
@@ -1342,7 +1351,3 @@ select * from Caja
 delete from Caja WHERE caja_id = 45
 select * from empleado
 SELECT * FROM Producto where precio_venta is not null
-select * from orden
-
-DELETE FROM Orden_Productos WHERE orden_id = 47
-DELETE FROM Orden WHERE orden_id = 47

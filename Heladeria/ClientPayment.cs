@@ -15,12 +15,6 @@ namespace Heladeria
         private string FourDigits;
 
         List<string> _VentaProductoCantidad = new List<string>();
-
-        string RNC;
-
-        string NombreCIA;
-
-        string Pago;
         
         public ClientPayment (Form previousForm) : base (previousForm)
         {
@@ -58,7 +52,7 @@ namespace Heladeria
                 i++;
             }
 
-            
+
             string _test;
 
             _itbis = _mntPagar * 0.18;
@@ -69,11 +63,6 @@ namespace Heladeria
 
             _test = string.Format("{0:0.00}", _itbis);
             tbItbis.Text = _test;
-        }
-
-        private void ClientPayment_Load(object sender, EventArgs e)
-        {
-            UploadData();
         }
 
         private void cbFormaDePago_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,26 +83,6 @@ namespace Heladeria
                 _MyCreditCard.ShowDialog();
                 FourDigits = _MyCreditCard.GetCardNumber();
                 _MyCreditCard.Close();
-            }
-        }
-
-        private void tbMontoRecibido_TextChanged_1(object sender, EventArgs e)
-        {
-            double _Pago;
-            double _Pagar;
-            double _resto;
-            string _text;
-
-            if (double.TryParse(tbMontoRecibido.Text.ToString(), out _Pagar))
-            {
-                _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
-                _resto = _Pagar - _Pago;
-                _text = string.Format("{0:0.00}", _resto);
-                tbResto.Text = _resto.ToString();
-            }
-            else
-            {
-                tbMontoRecibido.Text = "0.00";
             }
         }
 
@@ -149,10 +118,9 @@ namespace Heladeria
         {
             _VentaProductoCantidad.Clear();
 
-            Pago = cbFormaDePago.SelectedItem.ToString();
-            RNC = mtbNoRNC.Text.ToString();
+            string Pago = cbFormaDePago.SelectedItem.ToString();
+            string RNC = mtbNoRNC.Text.ToString();
 
-            //TODO: Agregar lista de Ventas y Obtener el Indice de la Ultima Venta
             string _line;
 
             for (int i = 0; i < dgvFacturar.RowCount; i++)
@@ -160,6 +128,31 @@ namespace Heladeria
                 _line = "( " + dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString() + ", ";
                 _line += dgvFacturar.Rows[i].Cells["Amount"].Value.ToString() + ")";
                 _VentaProductoCantidad.Add(_line);
+            }
+        }
+
+        private void ClientPayment_Load(object sender, EventArgs e)
+        {
+            UploadData();
+        }
+
+        private void tbMontoRecibido_TextChanged(object sender, EventArgs e)
+        {
+            double _Pago;
+            double _Pagar;
+            double _resto;
+            string _text;
+
+            if (double.TryParse(tbMontoRecibido.Text.ToString(), out _Pagar))
+            {
+                _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
+                _resto = _Pagar - _Pago;
+                _text = string.Format("{0:0.00}", _resto);
+                tbResto.Text = _resto.ToString();
+            }
+            else
+            {
+                tbMontoRecibido.Text = "0.00";
             }
         }
     }

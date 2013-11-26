@@ -75,6 +75,7 @@ namespace Heladeria
         {
             ClientOrder frmVenta = new ClientOrder(this);
             frmVenta.Location = this.Location;
+            frmVenta.CleanClientOrder();
             this.Hide();
             frmVenta.Show();
 

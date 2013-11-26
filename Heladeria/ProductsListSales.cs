@@ -22,7 +22,6 @@ namespace Heladeria
             var _Productos = _ProductosHelp.GetAllProductosParaVenta();
 
             int num = 1;
-
             foreach (var OneProduct in _Productos)
             {
                 _DetailDescription = OneProduct.nombre;
