@@ -141,7 +141,7 @@ CREATE TABLE Orden(
 	empleado_id INT NOT NULL,
 	suplidor_id INT NOT NULL,
 	NOTAS TEXT,
-	fecha_ordenada DATETIME, 
+	fecha_ordenada DATETIME NOT NULL DEFAULT GETDATE(), 
 	aceptada BIT DEFAULT 0,
 	fecha_aceptada DATETIME,
 	despachada BIT DEFAULT 0,
@@ -1351,3 +1351,6 @@ select * from Caja
 delete from Caja WHERE caja_id = 45
 select * from empleado
 SELECT * FROM Producto where precio_venta is not null
+select * from Venta;
+select * from Venta_Productos
+select * from Orden;
