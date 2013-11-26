@@ -470,7 +470,9 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('1/2 Galon', NULL, 1, 700.00, 250.00),
 ('Tarta Pequena', NULL, NULL, 425.00, 200.00),
 ('Tarta Grande', NULL, NULL, 650.00, 300.00),
-('Tarta Especial', NULL, NULL, 800.00, 400.00),
+('Tarta Especial', NULL, NULL, 800.00, 400.00)
+
+INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
 ('Smoothie', 'Producto Yogen', NULL, 150.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00, 40.00),
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
@@ -568,6 +570,12 @@ insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_dispo
 
 insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
 ('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Malteada Etiqueta Tradicional', '2x1 en Malteadas Etiqueta Tradicional', '11/15/2013', '1/30/2014', 24, '00:00:00', '18:00:00', 13, '2x1');
+
+SELECT *
+FROM Producto
 
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
@@ -1282,6 +1290,7 @@ SET @fecha_termina = '3/31/2013'
 SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total * 0.18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
 
 drop function maskToDias
+
 CREATE FUNCTION maskToDias (@mask AS INT)
 RETURNS VARCHAR(60)
 BEGIN
@@ -1307,6 +1316,10 @@ BEGIN
 	
 	RETURN @ret
 END
+
+DECLARE @Number int
+SET @Number = 127
+maskToDias (@Number)
 
 -- Ofertas
 SELECT Oferta.oferta_id, Oferta.nombre, CONVERT(DATE, Oferta.fecha_empieza), CONVERT(DATE,Oferta.fecha_termina), Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad, (SELECT SUM(rebaja) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS 'Ahorro Clientes' FROM Oferta
