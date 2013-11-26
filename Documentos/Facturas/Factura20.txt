@@ -1,0 +1,14 @@
+				HELADERIA BON 
+	Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso
+Fecha: 11/26/2013
+Hora:1:08 PM
+_______________________________________________________________________________
+CANT	DESCRIPCION					PRECIO	TOTAL
+_______________________________________________________________________________
+1	Bonito Etiqueta Tradicional			50.00	50.00
+_______________________________________________________________________________
+						TOTAL ITBIS:	9.00
+						SUBTOTAL:	50
+						TOTAL:		59.00
+						PAGADO:		60
+						DEVUELTA:	1

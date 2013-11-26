@@ -39,15 +39,7 @@ namespace Heladeria
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int _mes = int.Parse(cbMonth.SelectedItem.ToString());
-            int _sysmes = DateTime.Now.Month;
-            int _sysanio = DateTime.Now.Year;
-            if (_mes < _sysmes)
-            {
-                System.Windows.Forms.MessageBox.Show("Fecha de Expiración Incorrecta.", "ERROR", MessageBoxButtons.OK);
-                cbYear.Text = _sysanio.ToString();
-                cbMonth.Text = _sysmes.ToString();
-            }
+
         }
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)

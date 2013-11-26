@@ -49,12 +49,13 @@ namespace Heladeria
                 _tolPrecio = ProductsOrder.ElementAt(i).Cells["PreciosTotalArt"].Value.ToString();
                 _cant = ProductsOrder.ElementAt(i).Cells["CantidadArticulos"].Value.ToString();
                 dgvFacturar.Rows.Add(_id, _nombre, _cant, _undPrecio, _tolPrecio);
-                _mntPagar += (int.Parse(_cant)) * (Convert.ToDouble(_undPrecio));
+                _mntPagar += double.Parse(_tolPrecio);
                 i++;
             }
 
-
             string _test;
+
+            tbSubTotal.Text = string.Format("{0:0.00}", _mntPagar);
 
             _itbis = _mntPagar * 0.18;
             _mntPagar += _itbis;
@@ -134,8 +135,6 @@ namespace Heladeria
             }
             //int caja_id, string forma_pago, List<Tuple<int, int>> productos, string tarjeta_no = "", int cliente_id = 0
 
-            if (!cbDelivery.Checked)
-            {
                 if (_payType == "Efectivo")
                 {
                     _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, "", 0);
@@ -148,22 +147,6 @@ namespace Heladeria
                     MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
                     this.Close();
                 }
-            }
-            else
-            {
-                if (_payType == "Efectivo")
-                {
-                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, "", 0);
-                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
-                    this.Close();
-                }
-                else
-                {
-                    _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, FourDigits, 0);
-                    MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
-                    this.Close();
-                }
-            }
         }
 
         private void ClientPayment_Load(object sender, EventArgs e)
@@ -189,14 +172,6 @@ namespace Heladeria
             {
                 tbMontoRecibido.Text = "0.00";
             }
-        }
-
-        private void cbDelivery_CheckedChanged(object sender, EventArgs e)
-        {
-            ClientsRecord frmClient = new ClientsRecord(this);
-            frmClient.Location = this.Location;
-            this.Hide();
-            frmClient.Show();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Heladeria
         {
             InitializeComponent();
             string _DetailDescription;
+            decimal _unitprice;
+            string _price;
 
             ProductosHelper _ProductosHelp = new ProductosHelper();
             var _Productos = _ProductosHelp.GetAllProductosParaVenta();
@@ -35,7 +37,17 @@ namespace Heladeria
                     _DetailDescription += " Etiqueta Tradicional";
                 }
 
-                dgvListaProductos.Rows.Add(num, OneProduct.producto_id, _DetailDescription, OneProduct.precio_venta);
+                if (OneProduct.precio_venta.HasValue && OneProduct.precio_venta.Value > 0)
+                {
+                    _unitprice = OneProduct.precio_venta.Value;
+                }
+                else
+                {
+                    _unitprice = 0;
+                }
+
+                _price = string.Format("{0:0.00}", _unitprice);
+                dgvListaProductos.Rows.Add(num, OneProduct.producto_id, _DetailDescription, _price);
                 num++;
             }
 

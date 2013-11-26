@@ -55,11 +55,12 @@
             this.lbNombreCliente = new System.Windows.Forms.Label();
             this.mtbNoRNC = new System.Windows.Forms.MaskedTextBox();
             this.lbRNC = new System.Windows.Forms.Label();
-            this.cbIncluirComprobante = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.cbDelivery = new System.Windows.Forms.CheckBox();
+            this.tbDireccion = new System.Windows.Forms.TextBox();
+            this.tbLogotipo = new System.Windows.Forms.TextBox();
+            this.cbIncluirComprobante = new System.Windows.Forms.CheckBox();
+            this.lbSubTotal = new System.Windows.Forms.Label();
+            this.tbSubTotal = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturar)).BeginInit();
             this.gbInfoPago.SuspendLayout();
             this.pnlCliente.SuspendLayout();
@@ -233,20 +234,20 @@
             // tbItbis
             // 
             this.tbItbis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbItbis.Location = new System.Drawing.Point(878, 496);
+            this.tbItbis.Location = new System.Drawing.Point(878, 525);
             this.tbItbis.Multiline = true;
             this.tbItbis.Name = "tbItbis";
             this.tbItbis.ReadOnly = true;
             this.tbItbis.Size = new System.Drawing.Size(139, 20);
             this.tbItbis.TabIndex = 16;
-            this.tbItbis.Text = "RD$ 0.00";
+            this.tbItbis.Text = "0.00";
             this.tbItbis.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lbItbis
             // 
             this.lbItbis.AutoSize = true;
             this.lbItbis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbItbis.Location = new System.Drawing.Point(826, 499);
+            this.lbItbis.Location = new System.Drawing.Point(827, 528);
             this.lbItbis.Name = "lbItbis";
             this.lbItbis.Size = new System.Drawing.Size(45, 17);
             this.lbItbis.TabIndex = 15;
@@ -333,6 +334,42 @@
             this.lbRNC.TabIndex = 18;
             this.lbRNC.Text = "RNC:";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tbDireccion);
+            this.panel1.Controls.Add(this.tbLogotipo);
+            this.panel1.Location = new System.Drawing.Point(711, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(306, 119);
+            this.panel1.TabIndex = 21;
+            // 
+            // tbDireccion
+            // 
+            this.tbDireccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbDireccion.Location = new System.Drawing.Point(17, 60);
+            this.tbDireccion.Multiline = true;
+            this.tbDireccion.Name = "tbDireccion";
+            this.tbDireccion.ReadOnly = true;
+            this.tbDireccion.Size = new System.Drawing.Size(274, 44);
+            this.tbDireccion.TabIndex = 19;
+            this.tbDireccion.Text = "Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso";
+            this.tbDireccion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tbLogotipo
+            // 
+            this.tbLogotipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbLogotipo.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbLogotipo.ForeColor = System.Drawing.Color.Black;
+            this.tbLogotipo.Location = new System.Drawing.Point(17, 20);
+            this.tbLogotipo.Multiline = true;
+            this.tbLogotipo.Name = "tbLogotipo";
+            this.tbLogotipo.ReadOnly = true;
+            this.tbLogotipo.Size = new System.Drawing.Size(274, 34);
+            this.tbLogotipo.TabIndex = 10;
+            this.tbLogotipo.Text = "HELADERIA BON ";
+            this.tbLogotipo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // cbIncluirComprobante
             // 
             this.cbIncluirComprobante.AutoSize = true;
@@ -344,52 +381,27 @@
             this.cbIncluirComprobante.UseVisualStyleBackColor = true;
             this.cbIncluirComprobante.CheckedChanged += new System.EventHandler(this.cbIncluirComprobante_CheckedChanged);
             // 
-            // panel1
+            // lbSubTotal
             // 
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(711, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(306, 119);
-            this.panel1.TabIndex = 21;
+            this.lbSubTotal.AutoSize = true;
+            this.lbSubTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSubTotal.Location = new System.Drawing.Point(786, 487);
+            this.lbSubTotal.Name = "lbSubTotal";
+            this.lbSubTotal.Size = new System.Drawing.Size(86, 17);
+            this.lbSubTotal.TabIndex = 22;
+            this.lbSubTotal.Text = "SUBTOTAL:";
             // 
-            // textBox2
+            // tbSubTotal
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(17, 60);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(274, 44);
-            this.textBox2.TabIndex = 19;
-            this.textBox2.Text = "Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.textBox1.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Black;
-            this.textBox1.Location = new System.Drawing.Point(17, 20);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(274, 34);
-            this.textBox1.TabIndex = 10;
-            this.textBox1.Text = "HELADERIA BON ";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // cbDelivery
-            // 
-            this.cbDelivery.AutoSize = true;
-            this.cbDelivery.Location = new System.Drawing.Point(640, 488);
-            this.cbDelivery.Name = "cbDelivery";
-            this.cbDelivery.Size = new System.Drawing.Size(64, 17);
-            this.cbDelivery.TabIndex = 22;
-            this.cbDelivery.Text = "Delivery";
-            this.cbDelivery.UseVisualStyleBackColor = true;
-            this.cbDelivery.CheckedChanged += new System.EventHandler(this.cbDelivery_CheckedChanged);
+            this.tbSubTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSubTotal.Location = new System.Drawing.Point(878, 484);
+            this.tbSubTotal.Multiline = true;
+            this.tbSubTotal.Name = "tbSubTotal";
+            this.tbSubTotal.ReadOnly = true;
+            this.tbSubTotal.Size = new System.Drawing.Size(139, 20);
+            this.tbSubTotal.TabIndex = 23;
+            this.tbSubTotal.Text = "0.00";
+            this.tbSubTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // ClientPayment
             // 
@@ -397,7 +409,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(1034, 628);
-            this.Controls.Add(this.cbDelivery);
+            this.Controls.Add(this.tbSubTotal);
+            this.Controls.Add(this.lbSubTotal);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlCliente);
             this.Controls.Add(this.cbIncluirComprobante);
@@ -450,12 +463,13 @@
         private System.Windows.Forms.Panel pnlCliente;
         private System.Windows.Forms.TextBox tbNombreCliente;
         private System.Windows.Forms.Label lbNombreCliente;
-        private System.Windows.Forms.MaskedTextBox mtbNoRNC;
         private System.Windows.Forms.Label lbRNC;
-        private System.Windows.Forms.CheckBox cbIncluirComprobante;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.CheckBox cbDelivery;
+        private System.Windows.Forms.TextBox tbDireccion;
+        private System.Windows.Forms.TextBox tbLogotipo;
+        private System.Windows.Forms.CheckBox cbIncluirComprobante;
+        private System.Windows.Forms.MaskedTextBox mtbNoRNC;
+        private System.Windows.Forms.Label lbSubTotal;
+        private System.Windows.Forms.TextBox tbSubTotal;
     }
 }

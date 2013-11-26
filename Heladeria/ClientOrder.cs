@@ -76,7 +76,6 @@ namespace Heladeria
                     i++;
                 }
             }
-
             return _exist;
         }
 
@@ -195,7 +194,7 @@ namespace Heladeria
                                 {
                                     string _NomOferta = _ThisOffert.nombre;
                                     _row.Cells["DescripcionArticulo"].Value = _NomOferta;
-                                    cant = 1;
+                                    cant = cant / 2;
                                 }
                             }
                         }
@@ -206,7 +205,6 @@ namespace Heladeria
 
                 /*Actualizacion de Totales de Venta*/
                 double _sub = 0;
-                double _desc = 0;
                 double _itbis = 0;
                 double _total = 0;
                 i = 0;
@@ -218,11 +216,11 @@ namespace Heladeria
                 }
 
                 _itbis = _sub * 0.18;
-                _total = (_itbis + _sub) - _desc;
+                _total = (_itbis + _sub);
 
-                tbSubTotal.Text = "RD$ " + _sub.ToString();
-                tbItbis.Text = "RD$ " + _itbis.ToString();
-                tbMontoTotal.Text = "RD$ " + _total.ToString();
+                tbSubTotal.Text = "RD$ " + string.Format("{0:0.00}", _sub);
+                tbItbis.Text = "RD$ " + string.Format("{0:0.00}", _itbis);
+                tbMontoTotal.Text = "RD$ " + string.Format("{0:0.00}", _total);
             }
             else
             {
@@ -252,7 +250,6 @@ namespace Heladeria
             SelectedProducts.Clear();
             dgvPedidoProductos.RowCount = 0;
         }
-
         
         public int GetCajaNumber() {
             return ((FormCaja)base._previousForm).GetCajaID();
