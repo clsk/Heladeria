@@ -37,7 +37,7 @@ namespace Heladeria
 
                 // Find out if within Turno
                 DateTime currentDate = DateTime.Now;
-                int dayOfWeek = (int) Math.Pow(((int)currentDate.DayOfWeek) +1,2);
+                int dayOfWeek = (int)Math.Pow(2, ((int)currentDate.DayOfWeek) + 1);
                 if (empleado.cargo != "supervisor" || ((empleado.Turno.dias & dayOfWeek) != dayOfWeek) 
                     && (currentDate.TimeOfDay < empleado.Turno.hora_comienza && currentDate.TimeOfDay > empleado.Turno.hora_termina ))
                 {
