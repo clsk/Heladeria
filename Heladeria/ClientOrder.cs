@@ -48,6 +48,11 @@ namespace Heladeria
             string _idAux = "";
             _idAux = OneSelected.Cells["CodigoArticulo"].Value.ToString();
 
+
+            /* TODO: Agregar codigo para que en caso de que exista en la lista el producto "Delivery"
+             * Se Cargue la Ventana ClientRecord
+             */
+
             if (!ExistProduct(_idAux))
             {
                 SelectedProducts.Add(OneSelected);

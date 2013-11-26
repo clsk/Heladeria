@@ -475,6 +475,9 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Tarta Especial', NULL, NULL, 800.00, 400.00)
 
 INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
+('Delivery', NULL, NULL, 20.00, NULL)
+
+INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
 ('Smoothie', 'Producto Yogen', NULL, 150.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00, 40.00),
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
