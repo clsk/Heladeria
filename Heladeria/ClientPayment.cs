@@ -151,16 +151,13 @@ namespace Heladeria
 
             Pago = cbFormaDePago.SelectedItem.ToString();
             RNC = mtbNoRNC.Text.ToString();
-                      
+
             //TODO: Agregar lista de Ventas y Obtener el Indice de la Ultima Venta
             string _line;
-            
-            int _lastSold = 2;
 
             for (int i = 0; i < dgvFacturar.RowCount; i++)
             {
-                _line = "( " + _lastSold.ToString() + ", ";
-                _line += dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString() + ", ";
+                _line = "( " + dgvFacturar.Rows[i].Cells["ArtCode"].Value.ToString() + ", ";
                 _line += dgvFacturar.Rows[i].Cells["Amount"].Value.ToString() + ")";
                 _VentaProductoCantidad.Add(_line);
             }

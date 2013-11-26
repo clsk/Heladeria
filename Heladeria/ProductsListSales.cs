@@ -16,14 +16,27 @@ namespace Heladeria
         public ProductsListSales (Form previousForm) : base (previousForm)
         {
             InitializeComponent();
+            string _DetailDescription;
 
             ProductosHelper _ProductosHelp = new ProductosHelper();
             var _Productos = _ProductosHelp.GetAllProductosParaVenta();
 
             int num = 1;
+
             foreach (var OneProduct in _Productos)
             {
-                dgvListaProductos.Rows.Add(num, OneProduct.producto_id, OneProduct.descripcion, OneProduct.precio_venta);
+                _DetailDescription = OneProduct.nombre;
+
+                if (OneProduct.etiqueta_negra.HasValue && OneProduct.etiqueta_negra.Value)
+                {
+                    _DetailDescription += " Etiqueta Negra";
+                }
+                else
+                {
+                    _DetailDescription += " Etiqueta Tradicional";
+                }
+
+                dgvListaProductos.Rows.Add(num, OneProduct.producto_id, _DetailDescription, OneProduct.precio_venta);
                 num++;
             }
 
