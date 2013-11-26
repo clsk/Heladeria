@@ -22,11 +22,12 @@ namespace DataLayer
         public int caja_id { get; set; }
         public int empleado_id { get; set; }
         public decimal cash_entrada { get; set; }
-        public bool estado { get; set; }
         public System.DateTime fecha_abre { get; set; }
         public Nullable<System.DateTime> fecha_cierra { get; set; }
+        public Nullable<int> autorizador_cierre { get; set; }
     
         public virtual Empleado Empleado { get; set; }
         public virtual ICollection<Venta> Ventas { get; set; }
+        public virtual Empleado Empleado1 { get; set; }
     }
 }

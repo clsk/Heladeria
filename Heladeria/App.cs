@@ -9,5 +9,6 @@ namespace Heladeria
 {
     static class App
     {
+        public static Empleado CurrentUser;
     }
 }

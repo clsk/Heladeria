@@ -1,4 +1,4 @@
-﻿namespace Views
+﻿namespace Heladeria
 {
     partial class ClientOrder
     {
@@ -148,6 +148,7 @@
             this.btnActualizar.TabIndex = 27;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click_1);
             // 
             // btnCerrar
             // 
@@ -159,6 +160,7 @@
             this.btnCerrar.TabIndex = 26;
             this.btnCerrar.Text = "Salir";
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click_1);
             // 
             // btnReset
             // 
@@ -170,6 +172,7 @@
             this.btnReset.TabIndex = 25;
             this.btnReset.Text = "Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click_1);
             // 
             // btnProcesar
             // 
@@ -181,6 +184,7 @@
             this.btnProcesar.TabIndex = 24;
             this.btnProcesar.Text = "Procesar";
             this.btnProcesar.UseVisualStyleBackColor = true;
+            this.btnProcesar.Click += new System.EventHandler(this.btnProcesar_Click_1);
             // 
             // tbMontoTotal
             // 
@@ -278,6 +282,7 @@
             this.btnAgregarProducto.TabIndex = 15;
             this.btnAgregarProducto.Text = "Agregar Producto";
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
+            this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click_1);
             // 
             // ClientOrder
             // 
@@ -301,7 +306,7 @@
             this.Controls.Add(this.dgvPedidoProductos);
             this.Controls.Add(this.plLogotype);
             this.Name = "ClientOrder";
-            this.Text = "ClientOrder";
+            this.Text = "Solicitud De Productos";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidoProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -54,7 +54,8 @@ namespace Reportes
 
             try
             {
-                var empleados = Empleados.GetAll();
+                EmpleadosHelper empleadoHelper = new EmpleadosHelper();
+                var empleados = empleadoHelper.GetAll();
                 _empleadosBinding = new BindingSource();
                 _empleadosBinding.DataSource = empleados;
                 cbEmpleados.DataSource = _empleadosBinding;

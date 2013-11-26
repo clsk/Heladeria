@@ -1,0 +1,4 @@
+CANT	DESCRIPCION				PRECIO	TOTAL
+3	Uncle Bob's Organic Dried Pears		30.00	90
+1	Chef Anton's Cajun Seasoning		22.00	22.00
+2	Grandma's Boysenberry Spread		25.00	50

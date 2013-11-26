@@ -1,4 +1,4 @@
-﻿namespace Views
+﻿namespace Heladeria
 {
     partial class ProductsListSales
     {
@@ -40,20 +40,22 @@
             // 
             this.dgvListaProductos.AllowUserToAddRows = false;
             this.dgvListaProductos.AllowUserToDeleteRows = false;
-            this.dgvListaProductos.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dgvListaProductos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(186)))), ((int)(((byte)(194)))));
             this.dgvListaProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListaProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tbNoArt,
             this.CodigoArticulo,
             this.DescripcionArticulo,
             this.PrecioUnitarioArt});
-            this.dgvListaProductos.Location = new System.Drawing.Point(5, 3);
+            this.dgvListaProductos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvListaProductos.Location = new System.Drawing.Point(0, 0);
             this.dgvListaProductos.MultiSelect = false;
             this.dgvListaProductos.Name = "dgvListaProductos";
             this.dgvListaProductos.ReadOnly = true;
             this.dgvListaProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListaProductos.Size = new System.Drawing.Size(663, 305);
             this.dgvListaProductos.TabIndex = 1;
+            this.dgvListaProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListaProductos_CellDoubleClick);
             // 
             // tbNoArt
             // 
@@ -92,7 +94,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 313);
+            this.ClientSize = new System.Drawing.Size(663, 305);
             this.Controls.Add(this.dgvListaProductos);
             this.Name = "ProductsListSales";
             this.Text = "ProductsListSales";
@@ -108,5 +110,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CodigoArticulo;
         private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionArticulo;
         private System.Windows.Forms.DataGridViewTextBoxColumn PrecioUnitarioArt;
+
     }
 }

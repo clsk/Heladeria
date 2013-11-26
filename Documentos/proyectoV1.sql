@@ -65,10 +65,11 @@ CREATE TABLE Caja (
 	caja_id INT identity(1,1) PRIMARY KEY NOT NULL,
 	empleado_id INT NOT NULL,
 	cash_entrada money NOT NULL,
-	estado BIT DEFAULT 1 NOT NULL, -- 1 = abierta, 0 = cerrada
 	fecha_abre DATETIME NOT NULL DEFAULT GETDATE(),
 	fecha_cierra DATETIME,
-	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id)
+	autorizador_cierre INT,
+	constraint caja_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
+	constraint caja_autorizador_fk FOREIGN KEY (autorizador_cierre) REFERENCES Empleado(empleado_id)
 );
 
 CREATE TABLE Cliente(
@@ -140,12 +141,13 @@ CREATE TABLE Orden(
 	empleado_id INT NOT NULL,
 	suplidor_id INT NOT NULL,
 	NOTAS TEXT,
-	aceptada BIT DEFAULT 0,
-	fecha_aceptada DATE,
-	despachada BIT DEFAULT 0,
-	fecha_despachada DATE,
-	recibida BIT DEFAULT 0,
-	fecha_recibida DATE,
+	fecha_ordenada DATETIME NOT NULL DEFAULT GETDATE(), 
+	aceptada BIT NOT NULL DEFAULT 0,
+	fecha_aceptada DATETIME,
+	despachada BIT NOT NULL DEFAULT 0,
+	fecha_despachada DATETIME,
+	recibida BIT NOT NULL DEFAULT 0,
+	fecha_recibida DATETIME,
 	constraint orden_empleado_fk FOREIGN KEY (empleado_id) REFERENCES Empleado(empleado_id),
 	constraint orden_suplidor_fk FOREIGN KEY (suplidor_id) REFERENCES Suplidor(suplidor_id)
 );
@@ -168,6 +170,7 @@ CREATE TABLE Venta(
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
 	total money DEFAULT 0.00,
 	entregado_por INT,
+	tarjeta_no VARCHAR(4),
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id),
 	CONSTRAINT venta_empleado_fk FOREIGN KEY (entregado_por) REFERENCES Empleado(empleado_id)
@@ -335,8 +338,6 @@ BEGIN
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
 														(dias_disponible & POWER(2, DATEPART(DW, @venta_fecha-1)) > 0);
-	PRINT @oferta_id
-
 
 
 	IF (@oferta_tipo = '2x1')
@@ -365,8 +366,8 @@ END
 /* ============== INTRODUCCION DE DATOS ===================== */
 
 /* Turnos */
-INSERT INTO Turno VALUES ('Semana manana', 31, '09:00:00', '13:00:00');
-INSERT INTO Turno VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
+INSERT INTO Turno(nombre, dias, hora_comienza, hora_termina) VALUES ('Semana manana', 31, '09:00:00', '13:00:00');
+INSERT INTO Turno(nombre, dias, hora_comienza, hora_termina) VALUES ('Semana Tarde', 31, '13:00:00', '18:00:00');
 
 /* Empleados */
 -- Password is pass123
@@ -396,52 +397,52 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 ('Antonio', 'Alfau', '809-482-3872', 'aa.negocios@outlook.com', '001-8487582-9', 'Atalaya', 'Casa No. 23', 'La Julia', 'Santo Domingo', 'D. N')
 
 /*-----> Insercion de Registros a la Tabla de Caja*/
-INSERT INTO Caja (empleado_id, cash_entrada, estado, fecha_abre, fecha_cierra) 
-VALUES
-(4, 9386, 0, '2/1/2013 08:30:00', '2/1/2013 12:30:00'),
-(3, 7556, 0, '2/1/2013 13:00:00', '2/1/2013 19:30:00'),
-(3, 7562, 0, '2/2/2013 08:30:00', '2/2/2013 12:30:00'),
-(1, 4093, 0, '2/2/2013 13:00:00', '2/2/2013 19:30:00'),
-(5, 10026, 0, '2/3/2013 08:30:00', '2/3/2013 12:30:00'),
-(3, 6920, 0, '2/3/2013 13:00:00', '2/3/2013 19:30:00'),
-(2, 6258, 0, '2/4/2013 08:30:00', '2/4/2013 12:30:00'),
-(1, 5099, 0, '2/4/2013 13:00:00', '2/4/2013 19:30:00'),
-(4, 8208, 0, '2/5/2013 08:30:00', '2/5/2013 12:30:00'),
-(3, 7299, 0, '2/5/2013 13:00:00', '2/5/2013 19:30:00'),
-(2, 6258, 0, '2/6/2013 08:30:00', '2/6/2013 12:30:00'),
-(3, 7759, 0, '2/6/2013 13:00:00', '2/6/2013 19:30:00'),
-(4, 8824, 0, '2/7/2013 08:30:00', '2/7/2013 12:30:00'),
-(3, 8131, 0, '2/7/2013 13:00:00', '2/7/2013 19:30:00'),
-(3, 7832, 0, '2/8/2013 08:30:00', '2/8/2013 12:30:00'),
-(3, 7742, 0, '2/8/2013 13:00:00', '2/8/2013 19:30:00'),
-(1, 4364, 0, '2/9/2013 08:30:00', '2/9/2013 12:30:00'),
-(1, 5341, 0, '2/9/2013 13:00:00', '2/9/2013 19:30:00'),
-(3, 8065, 0, '2/10/2013 08:30:00', '2/10/2013 12:30:00'),
-(1, 5257, 0, '2/10/2013 13:00:00', '2/10/2013 19:30:00'),
-(5, 10596, 0, '2/11/2013 08:30:00', '2/11/2013 12:30:00'),
-(1, 4732, 0, '2/11/2013 13:00:00', '2/11/2013 19:30:00'),
-(4, 9034, 0, '2/12/2013 08:30:00', '2/12/2013 12:30:00'),
-(1, 4747, 0, '2/12/2013 13:00:00', '2/12/2013 19:30:00'),
-(5, 10616, 0, '2/13/2013 08:30:00', '2/13/2013 12:30:00'),
-(2, 5629, 0, '2/13/2013 13:00:00', '2/13/2013 19:30:00'),
-(2, 6729, 0, '2/14/2013 08:30:00', '2/14/2013 12:30:00'),
-(2, 6373, 0, '2/14/2013 13:00:00', '2/14/2013 19:30:00'),
-(5, 10513, 0, '2/15/2013 08:30:00', '2/15/2013 12:30:00'),
-(3, 7260, 0, '2/15/2013 13:00:00', '2/15/2013 19:30:00'),
-(3, 6895, 0, '2/16/2013 08:30:00', '2/16/2013 12:30:00'),
-(3, 7156, 0, '2/16/2013 13:00:00', '2/16/2013 19:30:00'),
-(2, 6642, 0, '2/17/2013 08:30:00', '2/17/2013 12:30:00'),
-(3, 7456, 0, '2/17/2013 13:00:00', '2/17/2013 19:30:00'),
-(1, 4292, 0, '2/18/2013 08:30:00', '2/18/2013 12:30:00'),
-(5, 10858, 0, '2/18/2013 13:00:00', '2/18/2013 19:30:00'),
-(3, 8111, 0, '2/19/2013 08:30:00', '2/19/2013 12:30:00'),
-(5, 9976, 0, '2/19/2013 13:00:00', '2/19/2013 19:30:00'),
-(4, 9506, 0, '2/20/2013 08:30:00', '2/20/2013 12:30:00'),
-(3, 7841, 0, '2/20/2013 13:00:00', '2/20/2013 19:30:00')
+INSERT INTO Caja (empleado_id, cash_entrada, fecha_abre, fecha_cierra) VALUES
+(1, 10000.00,'3/23/2013 09:00:00', '3/23/2013 13:00:00'),
+(2, 10000.00, '3/23/2013 13:00:00', '3/23/2013 18:00:00')
 
-INSERT INTO Caja (empleado_id, cash_entrada, estado, fecha_abre, fecha_cierra) VALUES
-(1, 10000.00, 0, '3/23/2013 09:00:00', '3/23/2013 13:00:00'),
-(2, 10000.00, 0, '3/23/2013 13:00:00', '3/23/2013 18:00:00')
+INSERT INTO Caja (empleado_id, cash_entrada, fecha_abre, fecha_cierra) 
+VALUES
+(4, 9386, '2/1/2013 08:30:00', '2/1/2013 12:30:00'),
+(3, 7556, '2/1/2013 13:00:00', '2/1/2013 19:30:00'),
+(3, 7562, '2/2/2013 08:30:00', '2/2/2013 12:30:00'),
+(1, 4093, '2/2/2013 13:00:00', '2/2/2013 19:30:00'),
+(5, 10026, '2/3/2013 08:30:00', '2/3/2013 12:30:00'),
+(3, 6920, '2/3/2013 13:00:00', '2/3/2013 19:30:00'),
+(2, 6258, '2/4/2013 08:30:00', '2/4/2013 12:30:00'),
+(1, 5099, '2/4/2013 13:00:00', '2/4/2013 19:30:00'),
+(4, 8208, '2/5/2013 08:30:00', '2/5/2013 12:30:00'),
+(3, 7299, '2/5/2013 13:00:00', '2/5/2013 19:30:00'),
+(2, 6258, '2/6/2013 08:30:00', '2/6/2013 12:30:00'),
+(3, 7759, '2/6/2013 13:00:00', '2/6/2013 19:30:00'),
+(4, 8824, '2/7/2013 08:30:00', '2/7/2013 12:30:00'),
+(3, 8131, '2/7/2013 13:00:00', '2/7/2013 19:30:00'),
+(3, 7832, '2/8/2013 08:30:00', '2/8/2013 12:30:00'),
+(3, 7742, '2/8/2013 13:00:00', '2/8/2013 19:30:00'),
+(1, 4364, '2/9/2013 08:30:00', '2/9/2013 12:30:00'),
+(1, 5341, '2/9/2013 13:00:00', '2/9/2013 19:30:00'),
+(3, 8065, '2/10/2013 08:30:00', '2/10/2013 12:30:00'),
+(1, 5257, '2/10/2013 13:00:00', '2/10/2013 19:30:00'),
+(5, 10596, '2/11/2013 08:30:00', '2/11/2013 12:30:00'),
+(1, 4732, '2/11/2013 13:00:00', '2/11/2013 19:30:00'),
+(4, 9034, '2/12/2013 08:30:00', '2/12/2013 12:30:00'),
+(1, 4747, '2/12/2013 13:00:00', '2/12/2013 19:30:00'),
+(5, 10616, '2/13/2013 08:30:00', '2/13/2013 12:30:00'),
+(2, 5629, '2/13/2013 13:00:00', '2/13/2013 19:30:00'),
+(2, 6729, '2/14/2013 08:30:00', '2/14/2013 12:30:00'),
+(2, 6373, '2/14/2013 13:00:00', '2/14/2013 19:30:00'),
+(5, 10513, '2/15/2013 08:30:00', '2/15/2013 12:30:00'),
+(3, 7260, '2/15/2013 13:00:00', '2/15/2013 19:30:00'),
+(3, 6895, '2/16/2013 08:30:00', '2/16/2013 12:30:00'),
+(3, 7156, '2/16/2013 13:00:00', '2/16/2013 19:30:00'),
+(2, 6642, '2/17/2013 08:30:00', '2/17/2013 12:30:00'),
+(3, 7456, '2/17/2013 13:00:00', '2/17/2013 19:30:00'),
+(1, 4292, '2/18/2013 08:30:00', '2/18/2013 12:30:00'),
+(5, 10858, '2/18/2013 13:00:00', '2/18/2013 19:30:00'),
+(3, 8111, '2/19/2013 08:30:00', '2/19/2013 12:30:00'),
+(5, 9976, '2/19/2013 13:00:00', '2/19/2013 19:30:00'),
+(4, 9506, '2/20/2013 08:30:00', '2/20/2013 12:30:00'),
+(3, 7841, '2/20/2013 13:00:00', '2/20/2013 19:30:00')
 
 
 
@@ -469,7 +470,9 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('1/2 Galon', NULL, 1, 700.00, 250.00),
 ('Tarta Pequena', NULL, NULL, 425.00, 200.00),
 ('Tarta Grande', NULL, NULL, 650.00, 300.00),
-('Tarta Especial', NULL, NULL, 800.00, 400.00),
+('Tarta Especial', NULL, NULL, 800.00, 400.00)
+
+INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
 ('Smoothie', 'Producto Yogen', NULL, 150.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00, 40.00),
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
@@ -567,6 +570,12 @@ insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_dispo
 
 insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
 ('2x1 Cajita', '2x1 en Cajitas', '1/1/2013', '4/30/2013', 127, '09:00:00', '18:00:00', 9, '2x1');
+
+insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
+('2x1 Malteada Etiqueta Tradicional', '2x1 en Malteadas Etiqueta Tradicional', '11/15/2013', '1/30/2014', 24, '00:00:00', '18:00:00', 13, '2x1');
+
+SELECT *
+FROM Producto
 
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
@@ -933,10 +942,6 @@ INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
 
 /*NCF*/
 INSERT INTO NCF(no_NCF, venta_id) VALUES 
@@ -1224,6 +1229,7 @@ INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, t
 VALUES ('Don Confinteria', 'Conos, Chispas y demás', 'Juana Saltitopa', 'No. 42', 'D. N.', 'Santo Domingo', '809-234-5235'),
 	('Kids Party', 'Decoraciones Festivas', 'Plaza Naco', 'Local 23', 'D. N.', 'Santo Domingo', '809-125-2352'),
 	('Central Bon', 'Helados, Mermeladas, Otros', 'Zona Industrial de Herrera', 'No. 45', 'D. N.', 'Santo Domingo', '809-523-5123')
+UPDATE Producto SET suplidor = 3
 
 /*Orden*/
 INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, fecha_aceptada, fecha_despachada, recibida, fecha_recibida)
@@ -1284,6 +1290,7 @@ SET @fecha_termina = '3/31/2013'
 SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total * 0.18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
 
 drop function maskToDias
+
 CREATE FUNCTION maskToDias (@mask AS INT)
 RETURNS VARCHAR(60)
 BEGIN
@@ -1310,6 +1317,10 @@ BEGIN
 	RETURN @ret
 END
 
+DECLARE @Number int
+SET @Number = 127
+maskToDias (@Number)
+
 -- Ofertas
 SELECT Oferta.oferta_id, Oferta.nombre, CONVERT(DATE, Oferta.fecha_empieza), CONVERT(DATE,Oferta.fecha_termina), Oferta.hora_disponible_empieza, Oferta.hora_disponible_termina, tipo, dbo.maskToDias(Oferta.dias_disponible) AS 'Dias Disponible', (SELECT COUNT(*) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS Cantidad, (SELECT SUM(rebaja) FROM Venta_Ofertas WHERE oferta_id = Oferta.oferta_id) AS 'Ahorro Clientes' FROM Oferta
 
@@ -1326,3 +1337,12 @@ SELECT producto_id, nombre, dbo.bitToBool(etiqueta_negra) AS etiqueta_negra, pre
 	ISNULL((SELECT TOP 1 cantidad FROM RegistroInventario_Productos INNER JOIN RegistroInventario ON RegistroInventario_Productos.inventario_id = RegistroInventario.inventario_id
 		 WHERE RegistroInventario_Productos.producto_id = Producto.producto_id ORDER BY RegistroInventario.fecha DESC), 0) AS Cantidad FROM Producto
 
+
+select * from Caja
+delete from Caja WHERE caja_id = 45
+select * from empleado
+SELECT * FROM Producto where precio_venta is not null
+select * from orden
+
+DELETE FROM Orden_Productos WHERE orden_id = 47
+DELETE FROM Orden WHERE orden_id = 47
