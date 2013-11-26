@@ -168,7 +168,7 @@ CREATE TABLE Venta(
     fecha DATETIME NOT NULL,
 	fecha_entrega DATETIME,
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
-	total money DEFAULT 0.00,
+	total money NOT NULL DEFAULT 0,
 	entregado_por INT,
 	tarjeta_no VARCHAR(4),
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
@@ -340,8 +340,6 @@ BEGIN
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
 														(dias_disponible & POWER(2, DATEPART(DW, @venta_fecha-1)) > 0);
-	PRINT @oferta_id
-
 
 
 	IF (@oferta_tipo = '2x1')

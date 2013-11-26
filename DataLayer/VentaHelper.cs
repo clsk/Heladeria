@@ -18,6 +18,7 @@ namespace DataLayer
             venta.caja_id = caja_id;
             venta.forma_pago = forma_pago;
             venta.fecha = DateTime.Now;
+            venta.total = 0m;
             if (tarjeta_no != "")
                 venta.tarjeta_no = tarjeta_no;
             if (cliente_id != 0)
