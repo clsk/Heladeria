@@ -67,5 +67,13 @@ namespace Heladeria
             this.Hide();
             frmOrders.Show();
         }
+
+        private void btInventario_Click(object sender, EventArgs e)
+        {
+            FormRegistroInventario frm = new FormRegistroInventario(this);
+            frm.Location = this.Location;
+            this.Hide();
+            frm.Show();
+        }
     }
 }

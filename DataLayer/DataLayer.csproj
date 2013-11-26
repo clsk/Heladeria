@@ -100,6 +100,7 @@
     <Compile Include="Producto.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductoInventario.cs" />
     <Compile Include="ProductoOrden.cs" />
     <Compile Include="ProductosHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="RegistroInventario.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="RegistroInventarioHelper.cs" />
     <Compile Include="RegistroInventario_Productos.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

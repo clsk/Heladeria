@@ -39,8 +39,6 @@ namespace DataLayer
         {
             Provider.GetProvider().Database.ExecuteSqlCommand("DELETE FROM Orden_Productos WHERE orden_id = " + orden_id, new object[0]);
             Provider.GetProvider().Database.ExecuteSqlCommand("DELETE FROM Orden WHERE orden_id = " + orden_id, new object[0]);
-            //Provider.GetProvider().Database.SqlQuery<Object>("DELETE FROM Orden_Productos WHERE orden_id = " + orden_id, new object[0]);
-            //Provider.GetProvider().Database.SqlQuery<Object>("DELETE FROM Orden WHERE orden_id = " + orden_id, new object[0]);
         }
     }
 }

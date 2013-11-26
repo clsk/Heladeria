@@ -338,8 +338,6 @@ BEGIN
 														(@venta_fecha BETWEEN Oferta.fecha_empieza AND Oferta.fecha_termina) AND
 														(CONVERT(TIME, @venta_fecha) BETWEEN hora_disponible_empieza AND hora_disponible_termina) AND
 														(dias_disponible & POWER(2, DATEPART(DW, @venta_fecha-1)) > 0);
-	PRINT @oferta_id
-
 
 
 	IF (@oferta_tipo = '2x1')
@@ -1332,3 +1330,6 @@ delete from Caja WHERE caja_id = 45
 select * from empleado
 SELECT * FROM Producto where precio_venta is not null
 select * from orden
+
+DELETE FROM Orden_Productos WHERE orden_id = 47
+DELETE FROM Orden WHERE orden_id = 47

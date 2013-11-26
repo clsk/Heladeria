@@ -16,5 +16,7 @@ namespace DataLayer
         {
             return base.GetAll("precio_venta is not null");
         }
+
+
     }
 }
