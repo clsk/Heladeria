@@ -12,7 +12,7 @@ namespace DataLayer
             : base("Venta")
         { }
 
-        public Venta CreateVenta(int caja_id, string forma_pago, List<Tuple<int, int>> productos, string tarjeta_no = "", int clinte_id = 0)
+        public Venta CreateVenta(int caja_id, string forma_pago, List<Tuple<int, int>> productos, string tarjeta_no = "", int cliente_id = 0)
         {
             Venta venta = new Venta();
             venta.caja_id = caja_id;
@@ -20,8 +20,8 @@ namespace DataLayer
             venta.fecha = DateTime.Now;
             if (tarjeta_no != "")
                 venta.tarjeta_no = tarjeta_no;
-            if (clinte_id != 0)
-                venta.cliente_id = clinte_id;
+            if (cliente_id != 0)
+                venta.cliente_id = cliente_id;
 
             venta = Provider.GetProvider().Ventas.Add(venta);
             Provider.GetProvider().SaveChanges();
