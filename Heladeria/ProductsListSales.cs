@@ -34,7 +34,8 @@ namespace Heladeria
                 }
                 else
                 {
-                    _DetailDescription += " Etiqueta Tradicional";
+                    if (OneProduct.nombre != "Delivery")
+                        _DetailDescription += " Etiqueta Tradicional";
                 }
 
                 if (OneProduct.precio_venta.HasValue && OneProduct.precio_venta.Value > 0)

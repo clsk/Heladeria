@@ -19,6 +19,11 @@ namespace DataLayer
             string QueryLine = "SELECT * FROM" + base._table + "WHERE telefono = @ClienteTel";
             return Provider.GetProvider().Database.SqlQuery<Cliente>(QueryLine, parameters).SingleOrDefault();
         }
+
+        public void Attach(Cliente _cliente)
+        {
+            Provider.GetProvider().Clientes.Attach(_cliente);
+        }
     }
 
     public static class ClienteExtensions 

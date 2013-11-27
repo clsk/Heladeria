@@ -47,14 +47,18 @@ namespace Heladeria
         {
             string _idAux = "";
             _idAux = OneSelected.Cells["CodigoArticulo"].Value.ToString();
-
-
-            /* TODO: Agregar codigo para que en caso de que exista en la lista el producto "Delivery"
-             * Se Cargue la Ventana ClientRecord
-             */
+            string _productName;
 
             if (!ExistProduct(_idAux))
             {
+                _productName = OneSelected.Cells["DescripcionArticulo"].Value.ToString();
+                if (_productName == "Delivery")
+                {
+                    ClientsRecord frmPerfilClientes = new ClientsRecord(this);
+                    frmPerfilClientes.ShowDialog();
+                    ClienteID = frmPerfilClientes.GetClienteID();
+                    frmPerfilClientes.Close();
+                }
                 SelectedProducts.Add(OneSelected);
             }
             else
@@ -97,7 +101,7 @@ namespace Heladeria
                 string _precio = SelectedProducts.ElementAt(i).Cells["PrecioUnitarioArt"].Value.ToString();
                 dgvPedidoProductos.Rows.Add(i + 1, _id, _nombre, 1, _precio, _precio);
                 i++;
-            }         
+            }          
         }
 
         private void ReadDataGridView()
@@ -240,7 +244,7 @@ namespace Heladeria
                 ReadDataGridView();
                 PlaceOrder();
                 ClientPayment _payToMe = new ClientPayment(this);
-                _payToMe.SetProductsOrder(SelectedProducts);
+                _payToMe.SetProductsOrder(SelectedProducts, ClienteID);
                 _payToMe.ShowDialog();
                 this.Close();
             }

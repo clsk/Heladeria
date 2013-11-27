@@ -1,0 +1,17 @@
+				HELADERIA BON 
+	Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso
+Fecha: 11/26/2013
+Hora:8:57 PM
+_______________________________________________________________________________
+CANT	DESCRIPCION					PRECIO	TOTAL
+_______________________________________________________________________________
+1	Barquito Abordado Etiqueta Tradicional		120.00	120.00
+1	Barquito Etiqueta Tradicional			100.00	100.00
+2	Malteada Etiqueta Tradicional			100.00	200.00
+1	Cajita Etiqueta Tradicional			50.00	50.00
+_______________________________________________________________________________
+						TOTAL ITBIS:	84.60
+						SUBTOTAL:	470
+						TOTAL:		554.60
+						PAGADO:		554.60
+						DEVUELTA:	0

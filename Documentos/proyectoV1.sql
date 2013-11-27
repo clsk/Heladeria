@@ -386,7 +386,6 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 ('Alex', 'Figuereo', '829-458-2948', 'afiguereo@correo.com', '130156964', 'Calle F', '#65', 'Bella Vista', 'Santo Domingo', 'D.N.'),
 ('Ramon', 'Alcantara', '829-432-9481', 'ra@correo.com', '184930485', 'Calle C', '#89', 'Naco', 'Santo Domingo', 'D.N.');
 
-
 INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sector, ciudad, provincia) VALUES 
 ('Ana', 'Gonzalez', '829-123-3489', 'agonz23@yahoo.com', '341-2524731-2', 'Los Robles', 'Edif. Jose, Apart. 21', 'La Julia', 'Santo Domingo', 'D.N'),
 ('Yunik', 'Rafavelo', '809-482-1381', 'rsayunik@outlook.com', '313-3541652-4', 'Atalaya', 'Casa No. 13', 'La Julia', 'Santo Domingo', 'D.N'),
@@ -397,6 +396,7 @@ INSERT INTO Cliente(nombre, apellido, telefono, correo, RNC, calle, no_casa, sec
 ('Keila', 'Montero', '849-219-8429', 'km1505@hotmail.com', '001-5493784-2', 'F. Geraldino esq. Fco. Pratts', '', 'Piantini', 'Santo Domingo', 'D. N'),
 ('Alberto', 'Baldera', '829-399-8984', 'ab_boy10@hotmail.com', '402-3884902-7', 'Pedro Henriquez', 'Edif. Aurora', 'La Julia', 'Santo Domingo', 'D. N'),
 ('Antonio', 'Alfau', '809-482-3872', 'aa.negocios@outlook.com', '001-8487582-9', 'Atalaya', 'Casa No. 23', 'La Julia', 'Santo Domingo', 'D. N')
+
 
 /*-----> Insercion de Registros a la Tabla de Caja*/
 INSERT INTO Caja (empleado_id, cash_entrada, fecha_abre, fecha_cierra) VALUES
