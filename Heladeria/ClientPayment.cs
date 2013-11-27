@@ -251,9 +251,6 @@ namespace Heladeria
                     _line = "Hora: " + _sysHours.ToShortTimeString();
                     file.WriteLine(_line);
 
-                    _line = "NCF: " + NumComFiscal + " RNC: " + mtbNoRNC.Text.ToString();
-                    file.WriteLine(_line);
-
                     _line = "Empleado de Turno: " + App.CurrentUser.NombreCompleto() + ".";
                     file.WriteLine(_line);
 
@@ -261,6 +258,9 @@ namespace Heladeria
                     file.WriteLine(_line);
                     
                     _line = "";
+                    file.WriteLine(_line);
+
+                    _line = "NCF: " + NumComFiscal + " RNC: " + mtbNoRNC.Text.ToString();
                     file.WriteLine(_line);
 
                     ClientesHelper _Clientes = new ClientesHelper();

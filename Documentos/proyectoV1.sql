@@ -223,7 +223,6 @@ CREATE TABLE Venta_Ofertas (
 	constraint venta_ofertas_venta_fk FOREIGN KEY (venta_id) REFERENCES Venta(venta_id)
 )
 
-
 /* ============== STORED PROCEDURES ========================= */
 
 use heladeria;
