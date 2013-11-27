@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a263d82a281b4db8b412d5c21f0555e6" Name="Diagram1">
+        <EntityTypeShape EntityType="heladeriaModel.Caja" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Cliente" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Empleado" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.INFO" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Oferta" Width="1.5" PointX="7.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.OfertaPorciento" Width="1.5" PointX="9.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Orden" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Orden_Productos" Width="1.5" PointX="10.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Producto" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.RegistroInventario" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.RegistroInventario_Productos" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.SaborHelado" Width="1.5" PointX="7.5" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Suplidor" Width="1.5" PointX="6" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.sysdiagram" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Turno" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Venta" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Venta_Ofertas" Width="1.5" PointX="9.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="heladeriaModel.Venta_Productos" Width="1.5" PointX="10.75" PointY="9.25" IsExpanded="true" />
+        <AssociationConnector Association="heladeriaModel.caja_empleado_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.venta_caja_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.venta_cliente_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.empleado_turno_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.inventario_empleado_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.orden_empleado_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.oferta_producto_pk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.porciento_oferta_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.venta_ofertas_oferta_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.orden_producto_orden_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.orden_suplidor_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.orden_produto_producto_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.producto_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.producto_id_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.sabor_helado_producto_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.inventario_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.venta_id_fk" ManuallyRouted="false" />
+        <AssociationConnector Association="heladeriaModel.venta_ofertas_venta_fk" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="heladeriaModel.NCF" Width="1.5" PointX="3" PointY="4.375" />
+        <AssociationConnector Association="heladeriaModel.venta_empleado_fk" />
+        <AssociationConnector Association="heladeriaModel.producto_suplidor_fk" />
+        <AssociationConnector Association="heladeriaModel.caja_autorizador_fk" />
+        <AssociationConnector Association="heladeriaModel.NCF_venta" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
