@@ -169,7 +169,7 @@ CREATE TABLE Venta(
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
 	total money NOT NULL DEFAULT 0,
 	entregado_por INT,
-	no_tarjeta SMALLINT, -- ultimos 4 digitos
+	no_tarjeta varchar(4), -- ultimos 4 digitos
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id),
 	CONSTRAINT venta_empleado_fk FOREIGN KEY (entregado_por) REFERENCES Empleado(empleado_id)
@@ -991,7 +991,9 @@ INSERT INTO NCF(no_NCF, venta_id) VALUES
 ('AC000100724147', null ),
 ('AC000100724148', null ),
 ('AC000100724149', null ),
-('AC000100724150', null ),
+('AC000100724150', null )
+
+INSERT INTO NCF(no_NCF, venta_id) VALUES 
 ('AC000100724151', null ),
 ('AC000100724152', null ),
 ('AC000100724153', null ),
@@ -1002,8 +1004,6 @@ INSERT INTO NCF(no_NCF, venta_id) VALUES
 ('AC000100724158', null ),
 ('AC000100724159', null ),
 ('AC000100724160', null )
-
-
 
 /*Tabla Suplidor*/
 INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, telefono)
