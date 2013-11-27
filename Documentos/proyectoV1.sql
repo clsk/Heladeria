@@ -84,7 +84,6 @@ CREATE TABLE Cliente(
     sector VARCHAR(50),
     ciudad VARCHAR(50),
     provincia VARCHAR(50),
-	no_tarjeta SMALLINT, -- ultimos 4 digitos
 );
 
 CREATE TABLE Suplidor (
@@ -170,7 +169,7 @@ CREATE TABLE Venta(
     forma_pago VARCHAR(50) CHECK (forma_pago IN('efectivo', 'tarjeta')) NOT NULL,
 	total money NOT NULL DEFAULT 0,
 	entregado_por INT,
-	tarjeta_no VARCHAR(4),
+	no_tarjeta SMALLINT, -- ultimos 4 digitos
     CONSTRAINT venta_cliente_fk FOREIGN KEY (cliente_id) REFERENCES Cliente(cliente_id),
     CONSTRAINT venta_caja_fk FOREIGN KEY (caja_id) REFERENCES Caja(caja_id),
 	CONSTRAINT venta_empleado_fk FOREIGN KEY (entregado_por) REFERENCES Empleado(empleado_id)
