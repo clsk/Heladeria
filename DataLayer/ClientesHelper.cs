@@ -22,7 +22,10 @@ namespace DataLayer
 
         public void Attach(Cliente _cliente)
         {
-            Provider.GetProvider().Clientes.Attach(_cliente);
+            if (!Provider.GetProvider().ChangeTracker.Entries<Cliente>().Any(x => x.Entity.cliente_id == _cliente.cliente_id))
+            {
+                Provider.GetProvider().Clientes.Attach(_cliente);
+            }
         }
     }
 
