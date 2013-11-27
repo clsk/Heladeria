@@ -218,7 +218,7 @@ namespace Heladeria
 
             _NoVenta = _ventas.GetAll().Count;
             string _filename = "Factura" + _NoVenta.ToString() + ".txt";
-            string _path = @"C:\Users\IsisGomez\Documents\GitHub\Heladeria\Documentos\Facturas\";
+            string _path = @"..\..\..\Documentos\Facturas\";
             _path = System.IO.Path.Combine(_path, _filename);
 
             if (!System.IO.File.Exists(_path))

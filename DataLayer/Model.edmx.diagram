@@ -43,9 +43,9 @@
         <AssociationConnector Association="heladeriaModel.venta_ofertas_venta_fk" ManuallyRouted="false" />
         <EntityTypeShape EntityType="heladeriaModel.NCF" Width="1.5" PointX="3" PointY="4.375" />
         <AssociationConnector Association="heladeriaModel.venta_empleado_fk" />
-        <AssociationConnector Association="heladeriaModel.NCF_venta" />
         <AssociationConnector Association="heladeriaModel.producto_suplidor_fk" />
         <AssociationConnector Association="heladeriaModel.caja_autorizador_fk" />
+        <AssociationConnector Association="heladeriaModel.NCF_venta" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

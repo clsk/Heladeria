@@ -15,7 +15,7 @@ namespace DataLayer
     public partial class NCF
     {
         public string no_NCF { get; set; }
-        public long venta_id { get; set; }
+        public Nullable<long> venta_id { get; set; }
     
         public virtual Venta Venta { get; set; }
     }

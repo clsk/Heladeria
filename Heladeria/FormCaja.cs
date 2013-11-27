@@ -22,17 +22,25 @@ namespace Heladeria
             tbEfectivoAbre.Text = _caja.cash_entrada.ToString();
             UpdateVentasEfectivo();
             UpdateVentasTarjeta();
+
+            this.VisibleChanged += FormCaja_VisibleChanged;
+        }
+
+        void FormCaja_VisibleChanged(object sender, EventArgs e)
+        {
+            UpdateVentasEfectivo();
+            UpdateVentasTarjeta();           
         }
 
         private void UpdateVentasEfectivo()
         {
-            _ventasEfectivo = _cajaHelper.CalcularVentasEfectivo(_caja.caja_id);
+            _ventasEfectivo = _cajaHelper.CalcularVentasEfectivo(_caja.caja_id) * 1.18m;
             tbVentasEfectivo.Text = _ventasEfectivo.ToString(); 
         }
 
         private void UpdateVentasTarjeta()
         {
-            _ventasTarjeta = _cajaHelper.CalcularVentasTarjeta(_caja.caja_id);
+            _ventasTarjeta = _cajaHelper.CalcularVentasTarjeta(_caja.caja_id) * 1.18m;
             tbVentasTarjeta.Text = _ventasTarjeta.ToString();
         }
 
@@ -46,7 +54,7 @@ namespace Heladeria
                 return;
             }
 
-            if (dialog.EfectivoSalida - _caja.cash_entrada != 0)
+            if (dialog.EfectivoSalida - (_caja.cash_entrada + _ventasEfectivo) != 0m)
             {
                 MessageBox.Show("El balance de la caja no cuadra.\nCuante el efectivo y trate de nuevo\nBalance Actual: " + (dialog.EfectivoSalida - (_caja.cash_entrada + _ventasEfectivo)), "Balance Descuadrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

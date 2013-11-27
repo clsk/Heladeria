@@ -140,7 +140,6 @@
           <Property Name="sector" Type="varchar" MaxLength="50" />
           <Property Name="ciudad" Type="varchar" MaxLength="50" />
           <Property Name="provincia" Type="varchar" MaxLength="50" />
-          <Property Name="no_tarjeta" Type="smallint" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -174,7 +173,7 @@
             <PropertyRef Name="no_NCF" />
           </Key>
           <Property Name="no_NCF" Type="varchar" Nullable="false" MaxLength="25" />
-          <Property Name="venta_id" Type="bigint" Nullable="false" />
+          <Property Name="venta_id" Type="bigint" />
         </EntityType>
         <EntityType Name="Oferta">
           <Key>
@@ -309,9 +308,9 @@
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="fecha_entrega" Type="datetime" />
           <Property Name="forma_pago" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="total" Type="money" />
+          <Property Name="total" Type="money" Nullable="false" />
           <Property Name="entregado_por" Type="int" />
-          <Property Name="tarjeta_no" Type="varchar" MaxLength="4" />
+          <Property Name="no_tarjeta" Type="varchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="Venta_Ofertas">
           <Key>
@@ -392,7 +391,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="NCF_venta">
-          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="1">
+          <End Role="Venta" Type="heladeriaModel.Store.Venta" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="NCF" Type="heladeriaModel.Store.NCF" Multiplicity="*" />
@@ -738,10 +737,6 @@
             <End Role="Empleado" EntitySet="Empleadoes" />
             <End Role="Venta" EntitySet="Ventas" />
           </AssociationSet>
-          <AssociationSet Name="NCF_venta" Association="heladeriaModel.NCF_venta">
-            <End Role="Venta" EntitySet="Ventas" />
-            <End Role="NCF" EntitySet="NCFs" />
-          </AssociationSet>
           <AssociationSet Name="producto_suplidor_fk" Association="heladeriaModel.producto_suplidor_fk">
             <End Role="Suplidor" EntitySet="Suplidors" />
             <End Role="Producto" EntitySet="Productoes" />
@@ -749,6 +744,10 @@
           <AssociationSet Name="caja_autorizador_fk" Association="heladeriaModel.caja_autorizador_fk">
             <End Role="Empleado" EntitySet="Empleadoes" />
             <End Role="Caja" EntitySet="Cajas" />
+          </AssociationSet>
+          <AssociationSet Name="NCF_venta" Association="heladeriaModel.NCF_venta">
+            <End Role="Venta" EntitySet="Ventas" />
+            <End Role="NCF" EntitySet="NCFs" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Caja">
@@ -970,7 +969,7 @@
           <Property Name="caja_id" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="forma_pago" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="Caja" Relationship="heladeriaModel.venta_caja_fk" FromRole="Venta" ToRole="Caja" />
           <NavigationProperty Name="Cliente" Relationship="heladeriaModel.venta_cliente_fk" FromRole="Venta" ToRole="Cliente" />
           <NavigationProperty Name="Venta_Productos" Relationship="heladeriaModel.venta_id_fk" FromRole="Venta" ToRole="Venta_Productos" />
@@ -978,8 +977,8 @@
           <Property Type="DateTime" Name="fecha_entrega" Precision="3" />
           <Property Type="Int32" Name="entregado_por" />
           <NavigationProperty Name="Empleado" Relationship="heladeriaModel.venta_empleado_fk" FromRole="Venta" ToRole="Empleado" />
-          <NavigationProperty Name="NCFs" Relationship="heladeriaModel.NCF_venta" FromRole="Venta" ToRole="NCF" />
           <Property Type="String" Name="no_tarjeta" MaxLength="4" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NCFs" Relationship="heladeriaModel.NCF_venta" FromRole="Venta" ToRole="NCF" />
         </EntityType>
         <EntityType Name="Venta_Ofertas">
           <Key>
@@ -1239,7 +1238,7 @@
             <PropertyRef Name="no_NCF" />
           </Key>
           <Property Type="String" Name="no_NCF" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Type="Int64" Name="venta_id" Nullable="false" />
+          <Property Type="Int64" Name="venta_id" />
           <NavigationProperty Name="Venta" Relationship="heladeriaModel.NCF_venta" FromRole="NCF" ToRole="Venta" />
         </EntityType>
         <Association Name="venta_empleado_fk">
@@ -1251,20 +1250,6 @@
             </Principal>
             <Dependent Role="Venta">
               <PropertyRef Name="entregado_por" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="NCF_venta">
-          <End Type="heladeriaModel.Venta" Role="Venta" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="heladeriaModel.NCF" Role="NCF" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Venta">
-              <PropertyRef Name="venta_id" />
-            </Principal>
-            <Dependent Role="NCF">
-              <PropertyRef Name="venta_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1296,6 +1281,20 @@
             </Principal>
             <Dependent Role="Caja">
               <PropertyRef Name="autorizador_cierre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NCF_venta">
+          <End Type="heladeriaModel.Venta" Role="Venta" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="heladeriaModel.NCF" Role="NCF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Venta">
+              <PropertyRef Name="venta_id" />
+            </Principal>
+            <Dependent Role="NCF">
+              <PropertyRef Name="venta_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1498,7 +1497,7 @@
           <EntitySetMapping Name="Ventas">
             <EntityTypeMapping TypeName="heladeriaModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
-                <ScalarProperty Name="no_tarjeta" ColumnName="tarjeta_no" />
+                <ScalarProperty Name="no_tarjeta" ColumnName="no_tarjeta" />
                 <ScalarProperty Name="entregado_por" ColumnName="entregado_por" />
                 <ScalarProperty Name="fecha_entrega" ColumnName="fecha_entrega" />
                 <ScalarProperty Name="venta_id" ColumnName="venta_id" />

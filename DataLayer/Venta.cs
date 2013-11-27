@@ -26,7 +26,7 @@ namespace DataLayer
         public int caja_id { get; set; }
         public System.DateTime fecha { get; set; }
         public string forma_pago { get; set; }
-        public Nullable<decimal> total { get; set; }
+        public decimal total { get; set; }
         public Nullable<System.DateTime> fecha_entrega { get; set; }
         public Nullable<int> entregado_por { get; set; }
         public string no_tarjeta { get; set; }
