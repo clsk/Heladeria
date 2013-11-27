@@ -29,7 +29,7 @@ namespace DataLayer
         public Nullable<decimal> total { get; set; }
         public Nullable<System.DateTime> fecha_entrega { get; set; }
         public Nullable<int> entregado_por { get; set; }
-        public string tarjeta_no { get; set; }
+        public string no_tarjeta { get; set; }
     
         public virtual Caja Caja { get; set; }
         public virtual Cliente Cliente { get; set; }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataLayer;
+using System.IO;
 
 namespace Heladeria
 {
@@ -17,16 +18,21 @@ namespace Heladeria
 
         List<Tuple<int, int>> _VentaProductoCantidad = new List<Tuple<int, int>>();
         
+        private List<DataGridViewRow> ProductsOrder = new List<DataGridViewRow>();
+
+        private int _ThisClient = 0;
+
+        private string NumComFiscal = "NA";
+        
         public ClientPayment (Form previousForm) : base (previousForm)
         {
             InitializeComponent();
         }
 
-        private List<DataGridViewRow> ProductsOrder = new List<DataGridViewRow>();
-
-        public void SetProductsOrder(List<DataGridViewRow> wishProducts)
+        public void SetProductsOrder(List<DataGridViewRow> wishProducts, int EsteCliente)
         {
             ProductsOrder = wishProducts;
+            _ThisClient = EsteCliente;
         }
 
         private void UploadData()
@@ -88,6 +94,26 @@ namespace Heladeria
             }
         }
 
+        private void tbMontoRecibido_TextChanged(object sender, EventArgs e)
+        {
+            double _Pago;
+            double _Pagar;
+            double _resto;
+            string _text;
+
+            if (double.TryParse(tbMontoRecibido.Text.ToString(), out _Pagar))
+            {
+                _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
+                _resto = _Pagar - _Pago;
+                _text = string.Format("{0:0.00}", _resto);
+                tbResto.Text = _text;
+            }
+            else
+            {
+                tbMontoRecibido.Text = "0.00";
+            }
+        }
+
         private void cbIncluirComprobante_CheckedChanged(object sender, EventArgs e)
         {
             if (cbIncluirComprobante.Checked)
@@ -95,7 +121,8 @@ namespace Heladeria
                 pnlCliente.Visible = true;
                 ClientesHelper Clientes = new ClientesHelper();
                 Cliente _OneClient = Clientes.Get(_ThisClient);
-                if (_ThisClient != null)
+
+                if (_OneClient != null)
                 {
                     mtbNoRNC.Text = _OneClient.RNC.ToString();
                 }
@@ -103,6 +130,8 @@ namespace Heladeria
             else
             {
                 pnlCliente.Visible = false;
+                mtbNoRNC.Clear();
+                tbNombreCliente.Clear();
             }
         }
 
@@ -145,17 +174,35 @@ namespace Heladeria
             if (_payType == "Efectivo")
             {
                 _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, "", _EsteCliente);
+                if (cbIncluirComprobante.Checked && mtbNoRNC.Text.ToString().Length >= 9)
+                {
+                    NCFHelper _Comprobante = new NCFHelper();
+                    NCF _NoComFis = _Comprobante.GetEmpty();
+                    NumComFiscal = _NoComFis.no_NCF;
+                    _Comprobante.Attach(_NoComFis);
+                    _NoComFis.venta_id = _ThisVenta.GetAll().Count;
+                    _Comprobante.SaveChanges();
+                }
                 CreateFile();
-                MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                MessageBox.Show("Factura Generada Correctamente.", "NOTIFICACION", MessageBoxButtons.OK);
                 this.Close();
             }
             else
             {
                 _ThisVenta.CreateVenta(NoCaja, _payType, _VentaProductoCantidad, FourDigits, _EsteCliente);
+                if (cbIncluirComprobante.Checked && mtbNoRNC.Text.ToString().Length > 9)
+                {
+                    NCFHelper _Comprobante = new NCFHelper();
+                    NCF _NoComFis = _Comprobante.GetEmpty();
+                    NumComFiscal = _NoComFis.no_NCF;
+                    _Comprobante.Attach(_NoComFis);
+                    _NoComFis.venta_id = _ThisVenta.GetAll().Count;
+                    _Comprobante.SaveChanges();
+                }
                 CreateFile();
-                MessageBox.Show("Factura Guardada.", "NOTIFICACION", MessageBoxButtons.OK);
+                MessageBox.Show("Factura Generada Correctamente.", "NOTIFICACION", MessageBoxButtons.OK);
                 this.Close();
-            }  
+            }     
         }
 
         private void ClientPayment_Load(object sender, EventArgs e)
@@ -163,32 +210,12 @@ namespace Heladeria
             UploadData();
         }
 
-        private void tbMontoRecibido_TextChanged(object sender, EventArgs e)
-        {
-            double _Pago;
-            double _Pagar;
-            double _resto;
-            string _text;
-
-            if (double.TryParse(tbMontoRecibido.Text.ToString(), out _Pagar))
-            {
-                _Pago = Convert.ToDouble(tbMontoPagar.Text.ToString());
-                _resto = _Pagar - _Pago;
-                _text = string.Format("{0:0.00}", _resto);
-                tbResto.Text = _text;
-            }
-            else
-            {
-                tbMontoRecibido.Text = "0.00";
-            }
-        }
-
         private void CreateFile()
         {
             int _NoVenta;
             VentaHelper _ventas = new VentaHelper();
 
-            _NoVenta = _ventas.GetAll().Count + 1;
+            _NoVenta = _ventas.GetAll().Count;
             string _filename = "Factura" + _NoVenta.ToString() + ".txt";
             string _path = @"C:\Users\IsisGomez\Documents\GitHub\Heladeria\Documentos\Facturas\";
             _path = System.IO.Path.Combine(_path, _filename);
@@ -214,8 +241,32 @@ namespace Heladeria
                     _line = "Fecha: " + _sysHours.ToShortDateString();
                     file.WriteLine(_line);
 
-                    _line = "Hora:" + _sysHours.ToShortTimeString();
+                    _line = "Hora: " + _sysHours.ToShortTimeString();
                     file.WriteLine(_line);
+
+                    _line = "NCF: " + NumComFiscal + " RNC: " + mtbNoRNC.Text.ToString();
+                    file.WriteLine(_line);
+
+                    _line = "Empleado de Turno: " + App.CurrentUser.NombreCompleto() + ".";
+                    file.WriteLine(_line);
+
+                    ClientesHelper _Clientes = new ClientesHelper();
+                    Cliente _OneClient = _Clientes.Get(_ThisClient);
+
+                    if (_OneClient != null)
+                    {
+                        _line = "Cliente: " + _OneClient.NombreComplCliente();
+                        file.WriteLine(_line);
+
+                        _line = "Dirección: ";
+                        file.WriteLine(_line);
+
+                        _line = "Sector: " + _OneClient.sector + " Calle: " + _OneClient.calle;
+                        file.WriteLine(_line);
+
+                        _line = "Numero de Casa: " + _OneClient.calle + " Teléfono: " + _OneClient.telefono;
+                        file.WriteLine(_line);
+                    }
 
                     _line = "_______________________________________________________________________________";
                     file.WriteLine(_line);
@@ -276,7 +327,6 @@ namespace Heladeria
             {
                 System.Windows.Forms.MessageBox.Show("No es posible crear factura.", "ERROR", MessageBoxButtons.OK);
             }
-
         }
     }
 }

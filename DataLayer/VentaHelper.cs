@@ -20,7 +20,7 @@ namespace DataLayer
             venta.fecha = DateTime.Now;
             venta.total = 0m;
             if (tarjeta_no != "")
-                venta.tarjeta_no = tarjeta_no;
+                venta.no_tarjeta = tarjeta_no;
             if (cliente_id != 0)
                 venta.cliente_id = cliente_id;
 

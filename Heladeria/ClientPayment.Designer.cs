@@ -56,8 +56,8 @@
             this.mtbNoRNC = new System.Windows.Forms.MaskedTextBox();
             this.lbRNC = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tbDireccion = new System.Windows.Forms.TextBox();
-            this.tbLogotipo = new System.Windows.Forms.TextBox();
+            this.tbDireccionSuc = new System.Windows.Forms.TextBox();
+            this.tbLogotype = new System.Windows.Forms.TextBox();
             this.cbIncluirComprobante = new System.Windows.Forms.CheckBox();
             this.lbSubTotal = new System.Windows.Forms.Label();
             this.tbSubTotal = new System.Windows.Forms.TextBox();
@@ -336,39 +336,39 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tbDireccion);
-            this.panel1.Controls.Add(this.tbLogotipo);
+            this.panel1.Controls.Add(this.tbDireccionSuc);
+            this.panel1.Controls.Add(this.tbLogotype);
             this.panel1.Location = new System.Drawing.Point(711, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(306, 119);
             this.panel1.TabIndex = 21;
             // 
-            // tbDireccion
+            // tbDireccionSuc
             // 
-            this.tbDireccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbDireccion.Location = new System.Drawing.Point(17, 60);
-            this.tbDireccion.Multiline = true;
-            this.tbDireccion.Name = "tbDireccion";
-            this.tbDireccion.ReadOnly = true;
-            this.tbDireccion.Size = new System.Drawing.Size(274, 44);
-            this.tbDireccion.TabIndex = 19;
-            this.tbDireccion.Text = "Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso";
-            this.tbDireccion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbDireccionSuc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbDireccionSuc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbDireccionSuc.Location = new System.Drawing.Point(17, 60);
+            this.tbDireccionSuc.Multiline = true;
+            this.tbDireccionSuc.Name = "tbDireccionSuc";
+            this.tbDireccionSuc.ReadOnly = true;
+            this.tbDireccionSuc.Size = new System.Drawing.Size(274, 44);
+            this.tbDireccionSuc.TabIndex = 19;
+            this.tbDireccionSuc.Text = "Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso";
+            this.tbDireccionSuc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tbLogotipo
+            // tbLogotype
             // 
-            this.tbLogotipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.tbLogotipo.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbLogotipo.ForeColor = System.Drawing.Color.Black;
-            this.tbLogotipo.Location = new System.Drawing.Point(17, 20);
-            this.tbLogotipo.Multiline = true;
-            this.tbLogotipo.Name = "tbLogotipo";
-            this.tbLogotipo.ReadOnly = true;
-            this.tbLogotipo.Size = new System.Drawing.Size(274, 34);
-            this.tbLogotipo.TabIndex = 10;
-            this.tbLogotipo.Text = "HELADERIA BON ";
-            this.tbLogotipo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbLogotype.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbLogotype.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbLogotype.ForeColor = System.Drawing.Color.Black;
+            this.tbLogotype.Location = new System.Drawing.Point(17, 20);
+            this.tbLogotype.Multiline = true;
+            this.tbLogotype.Name = "tbLogotype";
+            this.tbLogotype.ReadOnly = true;
+            this.tbLogotype.Size = new System.Drawing.Size(274, 34);
+            this.tbLogotype.TabIndex = 10;
+            this.tbLogotype.Text = "HELADERIA BON ";
+            this.tbLogotype.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // cbIncluirComprobante
             // 
@@ -465,8 +465,8 @@
         private System.Windows.Forms.Label lbNombreCliente;
         private System.Windows.Forms.Label lbRNC;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TextBox tbDireccion;
-        private System.Windows.Forms.TextBox tbLogotipo;
+        private System.Windows.Forms.TextBox tbDireccionSuc;
+        private System.Windows.Forms.TextBox tbLogotype;
         private System.Windows.Forms.CheckBox cbIncluirComprobante;
         private System.Windows.Forms.MaskedTextBox mtbNoRNC;
         private System.Windows.Forms.Label lbSubTotal;

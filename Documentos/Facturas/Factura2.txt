@@ -1,0 +1,17 @@
+				HELADERIA BON 
+	Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso
+Fecha: 11/27/2013
+Hora: 7:34 AM
+NCF: NA RNC: 101890444
+_______________________________________________________________________________
+CANT	DESCRIPCION					PRECIO	TOTAL
+_______________________________________________________________________________
+1	Barquito Abordado Etiqueta Tradicional		120.00	120.00
+2	Malteada Etiqueta Tradicional			100.00	200.00
+1	Barquilla Danesa Etiqueta Tradicional		50.00	50.00
+_______________________________________________________________________________
+						TOTAL ITBIS:	66.60
+						SUBTOTAL:	370
+						TOTAL:		436.60
+						PAGADO:		440
+						DEVUELTA:	3.40

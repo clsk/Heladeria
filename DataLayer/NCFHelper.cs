@@ -8,7 +8,7 @@ namespace DataLayer
 {
     public class NCFHelper : AbstractEntityHelper<NCF>
     {
-        NCFHelper()
+        public NCFHelper()
             : base("NCF")
         { }
 
@@ -29,5 +29,9 @@ namespace DataLayer
             }
         }
 
+        public void Attach(NCF _NoComFis)
+        {
+            Provider.GetProvider().NCFs.Attach(_NoComFis);
+        }
     }
 }

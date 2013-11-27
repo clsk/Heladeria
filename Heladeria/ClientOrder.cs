@@ -29,6 +29,8 @@ namespace Heladeria
         
         static List<DataGridViewRow> SelectedProducts = new List<DataGridViewRow>();
 
+        private int ClienteID = 0;
+
         public ClientOrder(Form previousForm) : base (previousForm)
         {
             InitializeComponent();
@@ -199,11 +201,10 @@ namespace Heladeria
                                     && (_today.TimeOfDay > _ThisOffert.hora_disponible_empieza) && (_today.Date < _ThisOffert.fecha_termina)
                                     && (_today.Date > _ThisOffert.fecha_empieza))
                             {
-                                if (cant % 2 == 0)
-                                {
+                                if (cant%2 == 0) {
                                     string _NomOferta = _ThisOffert.nombre;
                                     _row.Cells["DescripcionArticulo"].Value = _NomOferta;
-                                    cant = cant / 2;
+                                    cant = cant/2;
                                 }
                             }
                         }
@@ -254,8 +255,7 @@ namespace Heladeria
             }
         }
 
-        public void CleanClientOrder()
-        {
+        public void CleanClientOrder() {
             SelectedProducts.Clear();
             dgvPedidoProductos.RowCount = 0;
         }
