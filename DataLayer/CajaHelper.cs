@@ -44,7 +44,10 @@ namespace DataLayer
 
         public void Attach(Caja caja)
         {
-            Provider.GetProvider().Cajas.Attach(caja);
+            if (!Provider.GetProvider().ChangeTracker.Entries<Caja>().Any(x => x.Entity.caja_id == caja.caja_id))
+            {
+                Provider.GetProvider().Cajas.Attach(caja);
+            }
         }
     }
 }

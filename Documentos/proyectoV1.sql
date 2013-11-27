@@ -187,7 +187,7 @@ CREATE TABLE Venta_Productos(
 
 CREATE TABLE NCF(
     no_NCF VARCHAR (25) PRIMARY KEY NOT NULL,
-	venta_id BIGINT UNIQUE NOT NULL,
+	venta_id BIGINT,
 	CONSTRAINT NCF_venta FOREIGN KEY (venta_id) REFERENCES Venta (venta_id) ON DELETE CASCADE
 );
  
@@ -364,7 +364,6 @@ BEGIN
 		UPDATE Venta SET total = @total_actual WHERE venta_id = @venta_id;
 END
 
-
 /* ============== INTRODUCCION DE DATOS ===================== */
 
 /* Turnos */
@@ -475,13 +474,13 @@ INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_c
 ('Tarta Especial', NULL, NULL, 800.00, 400.00)
 
 INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
-('Delivery', NULL, NULL, 20.00, NULL)
-
-INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
 ('Smoothie', 'Producto Yogen', NULL, 150.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 85.00, 40.00),
 ('Frozen Yogurt Mediano', 'Producto Yogen', NULL, 135.00, 70.00),
 ('Frozen Yogurt Pequeno', 'Producto Yogen', NULL, 175.00, 85.00);
+
+INSERT INTO Producto(nombre, descripcion, etiqueta_negra, precio_venta, precio_compra) VALUES 
+('Delivery', NULL, NULL, 20.00, NULL)
 
 /*Insert RegistroInventario*/
 INSERT INTO RegistroInventario (empleado_id, notas, fecha) VALUES
@@ -578,12 +577,6 @@ insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_dispo
 
 insert into Oferta(nombre, descripcion, fecha_empieza, fecha_termina, dias_disponible, hora_disponible_empieza, hora_disponible_termina, producto_id, tipo) VALUES 
 ('2x1 Malteada Etiq. Trad.', '2x1 en Malteadas Etiqueta Tradicional', '11/15/2013', '1/30/2014', 24, '00:00:00', '18:00:00', 13, '2x1');
-
-SELECT *
-FROM Producto
-
-SELECT *
-FROM Oferta
 
 /* Ventas */
 INSERT INTO Venta(cliente_id, caja_id, fecha, forma_pago) VALUES 
@@ -897,9 +890,6 @@ INSERT INTO Venta(cliente_id, caja_id, fecha, total, forma_pago) VALUES
 (NULL, 27, '2/14/2013 12:08:37', 100.00,'Efectivo'),
 (NULL, 27, '2/14/2013 12:12:43', 100.00,'Efectivo')
 
-
-
-
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 4, 1);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (2, 1, 4);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (3, 6, 1);
@@ -950,10 +940,6 @@ INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (27, 23, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (28, 21, 2);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (29, 22, 1);
 INSERT INTO Venta_Productos(venta_id, producto_id, cantidad) VALUES (1, 1, 7);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (319, 9, 7);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (320, 9, 8);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (321, 9, 4);
-insert into Venta_Productos(venta_id, producto_id, cantidad) VALUES (322, 9, 2);
 
 /*NCF*/
 INSERT INTO NCF(no_NCF, venta_id) VALUES 
@@ -1001,240 +987,24 @@ INSERT INTO NCF(no_NCF, venta_id) VALUES
 ('AC000100724142', 42 ),
 ('AC000100724143', 43 ),
 ('AC000100724144', 44 ),
-('AC000100724145', 45 ),
-('AC000100724146', 46 ),
-('AC000100724147', 47 ),
-('AC000100724148', 48 ),
-('AC000100724149', 49 ),
-('AC000100724150', 50 ),
-('AC000100724151', 51 ),
-('AC000100724152', 52 ),
-('AC000100724153', 53 ),
-('AC000100724154', 54 ),
-('AC000100724155', 55 ),
-('AC000100724156', 56 ),
-('AC000100724157', 57 ),
-('AC000100724158', 58 ),
-('AC000100724159', 59 ),
-('AC000100724160', 60 ),
-('AC000100724161', 61 ),
-('AC000100724162', 62 ),
-('AC000100724163', 63 ),
-('AC000100724164', 64 ),
-('AC000100724165', 65 ),
-('AC000100724166', 66 ),
-('AC000100724167', 67 ),
-('AC000100724168', 68 ),
-('AC000100724169', 69 ),
-('AC000100724170', 70 ),
-('AC000100724171', 71 ),
-('AC000100724172', 72 ),
-('AC000100724173', 73 ),
-('AC000100724174', 74 ),
-('AC000100724175', 75 ),
-('AC000100724176', 76 ),
-('AC000100724177', 77 ),
-('AC000100724178', 78 ),
-('AC000100724179', 79 ),
-('AC000100724180', 80 ),
-('AC000100724181', 81 ),
-('AC000100724182', 82 ),
-('AC000100724183', 83 ),
-('AC000100724184', 84 ),
-('AC000100724185', 85 ),
-('AC000100724186', 86 ),
-('AC000100724187', 87 ),
-('AC000100724188', 88 ),
-('AC000100724189', 89 ),
-('AC000100724190', 90 ),
-('AC000100724191', 91 ),
-('AC000100724192', 92 ),
-('AC000100724193', 93 ),
-('AC000100724194', 94 ),
-('AC000100724195', 95 ),
-('AC000100724196', 96 ),
-('AC000100724197', 97 ),
-('AC000100724198', 98 ),
-('AC000100724199', 99 ),
-('AC000100724200', 100 ),
-('AC000100724201', 101 ),
-('AC000100724202', 102 ),
-('AC000100724203', 103 ),
-('AC000100724204', 104 ),
-('AC000100724205', 105 ),
-('AC000100724206', 106 ),
-('AC000100724207', 107 ),
-('AC000100724208', 108 ),
-('AC000100724209', 109 ),
-('AC000100724210', 110 ),
-('AC000100724211', 111 ),
-('AC000100724212', 112 ),
-('AC000100724213', 113 ),
-('AC000100724214', 114 ),
-('AC000100724215', 115 ),
-('AC000100724216', 116 ),
-('AC000100724217', 117 ),
-('AC000100724218', 118 ),
-('AC000100724219', 119 ),
-('AC000100724220', 120 ),
-('AC000100724221', 121 ),
-('AC000100724222', 122 ),
-('AC000100724223', 123 ),
-('AC000100724224', 124 ),
-('AC000100724225', 125 ),
-('AC000100724226', 126 ),
-('AC000100724227', 127 ),
-('AC000100724228', 128 ),
-('AC000100724229', 129 ),
-('AC000100724230', 130 ),
-('AC000100724231', 131 ),
-('AC000100724232', 132 ),
-('AC000100724233', 133 ),
-('AC000100724234', 134 ),
-('AC000100724235', 135 ),
-('AC000100724236', 136 ),
-('AC000100724237', 137 ),
-('AC000100724238', 138 ),
-('AC000100724239', 139 ),
-('AC000100724240', 140 ),
-('AC000100724241', 141 ),
-('AC000100724242', 142 ),
-('AC000100724243', 143 ),
-('AC000100724244', 144 ),
-('AC000100724245', 145 ),
-('AC000100724246', 146 ),
-('AC000100724247', 147 ),
-('AC000100724248', 148 ),
-('AC000100724249', 149 ),
-('AC000100724250', 150 ),
-('AC000100724251', 151 ),
-('AC000100724252', 152 ),
-('AC000100724253', 153 ),
-('AC000100724254', 154 ),
-('AC000100724255', 155 ),
-('AC000100724256', 156 ),
-('AC000100724257', 157 ),
-('AC000100724258', 158 ),
-('AC000100724259', 159 ),
-('AC000100724260', 160 ),
-('AC000100724261', 161 ),
-('AC000100724262', 162 ),
-('AC000100724263', 163 ),
-('AC000100724264', 164 ),
-('AC000100724265', 165 ),
-('AC000100724266', 166 ),
-('AC000100724267', 167 ),
-('AC000100724268', 168 ),
-('AC000100724269', 169 ),
-('AC000100724270', 170 ),
-('AC000100724271', 171 ),
-('AC000100724272', 172 ),
-('AC000100724273', 173 ),
-('AC000100724274', 174 ),
-('AC000100724275', 175 ),
-('AC000100724276', 176 ),
-('AC000100724277', 177 ),
-('AC000100724278', 178 ),
-('AC000100724279', 179 ),
-('AC000100724280', 180 ),
-('AC000100724281', 181 ),
-('AC000100724282', 182 ),
-('AC000100724283', 183 ),
-('AC000100724284', 184 ),
-('AC000100724285', 185 ),
-('AC000100724286', 186 ),
-('AC000100724287', 187 ),
-('AC000100724288', 188 ),
-('AC000100724289', 189 ),
-('AC000100724290', 190 ),
-('AC000100724291', 191 ),
-('AC000100724292', 192 ),
-('AC000100724293', 193 ),
-('AC000100724294', 194 ),
-('AC000100724295', 195 ),
-('AC000100724296', 196 ),
-('AC000100724297', 197 ),
-('AC000100724298', 198 ),
-('AC000100724299', 199 ),
-('AC000100724300', 200 ),
-('AC000100724301', 201 ),
-('AC000100724302', 202 ),
-('AC000100724303', 203 ),
-('AC000100724304', 204 ),
-('AC000100724305', 205 ),
-('AC000100724306', 206 ),
-('AC000100724307', 207 ),
-('AC000100724308', 208 ),
-('AC000100724309', 209 ),
-('AC000100724310', 210 ),
-('AC000100724311', 211 ),
-('AC000100724312', 212 ),
-('AC000100724313', 213 ),
-('AC000100724314', 214 ),
-('AC000100724315', 215 ),
-('AC000100724316', 216 ),
-('AC000100724317', 217 ),
-('AC000100724318', 218 ),
-('AC000100724319', 219 ),
-('AC000100724320', 220 ),
-('AC000100724321', 221 ),
-('AC000100724322', 222 ),
-('AC000100724323', 223 ),
-('AC000100724324', 224 ),
-('AC000100724325', 225 ),
-('AC000100724326', 226 ),
-('AC000100724327', 227 ),
-('AC000100724328', 228 ),
-('AC000100724329', 229 ),
-('AC000100724330', 230 ),
-('AC000100724331', 231 ),
-('AC000100724332', 232 ),
-('AC000100724333', 233 ),
-('AC000100724334', 234 ),
-('AC000100724335', 235 ),
-('AC000100724336', 236 ),
-('AC000100724337', 237 ),
-('AC000100724338', 238 ),
-('AC000100724339', 239 ),
-('AC000100724340', 240 ),
-('AC000100724341', 241 ),
-('AC000100724342', 242 ),
-('AC000100724343', 243 ),
-('AC000100724344', 244 ),
-('AC000100724345', 245 ),
-('AC000100724346', 246 ),
-('AC000100724347', 247 ),
-('AC000100724348', 248 ),
-('AC000100724349', 249 ),
-('AC000100724350', 250 ),
-('AC000100724351', 251 ),
-('AC000100724352', 252 ),
-('AC000100724353', 253 ),
-('AC000100724354', 254 ),
-('AC000100724355', 255 ),
-('AC000100724356', 256 ),
-('AC000100724357', 257 ),
-('AC000100724358', 258 ),
-('AC000100724359', 259 ),
-('AC000100724360', 260 ),
-('AC000100724361', 261 ),
-('AC000100724362', 262 ),
-('AC000100724363', 263 ),
-('AC000100724364', 264 ),
-('AC000100724365', 265 ),
-('AC000100724366', 266 ),
-('AC000100724367', 267 ),
-('AC000100724368', 268 ),
-('AC000100724369', 269 ),
-('AC000100724370', 270 ),
-('AC000100724371', 271 ),
-('AC000100724372', 272 ),
-('AC000100724373', 273 ),
-('AC000100724374', 274 ),
-('AC000100724375', 275 ),
-('AC000100724376', 276 ),
-('AC000100724377', 277 ),
-('AC000100724378', 278 )
+('AC000100724145', null ),
+('AC000100724146', null ),
+('AC000100724147', null ),
+('AC000100724148', null ),
+('AC000100724149', null ),
+('AC000100724150', null ),
+('AC000100724151', null ),
+('AC000100724152', null ),
+('AC000100724153', null ),
+('AC000100724154', null ),
+('AC000100724155', null ),
+('AC000100724156', null ),
+('AC000100724157', null ),
+('AC000100724158', null ),
+('AC000100724159', null ),
+('AC000100724160', null )
+
+
 
 /*Tabla Suplidor*/
 INSERT INTO Suplidor (nombre, descripcion, calle, calle_no, ciudad, provincia, telefono)
@@ -1299,7 +1069,7 @@ INSERT INTO Orden (empleado_id, suplidor_id, NOTAS, aceptada, despachada, fecha_
 DECLARE @fecha_empieza AS DATETIME, @fecha_termina AS DATETIME;
 SET @fecha_empieza = '3/1/2013';
 SET @fecha_termina = '3/31/2013'
-SELECT Venta.venta_id, Venta.fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total * 0.18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
+SELECT Venta.venta_id, CONVERT(DATE,Venta.fecha) as fecha, (SELECT SUM(Producto.precio_venta*Venta_Productos.cantidad) FROM Venta_Productos LEFT JOIN Producto ON Venta_Productos.producto_id = Producto.producto_id WHERE Venta_Productos.venta_id = Venta.venta_id) AS subtotal, SUM(Venta_Ofertas.rebaja) AS descuento, Venta.total, (CONVERT(DECIMAL(10,2), Venta.total * 0.18)) AS ITBIS FROM Venta LEFT JOIN Venta_Ofertas ON Venta.venta_id = Venta_Ofertas.venta_id WHERE Venta.fecha BETWEEN @fecha_empieza AND @fecha_termina GROUP BY Venta.venta_id, Venta.fecha, Venta.total;
 
 drop function maskToDias
 
@@ -1357,3 +1127,5 @@ SELECT * FROM Producto where precio_venta is not null
 select * from Venta;
 select * from Venta_Productos
 select * from Orden;
+use heladeria
+SELECT TOP 1 * FROM NCF WHERE venta_id is null

@@ -71,7 +71,7 @@
             this.Controls.Add(this.btAplicar);
             this.Controls.Add(this.dgvInventario);
             this.Name = "FormRegistroInventario";
-            this.Text = "FormRegistroInventario";
+            this.Text = "Entrada de Inventario";
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventario)).EndInit();
             this.ResumeLayout(false);
 

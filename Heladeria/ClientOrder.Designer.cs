@@ -29,14 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientOrder));
-            this.plLogotype = new System.Windows.Forms.Panel();
-            this.dgvPedidoProductos = new System.Windows.Forms.DataGridView();
-            this.NumeroArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CodigoArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DescripcionArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CantidadArticulos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PrecioUnitarioArt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PreciosTotalArt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
@@ -50,93 +42,16 @@
             this.lbDescuento = new System.Windows.Forms.Label();
             this.lbSubTotal = new System.Windows.Forms.Label();
             this.btnAgregarProducto = new System.Windows.Forms.Button();
+            this.dgvPedidoProductos = new System.Windows.Forms.DataGridView();
+            this.plLogotype = new System.Windows.Forms.Panel();
+            this.NumeroArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CodigoArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DescripcionArticulo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadArticulos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrecioUnitarioArt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PreciosTotalArt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidoProductos)).BeginInit();
             this.SuspendLayout();
-            // 
-            // plLogotype
-            // 
-            this.plLogotype.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("plLogotype.BackgroundImage")));
-            this.plLogotype.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.plLogotype.Location = new System.Drawing.Point(12, 12);
-            this.plLogotype.Name = "plLogotype";
-            this.plLogotype.Size = new System.Drawing.Size(257, 119);
-            this.plLogotype.TabIndex = 0;
-            // 
-            // dgvPedidoProductos
-            // 
-            this.dgvPedidoProductos.AllowUserToAddRows = false;
-            this.dgvPedidoProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.dgvPedidoProductos.BackgroundColor = System.Drawing.Color.Gray;
-            this.dgvPedidoProductos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvPedidoProductos.ColumnHeadersHeight = 28;
-            this.dgvPedidoProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvPedidoProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NumeroArticulo,
-            this.CodigoArticulo,
-            this.DescripcionArticulo,
-            this.CantidadArticulos,
-            this.PrecioUnitarioArt,
-            this.PreciosTotalArt});
-            this.dgvPedidoProductos.Location = new System.Drawing.Point(11, 137);
-            this.dgvPedidoProductos.Name = "dgvPedidoProductos";
-            this.dgvPedidoProductos.ReadOnly = true;
-            this.dgvPedidoProductos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvPedidoProductos.RowHeadersWidth = 45;
-            this.dgvPedidoProductos.RowTemplate.Height = 30;
-            this.dgvPedidoProductos.Size = new System.Drawing.Size(903, 244);
-            this.dgvPedidoProductos.TabIndex = 2;
-            // 
-            // NumeroArticulo
-            // 
-            this.NumeroArticulo.Frozen = true;
-            this.NumeroArticulo.HeaderText = "No. Art.";
-            this.NumeroArticulo.Name = "NumeroArticulo";
-            this.NumeroArticulo.ReadOnly = true;
-            this.NumeroArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.NumeroArticulo.Width = 80;
-            // 
-            // CodigoArticulo
-            // 
-            this.CodigoArticulo.Frozen = true;
-            this.CodigoArticulo.HeaderText = "Cod. Art.";
-            this.CodigoArticulo.Name = "CodigoArticulo";
-            this.CodigoArticulo.ReadOnly = true;
-            this.CodigoArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // DescripcionArticulo
-            // 
-            this.DescripcionArticulo.Frozen = true;
-            this.DescripcionArticulo.HeaderText = "Descripción";
-            this.DescripcionArticulo.Name = "DescripcionArticulo";
-            this.DescripcionArticulo.ReadOnly = true;
-            this.DescripcionArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.DescripcionArticulo.Width = 320;
-            // 
-            // CantidadArticulos
-            // 
-            this.CantidadArticulos.Frozen = true;
-            this.CantidadArticulos.HeaderText = "Cantidad";
-            this.CantidadArticulos.Name = "CantidadArticulos";
-            this.CantidadArticulos.ReadOnly = true;
-            this.CantidadArticulos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // PrecioUnitarioArt
-            // 
-            this.PrecioUnitarioArt.Frozen = true;
-            this.PrecioUnitarioArt.HeaderText = "Precio Unitario";
-            this.PrecioUnitarioArt.Name = "PrecioUnitarioArt";
-            this.PrecioUnitarioArt.ReadOnly = true;
-            this.PrecioUnitarioArt.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PrecioUnitarioArt.Width = 150;
-            // 
-            // PreciosTotalArt
-            // 
-            this.PreciosTotalArt.Frozen = true;
-            this.PreciosTotalArt.HeaderText = "Total";
-            this.PreciosTotalArt.Name = "PreciosTotalArt";
-            this.PreciosTotalArt.ReadOnly = true;
-            this.PreciosTotalArt.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PreciosTotalArt.Width = 150;
             // 
             // btnActualizar
             // 
@@ -284,6 +199,88 @@
             this.btnAgregarProducto.UseVisualStyleBackColor = true;
             this.btnAgregarProducto.Click += new System.EventHandler(this.btnAgregarProducto_Click);
             // 
+            // dgvPedidoProductos
+            // 
+            this.dgvPedidoProductos.AllowUserToAddRows = false;
+            this.dgvPedidoProductos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.dgvPedidoProductos.BackgroundColor = System.Drawing.Color.Gray;
+            this.dgvPedidoProductos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvPedidoProductos.ColumnHeadersHeight = 28;
+            this.dgvPedidoProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvPedidoProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NumeroArticulo,
+            this.CodigoArticulo,
+            this.DescripcionArticulo,
+            this.CantidadArticulos,
+            this.PrecioUnitarioArt,
+            this.PreciosTotalArt});
+            this.dgvPedidoProductos.Location = new System.Drawing.Point(11, 137);
+            this.dgvPedidoProductos.Name = "dgvPedidoProductos";
+            this.dgvPedidoProductos.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvPedidoProductos.RowHeadersWidth = 45;
+            this.dgvPedidoProductos.RowTemplate.Height = 30;
+            this.dgvPedidoProductos.Size = new System.Drawing.Size(903, 244);
+            this.dgvPedidoProductos.TabIndex = 2;
+            // 
+            // plLogotype
+            // 
+            this.plLogotype.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("plLogotype.BackgroundImage")));
+            this.plLogotype.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.plLogotype.Location = new System.Drawing.Point(12, 12);
+            this.plLogotype.Name = "plLogotype";
+            this.plLogotype.Size = new System.Drawing.Size(257, 119);
+            this.plLogotype.TabIndex = 0;
+            // 
+            // NumeroArticulo
+            // 
+            this.NumeroArticulo.Frozen = true;
+            this.NumeroArticulo.HeaderText = "No. Art.";
+            this.NumeroArticulo.Name = "NumeroArticulo";
+            this.NumeroArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.NumeroArticulo.Width = 80;
+            // 
+            // CodigoArticulo
+            // 
+            this.CodigoArticulo.Frozen = true;
+            this.CodigoArticulo.HeaderText = "Cod. Art.";
+            this.CodigoArticulo.Name = "CodigoArticulo";
+            this.CodigoArticulo.ReadOnly = true;
+            this.CodigoArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // DescripcionArticulo
+            // 
+            this.DescripcionArticulo.Frozen = true;
+            this.DescripcionArticulo.HeaderText = "Descripción";
+            this.DescripcionArticulo.Name = "DescripcionArticulo";
+            this.DescripcionArticulo.ReadOnly = true;
+            this.DescripcionArticulo.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.DescripcionArticulo.Width = 320;
+            // 
+            // CantidadArticulos
+            // 
+            this.CantidadArticulos.Frozen = true;
+            this.CantidadArticulos.HeaderText = "Cantidad";
+            this.CantidadArticulos.Name = "CantidadArticulos";
+            this.CantidadArticulos.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // PrecioUnitarioArt
+            // 
+            this.PrecioUnitarioArt.Frozen = true;
+            this.PrecioUnitarioArt.HeaderText = "Precio Unitario";
+            this.PrecioUnitarioArt.Name = "PrecioUnitarioArt";
+            this.PrecioUnitarioArt.ReadOnly = true;
+            this.PrecioUnitarioArt.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PrecioUnitarioArt.Width = 150;
+            // 
+            // PreciosTotalArt
+            // 
+            this.PreciosTotalArt.Frozen = true;
+            this.PreciosTotalArt.HeaderText = "Total";
+            this.PreciosTotalArt.Name = "PreciosTotalArt";
+            this.PreciosTotalArt.ReadOnly = true;
+            this.PreciosTotalArt.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.PreciosTotalArt.Width = 150;
+            // 
             // ClientOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -317,12 +314,6 @@
 
         private System.Windows.Forms.Panel plLogotype;
         private System.Windows.Forms.DataGridView dgvPedidoProductos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroArticulo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoArticulo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionArticulo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadArticulos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioUnitarioArt;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PreciosTotalArt;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Button btnReset;
@@ -336,5 +327,11 @@
         private System.Windows.Forms.Label lbDescuento;
         private System.Windows.Forms.Label lbSubTotal;
         private System.Windows.Forms.Button btnAgregarProducto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroArticulo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodigoArticulo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DescripcionArticulo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadArticulos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PrecioUnitarioArt;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PreciosTotalArt;
     }
 }
