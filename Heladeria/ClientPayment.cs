@@ -125,6 +125,7 @@ namespace Heladeria
                 if (_OneClient != null)
                 {
                     mtbNoRNC.Text = _OneClient.RNC.ToString();
+                    tbNombreCliente.Text = _OneClient.NombreComplCliente();
                 }
             }
             else
@@ -183,8 +184,8 @@ namespace Heladeria
                     _NoComFis.venta_id = _ThisVenta.GetAll().Count;
                     _Comprobante.SaveChanges();
                 }
-                CreateFile();
                 MessageBox.Show("Factura Generada Correctamente.", "NOTIFICACION", MessageBoxButtons.OK);
+                CreateFile();
                 this.Close();
             }
             else
@@ -199,8 +200,8 @@ namespace Heladeria
                     _NoComFis.venta_id = _ThisVenta.GetAll().Count;
                     _Comprobante.SaveChanges();
                 }
-                CreateFile();
                 MessageBox.Show("Factura Generada Correctamente.", "NOTIFICACION", MessageBoxButtons.OK);
+                CreateFile();
                 this.Close();
             }     
         }
@@ -238,6 +239,12 @@ namespace Heladeria
                     _line = "\t" + tbDireccionSuc.Text.ToString();
                     file.WriteLine(_line);
 
+                    _line = "";
+                    file.WriteLine(_line);
+
+                    _line = "*******************************************************************************";
+                    file.WriteLine(_line);
+
                     _line = "Fecha: " + _sysHours.ToShortDateString();
                     file.WriteLine(_line);
 
@@ -248,6 +255,12 @@ namespace Heladeria
                     file.WriteLine(_line);
 
                     _line = "Empleado de Turno: " + App.CurrentUser.NombreCompleto() + ".";
+                    file.WriteLine(_line);
+
+                    _line = "_______________________________________________________________________________";
+                    file.WriteLine(_line);
+                    
+                    _line = "";
                     file.WriteLine(_line);
 
                     ClientesHelper _Clientes = new ClientesHelper();
@@ -264,9 +277,12 @@ namespace Heladeria
                         _line = "Sector: " + _OneClient.sector + " Calle: " + _OneClient.calle;
                         file.WriteLine(_line);
 
-                        _line = "Numero de Casa: " + _OneClient.calle + " Teléfono: " + _OneClient.telefono;
+                        _line = "Numero de Casa: " + _OneClient.no_casa + " Teléfono: " + _OneClient.telefono;
                         file.WriteLine(_line);
                     }
+
+                    _line = "";
+                    file.WriteLine(_line);
 
                     _line = "_______________________________________________________________________________";
                     file.WriteLine(_line);

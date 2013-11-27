@@ -29,7 +29,7 @@ namespace Heladeria
         
         static List<DataGridViewRow> SelectedProducts = new List<DataGridViewRow>();
 
-        private int ClienteID = 0;
+        public static int ClienteID = 0;
 
         public ClientOrder(Form previousForm) : base (previousForm)
         {

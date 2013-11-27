@@ -1,0 +1,21 @@
+				HELADERIA BON 
+	Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso
+Fecha: 11/27/2013
+Hora: 10:11 AM
+NCF: AC000100724151 RNC: 223-9493423-3
+Empleado de Turno: Alan Alvarez.
+Cliente: Iris Portobelo
+Dirección: 
+Sector: La Yuca Calle: Boy Scouts
+Numero de Casa: Boy Scouts Teléfono: 849-342-3489
+_______________________________________________________________________________
+CANT	DESCRIPCION					PRECIO	TOTAL
+_______________________________________________________________________________
+1	1/2 Galon Etiqueta Tradicional			350.00	350.00
+1	Delivery					20.00	20.00
+_______________________________________________________________________________
+						TOTAL ITBIS:	66.60
+						SUBTOTAL:	370
+						TOTAL:		436.60
+						PAGADO:		500
+						DEVUELTA:	63.40
