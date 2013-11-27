@@ -30,7 +30,6 @@ namespace DataLayer
         public string sector { get; set; }
         public string ciudad { get; set; }
         public string provincia { get; set; }
-        public Nullable<short> no_tarjeta { get; set; }
     
         public virtual ICollection<Venta> Ventas { get; set; }
     }

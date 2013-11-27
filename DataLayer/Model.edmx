@@ -780,7 +780,6 @@
           <Property Name="sector" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="ciudad" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="provincia" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="no_tarjeta" Type="Int16" />
           <NavigationProperty Name="Ventas" Relationship="heladeriaModel.venta_cliente_fk" FromRole="Cliente" ToRole="Venta" />
         </EntityType>
         <EntityType Name="Empleado">
@@ -980,7 +979,7 @@
           <Property Type="Int32" Name="entregado_por" />
           <NavigationProperty Name="Empleado" Relationship="heladeriaModel.venta_empleado_fk" FromRole="Venta" ToRole="Empleado" />
           <NavigationProperty Name="NCFs" Relationship="heladeriaModel.NCF_venta" FromRole="Venta" ToRole="NCF" />
-          <Property Type="String" Name="tarjeta_no" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="no_tarjeta" MaxLength="4" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Venta_Ofertas">
           <Key>
@@ -1332,7 +1331,6 @@
                 <ScalarProperty Name="sector" ColumnName="sector" />
                 <ScalarProperty Name="ciudad" ColumnName="ciudad" />
                 <ScalarProperty Name="provincia" ColumnName="provincia" />
-                <ScalarProperty Name="no_tarjeta" ColumnName="no_tarjeta" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1500,7 +1498,7 @@
           <EntitySetMapping Name="Ventas">
             <EntityTypeMapping TypeName="heladeriaModel.Venta">
               <MappingFragment StoreEntitySet="Venta">
-                <ScalarProperty Name="tarjeta_no" ColumnName="tarjeta_no" />
+                <ScalarProperty Name="no_tarjeta" ColumnName="tarjeta_no" />
                 <ScalarProperty Name="entregado_por" ColumnName="entregado_por" />
                 <ScalarProperty Name="fecha_entrega" ColumnName="fecha_entrega" />
                 <ScalarProperty Name="venta_id" ColumnName="venta_id" />

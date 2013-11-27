@@ -1,0 +1,18 @@
+				HELADERIA BON 
+	Av. 27 de Febrero esq. Abraham Lincoln, Unicentro Plaza, 1er Piso
+Fecha: 11/27/2013
+Hora: 9:50 AM
+NCF: NA RNC: 
+Empleado de Turno: Alan Alvarez.
+_______________________________________________________________________________
+CANT	DESCRIPCION					PRECIO	TOTAL
+_______________________________________________________________________________
+1	Delivery					20.00	20.00
+2	1 Pinta Etiqueta Tradicional			130.00	260.00
+1	1/2 Galon Etiqueta Tradicional			350.00	350.00
+_______________________________________________________________________________
+						TOTAL ITBIS:	113.40
+						SUBTOTAL:	630
+						TOTAL:		743.40
+						PAGADO:		743.40
+						DEVUELTA:	0

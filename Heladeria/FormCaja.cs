@@ -81,7 +81,8 @@ namespace Heladeria
 
         }
 
-        public int GetCajaID() {
+        public int GetCajaID()
+        {
             return _caja.caja_id;
         }
     }

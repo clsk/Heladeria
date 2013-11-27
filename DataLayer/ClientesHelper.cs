@@ -7,17 +7,34 @@ using System.Data.SqlClient;
 
 namespace DataLayer
 {
-    class ClientesHelper : AbstractEntityHelper<Cliente>
+    public class ClientesHelper : AbstractEntityHelper<Cliente>
     {
         public ClientesHelper() : base ("Cliente"){
     
         }
 
-        public Cliente GetOneCliente(string _telCliente) {
+        public Cliente GetOneClienteByTel(string _telCliente) {
             Object parameters = new Object();
             parameters = new SqlParameter("@ClienteTel", _telCliente);
             string QueryLine = "SELECT * FROM" + base._table + "WHERE telefono = @ClienteTel";
             return Provider.GetProvider().Database.SqlQuery<Cliente>(QueryLine, parameters).SingleOrDefault();
+        }
+
+        public void CreateNewCliente(List<string> DataOfCliente)
+        {
+            Cliente cliente = new Cliente();
+
+            cliente.nombre = DataOfCliente.ElementAt(0);
+            cliente.apellido = DataOfCliente.ElementAt(1);
+            cliente.correo = DataOfCliente.ElementAt(2);
+            cliente.sector = DataOfCliente.ElementAt(3);
+            cliente.calle = DataOfCliente.ElementAt(4);
+            cliente.no_casa = DataOfCliente.ElementAt(5);
+            cliente.RNC = DataOfCliente.ElementAt(6);
+            cliente.provincia = DataOfCliente.ElementAt(7);
+
+            cliente = Provider.GetProvider().Clientes.Add(cliente);
+            Provider.GetProvider().SaveChanges();
         }
 
         public void Attach(Cliente _cliente)
